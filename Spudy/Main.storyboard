@@ -237,11 +237,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="IkI-6x-8NL" kind="relationship" relationship="viewControllers" id="VtK-Dw-kam"/>
-                        <segue destination="hwh-Fo-Khx" kind="relationship" relationship="viewControllers" id="DL1-PX-dik"/>
-                        <segue destination="BZe-SC-AVu" kind="relationship" relationship="viewControllers" id="u12-CI-nCC"/>
-                        <segue destination="g5Y-et-yTB" kind="relationship" relationship="viewControllers" id="N4N-Yt-TDr"/>
                         <segue destination="vZn-wR-I8P" kind="relationship" relationship="viewControllers" id="XWt-Oo-KRr"/>
+                        <segue destination="BZe-SC-AVu" kind="relationship" relationship="viewControllers" id="u12-CI-nCC"/>
+                        <segue destination="IkI-6x-8NL" kind="relationship" relationship="viewControllers" id="VtK-Dw-kam"/>
+                        <segue destination="g5Y-et-yTB" kind="relationship" relationship="viewControllers" id="N4N-Yt-TDr"/>
+                        <segue destination="hwh-Fo-Khx" kind="relationship" relationship="viewControllers" id="DL1-PX-dik"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2f-93-58k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
