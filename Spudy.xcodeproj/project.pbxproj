@@ -90,6 +90,7 @@
 		A734D87F271636AD00D660C8 /* Spudy */ = {
 			isa = PBXGroup;
 			children = (
+				A78430FC27163BC300803E9B /* Components */,
 				A78430F327163AF100803E9B /* VCs */,
 				A734D880271636AD00D660C8 /* AppDelegate.swift */,
 				A734D882271636AD00D660C8 /* SceneDelegate.swift */,
@@ -121,6 +122,13 @@
 				A78430FA27163B3A00803E9B /* TabViewViewController.swift */,
 			);
 			path = VCs;
+			sourceTree = "<group>";
+		};
+		A78430FC27163BC300803E9B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
