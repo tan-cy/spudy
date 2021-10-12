@@ -21,7 +21,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
             <point key="canvasLocation" x="35" y="98"/>
         </scene>
         <!--Edit Profile View Controller-->
@@ -98,8 +97,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2m-w4-uUl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="68" y="743"/>
-=======
-            <point key="canvasLocation" x="20" y="82"/>
         </scene>
         <!--Loading View Controller-->
         <scene sceneID="aml-ky-yQs">
@@ -160,7 +157,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DKK-kW-aJr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2216" y="-582"/>
->>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
         </scene>
     </scenes>
     <resources>
