@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iub-fY-Me6">
+>>>>>>> 98149b0 (VCs part3)
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -8,7 +12,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,9 +22,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="iRO-ke-DgV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
 <<<<<<< HEAD
             <point key="canvasLocation" x="35" y="98"/>
         </scene>
@@ -161,6 +167,106 @@
             </objects>
             <point key="canvasLocation" x="2216" y="-582"/>
 >>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+=======
+            <point key="canvasLocation" x="816" y="-423"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="MGV-Vz-LzZ">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Iub-fY-Me6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u5Z-AC-drq">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="BPF-dj-NBd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IyM-3N-k87" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="79.6875"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="gea-vN-ZsD">
+            <objects>
+                <viewController id="khW-pU-0pe" customClass="ReviewsViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Du-su-kCN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="5YW-4R-u6p"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="8TX-ia-L39"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVS-M8-Fbs" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="-423"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="o2R-Mr-3q2">
+            <objects>
+                <viewController id="F6H-pE-wfV" customClass="ViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a8C-If-yJV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4Ud-cn-xZk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="2BT-Bn-1WW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qiz-1L-STT" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="270"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="ADk-rG-s7I">
+            <objects>
+                <viewController id="MAX-34-cJG" customClass="HomeViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MWw-Ex-jTg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="m0A-Ej-Jrg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="QNY-0Q-kWW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iQ5-0q-yjr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="270"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="9Z2-Ft-wpo">
+            <objects>
+                <viewController id="flw-zY-gFt" customClass="BookmarksViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ifd-Ol-Hug">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4eK-ft-ip5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="p9P-57-ewm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dzn-mu-A7I" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1607" y="-423"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="F6y-mr-QYS">
+            <objects>
+                <viewController id="iWL-yE-h57" customClass="TabViewViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="25V-Kr-ead">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="1EM-I6-hNT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Wzt-ep-4gO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GN5-bb-g0d" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1606" y="282"/>
+>>>>>>> 98149b0 (VCs part3)
         </scene>
     </scenes>
     <resources>
