@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 		8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */; };
 		8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */; };
@@ -14,11 +15,16 @@
 		8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B527163B5000120DDA /* FriendsViewController.swift */; };
 		8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B727163B5E00120DDA /* StudySpotViewController.swift */; };
 =======
+=======
+>>>>>>> Stashed changes
 		46BAF6D227163AF200115504 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D127163AF100115504 /* LoadingViewController.swift */; };
 		46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D327163B0E00115504 /* LoginViewController.swift */; };
 		46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D527163B2500115504 /* SignUpViewController.swift */; };
 		46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D727163B3700115504 /* ProfileViewController.swift */; };
+<<<<<<< Updated upstream
 >>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+=======
+>>>>>>> Stashed changes
 		A734D881271636AD00D660C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734D880271636AD00D660C8 /* AppDelegate.swift */; };
 		A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734D882271636AD00D660C8 /* SceneDelegate.swift */; };
 		A734D885271636AD00D660C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734D884271636AD00D660C8 /* ViewController.swift */; };
@@ -33,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 		8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipMapViewController.swift; sourceTree = "<group>"; };
@@ -40,11 +47,16 @@
 		8EA3F1B527163B5000120DDA /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B727163B5E00120DDA /* StudySpotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySpotViewController.swift; sourceTree = "<group>"; };
 =======
+=======
+>>>>>>> Stashed changes
 		46BAF6D127163AF100115504 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		46BAF6D327163B0E00115504 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46BAF6D527163B2500115504 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		46BAF6D727163B3700115504 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 >>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+=======
+>>>>>>> Stashed changes
 		A734D87D271636AD00D660C8 /* Spudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A734D880271636AD00D660C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A734D882271636AD00D660C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 =======
@@ -213,7 +226,13 @@
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
 =======
+=======
+>>>>>>> Stashed changes
 				A78430F727163B2900803E9B /* BookmarksViewController.swift in Sources */,
+=======
+				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
+				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
+>>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
 				A734D885271636AD00D660C8 /* ViewController.swift in Sources */,
 				A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */,
 >>>>>>> 98149b0 (VCs part3)
@@ -221,6 +240,7 @@
 				46BAF6D227163AF200115504 /* LoadingViewController.swift in Sources */,
 				A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */,
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 				8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */,
 				8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */,
@@ -230,6 +250,12 @@
 =======
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 >>>>>>> 98149b0 (VCs part3)
+=======
+				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
+=======
+				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
+>>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+>>>>>>> Stashed changes
 				A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */,
 				A78430FB27163B3A00803E9B /* TabViewViewController.swift in Sources */,
 			);

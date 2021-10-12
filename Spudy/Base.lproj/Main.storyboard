@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
 =======
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iub-fY-Me6">
 >>>>>>> 98149b0 (VCs part3)
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iub-fY-Me6">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+>>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+>>>>>>> Stashed changes
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -27,6 +34,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             <point key="canvasLocation" x="35" y="98"/>
         </scene>
@@ -168,6 +176,8 @@
             <point key="canvasLocation" x="2216" y="-582"/>
 >>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
 =======
+=======
+>>>>>>> Stashed changes
             <point key="canvasLocation" x="816" y="-423"/>
         </scene>
         <!--Tab Bar Controller-->
@@ -266,7 +276,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GN5-bb-g0d" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1606" y="282"/>
+<<<<<<< Updated upstream
 >>>>>>> 98149b0 (VCs part3)
+=======
+=======
+            <point key="canvasLocation" x="20" y="82"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="aml-ky-yQs">
+            <objects>
+                <viewController id="u1Z-dr-Kzw" customClass="LoadingViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="psd-Gm-5FW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="GyC-Bx-h4n"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BS6-km-S4b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="19" y="-595"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="qFb-tE-JTo">
+            <objects>
+                <viewController id="xXm-9j-67h" customClass="LoginViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hWS-sb-ng1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="XfA-KV-kjc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1kX-iC-bAP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="757" y="-595"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="git-4T-PEb">
+            <objects>
+                <viewController id="6A3-mg-ncp" customClass="SignUpViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hih-oI-S2y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4xV-zj-Ihu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lpe-dt-LdP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1491" y="-595"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="PFc-zI-cSW">
+            <objects>
+                <viewController id="WcE-eA-bs5" customClass="ProfileViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AFK-GJ-a1C">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="WIt-B5-hAB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DKK-kW-aJr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2216" y="-582"/>
+>>>>>>> 55f947d7b7d0084672edfba481c3b4d6051e2760
+>>>>>>> Stashed changes
         </scene>
     </scenes>
     <resources>
