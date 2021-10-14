@@ -10,7 +10,7 @@
 		46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D327163B0E00115504 /* LoginViewController.swift */; };
 		46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D527163B2500115504 /* SignUpViewController.swift */; };
 		46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D727163B3700115504 /* ProfileViewController.swift */; };
-		46F15F662718DB3000A71AF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F15F652718DB3000A71AF9 /* GoogleService-Info.plist */; };
+		46F15F692718E00000A71AF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F15F682718E00000A71AF9 /* GoogleService-Info.plist */; };
 		8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */; };
 		8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */; };
 		8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B327163B3700120DDA /* SettingsViewController.swift */; };
@@ -31,7 +31,8 @@
 		46BAF6D327163B0E00115504 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46BAF6D527163B2500115504 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		46BAF6D727163B3700115504 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		46F15F652718DB3000A71AF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		46F15F672718DF6000A71AF9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		46F15F682718E00000A71AF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C956CE5D74A50ED42ADA3AE /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
 		8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipMapViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +72,6 @@
 				8F1DD93DEB8C4C4CCAEE4504 /* Pods-Spudy.debug.xcconfig */,
 				7C956CE5D74A50ED42ADA3AE /* Pods-Spudy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -110,8 +110,9 @@
 				A734D882271636AD00D660C8 /* SceneDelegate.swift */,
 				A734D88C271636AE00D660C8 /* Assets.xcassets */,
 				A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */,
+				46F15F672718DF6000A71AF9 /* Main.storyboard */,
 				A734D891271636AE00D660C8 /* Info.plist */,
-				46F15F652718DB3000A71AF9 /* GoogleService-Info.plist */,
+				46F15F682718E00000A71AF9 /* GoogleService-Info.plist */,
 				A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */,
 				A7A27D6A2718CCD10055F4AE /* Base.lproj */,
 			);
@@ -204,7 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */,
-				46F15F662718DB3000A71AF9 /* GoogleService-Info.plist in Resources */,
+				46F15F692718E00000A71AF9 /* GoogleService-Info.plist in Resources */,
 				A7A27D6B2718CCD10055F4AE /* Base.lproj in Resources */,
 				A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */,
 			);
