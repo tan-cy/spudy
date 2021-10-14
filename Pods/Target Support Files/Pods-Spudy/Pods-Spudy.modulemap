@@ -1,0 +1,6 @@
+framework module Pods_Spudy {
+  umbrella header "Pods-Spudy-umbrella.h"
+
+  export *
+  module * { export * }
+}
