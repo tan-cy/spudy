@@ -343,7 +343,7 @@
                             <constraint firstItem="Dh8-4Q-n2a" firstAttribute="trailing" secondItem="BcK-5U-AO0" secondAttribute="trailing" id="u6R-0R-EKW"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Bookmarks" id="jzG-pf-CoN"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" selectedImage="bookmark" catalog="system" id="jzG-pf-CoN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITt-Kl-crm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -372,7 +372,7 @@
                                 </constraints>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pay-hG-4ud">
-                                <rect key="frame" x="0.0" y="494" width="414" height="358"/>
+                                <rect key="frame" x="0.0" y="494" width="414" height="309"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -392,7 +392,7 @@
                             <constraint firstItem="Qii-UP-wf6" firstAttribute="trailing" secondItem="317-6v-gQt" secondAttribute="trailing" id="yOo-bV-W1d"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="tIn-Rd-OS3"/>
+                    <tabBarItem key="tabBarItem" title="Home" selectedImage="house" catalog="system" id="tIn-Rd-OS3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cw0-qj-7sb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -491,7 +491,7 @@
                         <viewLayoutGuide key="safeArea" id="x0b-s9-kZi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="vke-YR-EgF"/>
+                    <tabBarItem key="tabBarItem" title="Settings" selectedImage="gear" catalog="system" id="vke-YR-EgF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wha-dJ-AVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -544,7 +544,7 @@
                             <constraint firstItem="gIN-ws-uPC" firstAttribute="centerX" secondItem="hHX-tm-N0r" secondAttribute="centerX" id="y5R-Ah-CYM"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Friends" id="GgS-ha-ZZ4"/>
+                    <tabBarItem key="tabBarItem" title="Friends" selectedImage="person.2" catalog="system" id="GgS-ha-ZZ4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnr-Hn-Spx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -710,7 +710,7 @@
                             <constraint firstItem="8co-Py-bvW" firstAttribute="leading" secondItem="Ust-L6-dvc" secondAttribute="leading" id="wqK-D3-ueU"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Chip Map" id="yfL-nH-kbB"/>
+                    <tabBarItem key="tabBarItem" title="Chip Map" selectedImage="map" catalog="system" id="yfL-nH-kbB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6U1-ZS-Kfc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -741,11 +741,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Fpc-eG-7dv"/>
-        <segue reference="0oj-yE-UJd"/>
+        <segue reference="VtK-Dw-kam"/>
+        <segue reference="Z5s-lF-oX2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="map" catalog="system" width="128" height="110"/>
+        <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
