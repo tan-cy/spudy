@@ -357,42 +357,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CpO-Cd-XJk">
-                                <rect key="frame" x="0.0" y="94" width="414" height="150"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PNi-5T-Fab">
+                                <rect key="frame" x="20" y="137" width="374" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="ui8-KD-ODX"/>
-                                </constraints>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qii-UP-wf6">
-                                <rect key="frame" x="0.0" y="294" width="414" height="150"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="AYR-jC-vI7"/>
-                                </constraints>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pay-hG-4ud">
-                                <rect key="frame" x="0.0" y="494" width="414" height="309"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o1l-py-NJZ">
+                                    <size key="itemSize" width="198" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="502-Bg-XCV" customClass="CollectionViewCell" customModule="Spudy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="198" height="128"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Gel-Pv-SXZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="198" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SAC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="skz-LU-PuB">
+                                                    <rect key="frame" x="82" y="54" width="33" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Spots Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IoB-oj-3ad">
+                                <rect key="frame" x="20" y="100" width="374" height="29"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="317-6v-gQt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Pay-hG-4ud" firstAttribute="trailing" secondItem="317-6v-gQt" secondAttribute="trailing" id="1cE-6B-KbN"/>
-                            <constraint firstItem="CpO-Cd-XJk" firstAttribute="leading" secondItem="317-6v-gQt" secondAttribute="leading" id="AvL-QW-0zA"/>
-                            <constraint firstItem="317-6v-gQt" firstAttribute="bottom" secondItem="Pay-hG-4ud" secondAttribute="bottom" constant="10" id="Epc-8z-MX9"/>
-                            <constraint firstItem="CpO-Cd-XJk" firstAttribute="top" secondItem="317-6v-gQt" secondAttribute="top" constant="50" id="JeJ-33-6Dl"/>
-                            <constraint firstItem="Qii-UP-wf6" firstAttribute="top" secondItem="CpO-Cd-XJk" secondAttribute="bottom" constant="50" id="Nph-dO-1Vn"/>
-                            <constraint firstItem="317-6v-gQt" firstAttribute="trailing" secondItem="CpO-Cd-XJk" secondAttribute="trailing" id="WmJ-lW-GHF"/>
-                            <constraint firstItem="Qii-UP-wf6" firstAttribute="leading" secondItem="317-6v-gQt" secondAttribute="leading" id="ZCB-SN-wbK"/>
-                            <constraint firstItem="317-6v-gQt" firstAttribute="trailing" secondItem="CpO-Cd-XJk" secondAttribute="trailing" id="akq-yO-ntX"/>
-                            <constraint firstItem="Pay-hG-4ud" firstAttribute="top" secondItem="Qii-UP-wf6" secondAttribute="bottom" constant="50" id="bpg-W3-gAV"/>
-                            <constraint firstItem="Pay-hG-4ud" firstAttribute="leading" secondItem="317-6v-gQt" secondAttribute="leading" id="oI1-SU-ICP"/>
-                            <constraint firstItem="Qii-UP-wf6" firstAttribute="trailing" secondItem="317-6v-gQt" secondAttribute="trailing" id="yOo-bV-W1d"/>
+                            <constraint firstItem="IoB-oj-3ad" firstAttribute="centerX" secondItem="317-6v-gQt" secondAttribute="centerX" id="4zO-wV-sKT"/>
+                            <constraint firstItem="317-6v-gQt" firstAttribute="bottom" secondItem="PNi-5T-Fab" secondAttribute="bottom" constant="548" id="NDW-tZ-01l"/>
+                            <constraint firstItem="PNi-5T-Fab" firstAttribute="centerX" secondItem="317-6v-gQt" secondAttribute="centerX" id="Trh-ll-u75"/>
+                            <constraint firstItem="IoB-oj-3ad" firstAttribute="trailing" secondItem="PNi-5T-Fab" secondAttribute="trailing" id="h1t-hC-VQl"/>
+                            <constraint firstItem="IoB-oj-3ad" firstAttribute="trailing" secondItem="PNi-5T-Fab" secondAttribute="trailing" id="jhL-5E-JnN"/>
+                            <constraint firstItem="PNi-5T-Fab" firstAttribute="top" secondItem="IoB-oj-3ad" secondAttribute="bottom" constant="8" symbolic="YES" id="tE5-UX-hSQ"/>
+                            <constraint firstItem="PNi-5T-Fab" firstAttribute="top" secondItem="317-6v-gQt" secondAttribute="top" constant="93" id="tT4-IQ-t4N"/>
+                            <constraint firstItem="317-6v-gQt" firstAttribute="trailing" secondItem="PNi-5T-Fab" secondAttribute="trailing" constant="20" id="vIW-PO-VQL"/>
+                            <constraint firstItem="PNi-5T-Fab" firstAttribute="leading" secondItem="317-6v-gQt" secondAttribute="leading" constant="20" id="zpE-tr-s53"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" selectedImage="house" catalog="system" id="tIn-Rd-OS3"/>
+                    <connections>
+                        <outlet property="PopularSpotsCollectionView" destination="PNi-5T-Fab" id="M4g-cD-eYx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cw0-qj-7sb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

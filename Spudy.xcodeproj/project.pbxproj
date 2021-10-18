@@ -25,6 +25,9 @@
 		A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */; };
 		A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F427163B1600803E9B /* ReviewsViewController.swift */; };
 		A78430F927163B3000803E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F827163B3000803E9B /* HomeViewController.swift */; };
+		C589BDD6271E33BB0009F071 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */; };
+		C589BDD7271E33BB0009F071 /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */; };
+		C5F52EF5271B97CC00969DB5 /* PopSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F52EF4271B97CC00969DB5 /* PopSpots.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,9 @@
 		A78430F627163B2900803E9B /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		A78430F827163B3000803E9B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
+		C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
+		C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
+		C5F52EF4271B97CC00969DB5 /* PopSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +105,10 @@
 				A734D880271636AD00D660C8 /* AppDelegate.swift */,
 				A734D882271636AD00D660C8 /* SceneDelegate.swift */,
 				46B5AF2A271641E000ED0B48 /* Main.storyboard */,
+				C5F52EF4271B97CC00969DB5 /* PopSpots.swift */,
 				A734D88C271636AE00D660C8 /* Assets.xcassets */,
+				C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */,
+				C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */,
 				A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */,
 				A734D891271636AE00D660C8 /* Info.plist */,
 				461227462718EC140052DDCF /* GoogleService-Info.plist */,
@@ -139,7 +148,6 @@
 				78F573926162E232EC162098 /* Pods-Spudy.debug.xcconfig */,
 				B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -203,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C589BDD7271E33BB0009F071 /* MyCollectionViewCell.xib in Resources */,
 				46B5AF2B271641E000ED0B48 /* Main.storyboard in Resources */,
 				461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */,
 				A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */,
@@ -272,7 +281,9 @@
 				8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */,
 				8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
+				C5F52EF5271B97CC00969DB5 /* PopSpots.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
+				C589BDD6271E33BB0009F071 /* MyCollectionViewCell.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */,
