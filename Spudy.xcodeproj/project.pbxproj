@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461227462718EC140052DDCF /* GoogleService-Info.plist */; };
+		46B058AB271E830B005B5B9F /* ClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B058AA271E830B005B5B9F /* ClassesCollectionViewCell.swift */; };
+		46B058AD271EAC5C005B5B9F /* EditClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B058AC271EAC5C005B5B9F /* EditClassesCollectionViewCell.swift */; };
+		46B058AF271EAEB8005B5B9F /* AddClassCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B058AE271EAEB8005B5B9F /* AddClassCollectionReusableView.swift */; };
 		46B5AF2B271641E000ED0B48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B5AF2A271641E000ED0B48 /* Main.storyboard */; };
 		46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D327163B0E00115504 /* LoginViewController.swift */; };
 		46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D527163B2500115504 /* SignUpViewController.swift */; };
@@ -29,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		461227462718EC140052DDCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		46B058AA271E830B005B5B9F /* ClassesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassesCollectionViewCell.swift; path = Spudy/ClassesCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		46B058AC271EAC5C005B5B9F /* EditClassesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditClassesCollectionViewCell.swift; path = Spudy/EditClassesCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		46B058AE271EAEB8005B5B9F /* AddClassCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddClassCollectionReusableView.swift; path = Spudy/AddClassCollectionReusableView.swift; sourceTree = SOURCE_ROOT; };
 		46B5AF2A271641E000ED0B48 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		46BAF6D327163B0E00115504 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46BAF6D527163B2500115504 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +135,9 @@
 		A78430FC27163BC300803E9B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				46B058AA271E830B005B5B9F /* ClassesCollectionViewCell.swift */,
+				46B058AC271EAC5C005B5B9F /* EditClassesCollectionViewCell.swift */,
+				46B058AE271EAEB8005B5B9F /* AddClassCollectionReusableView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -139,7 +148,6 @@
 				78F573926162E232EC162098 /* Pods-Spudy.debug.xcconfig */,
 				B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -259,11 +267,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B058AF271EAEB8005B5B9F /* AddClassCollectionReusableView.swift in Sources */,
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
+				46B058AD271EAC5C005B5B9F /* EditClassesCollectionViewCell.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
+				46B058AB271E830B005B5B9F /* ClassesCollectionViewCell.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */,
