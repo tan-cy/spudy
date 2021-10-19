@@ -1,4 +1,11 @@
-Spudy.xcworkspace/xcuserdata
+Spudy.xcworkspace/
 Pods/Pods.xcodeproj/xcuserdata/
 Spudy/.DS_Store
 .DS_Store
+Spudy.xcodeproj/project.xcworkspace/xcuserdata/
+Spudy.xcodeproj/project.pbxproj
+Podfile
+Podfile.lock
+Spudy/GoogleService-Info.plist
+Pods/Manifest.lock
+Spudy.xcodeproj/xcuserdata/
