@@ -72,14 +72,14 @@
             <objects>
                 <viewController id="974-16-6Ir" customClass="StudySpotViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sfC-8c-aye">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i91-4i-Pxx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="966-2r-lO9">
-                                <rect key="frame" x="0.0" y="244" width="414" height="568"/>
+                                <rect key="frame" x="0.0" y="200" width="414" height="558"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pbl-Dy-nbW">
@@ -117,6 +117,7 @@
                             <constraint firstItem="966-2r-lO9" firstAttribute="leading" secondItem="6Bq-uz-bOm" secondAttribute="leading" id="r9B-qf-8Rm"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="BSf-Za-XIR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xv5-mq-sv0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -404,6 +405,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="404.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="974-16-6Ir" kind="show" id="go7-3p-Wtt"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
