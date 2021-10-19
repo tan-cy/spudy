@@ -19,6 +19,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var contactInfoLabel: UILabel!
     @IBOutlet weak var currentClassesCollectionView: UICollectionView!
     
+    @IBOutlet weak var addFriendButton: UIButton!
+    
     let cellIdentifier = "currentClassesCellIdentifier"
     var username = "lilliantango"
     var currClasses: [String] = []
@@ -64,6 +66,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             self.currentClassesCollectionView.reloadData()
         })
+        
+        // TODO if this profile is yours, hide add friend button
+        if username == "lilliantango" {
+            addFriendButton.isHidden = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +85,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         let labeledCell = cell as! ClassesCollectionViewCell
         labeledCell.setText(newText: currClasses[indexPath.row])
+        
+        cell.layer.cornerRadius = 5.0
+        cell.layer.masksToBounds = true
         return cell
     }
     
@@ -91,29 +101,4 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
           return CGSize(width: widthPerItem, height: 35)
       }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        if collectionView.numberOfItems(inSection: section) == 1 {
-//
-//            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-//
-//            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
-//
-//        }
-//
-//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    }
- 
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

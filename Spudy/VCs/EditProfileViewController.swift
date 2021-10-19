@@ -22,6 +22,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     var username = "lilliantango"
     var photoURLString:String?
     var currClasses:[String] = []
+    var toDeleteClassesIndices:[Int] = []
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -57,7 +58,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             }
             
             //store file in database
-            
             self.nameTextField.text = user?["name"] as? String ?? "Unknown"
             self.majorTextField.text = user?["major"] as? String ?? "Unknown"
             self.gradYearTextField.text = user?["gradYear"] as? String ?? "Unknown"
@@ -83,6 +83,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         let labeledCell = cell as! EditClassesCollectionViewCell
         labeledCell.setText(newText: currClasses[indexPath.row])
+        
+        cell.layer.cornerRadius = 5.0
+        cell.layer.masksToBounds = true
         return cell
     }
     
@@ -101,6 +104,24 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "addClassCollectionViewFooter", for: indexPath) as! AddClassCollectionReusableView
         print("getting reusable cell")
         return sectionView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = currentClassesCollectionView.cellForItem(at: indexPath)
+        let statusCell = cell as! EditClassesCollectionViewCell
+        statusCell.changeDeleteStatus()
+
+        if !statusCell.getDeleteStatus() && cell != nil {
+            cell!.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
+            
+            toDeleteClassesIndices.removeAll(where: { value in
+                value == indexPath.row
+            })
+            
+        } else if cell != nil {
+            cell!.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
+            toDeleteClassesIndices.append(indexPath.row)
+        }
     }
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
@@ -162,31 +183,18 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        // TODO set up image upload
-        let newItems: [String : Any] = [
-            "photo": photoURLString ?? "",
-            "name": nameTextField.text ?? "Unknown",
-            "major": majorTextField.text ?? "Unknown",
-            "gradYear": gradYearTextField.text ?? "Unknown",
-            "classes": currClasses,
-            "contactInfo": contactInfoTextField.text ?? ""
-        ]
+        for indexToRemove in toDeleteClassesIndices.sorted(by: >) {
+            currClasses.remove(at: indexToRemove)
+        }
         
         let newItemRef = self.ref.child(username) // replace with username
-        newItemRef.setValue(newItems)
+        newItemRef.child("photo").setValue(photoURLString ?? "")
+        newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
+        newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")
+        newItemRef.child("gradYear").setValue(gradYearTextField.text ?? "Unknown")
+        newItemRef.child("classes").setValue(currClasses)
+        newItemRef.child("contactInfo").setValue(contactInfoTextField.text ?? "")
+        
         print("tried to store to database")
     }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
