@@ -1,3 +1,4 @@
-.DS_Store/
-
-Spudy.xcodeproj/proje
+Spudy.xcworkspace/xcuserdata
+Pods/Pods.xcodeproj/xcuserdata/
+Spudy/.DS_Store
+.DS_Store
