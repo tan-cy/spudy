@@ -3,6 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
+<<<<<<< HEAD
 	<string>705096720688-eehrig0s51i89j91m14vuhat5mi242oa.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.705096720688-eehrig0s51i89j91m14vuhat5mi242oa</string>
@@ -10,14 +11,29 @@
 	<string>AIzaSyDAGpRzYoC80DgzI-IUMhQJgEXE1vVd8D0</string>
 	<key>GCM_SENDER_ID</key>
 	<string>705096720688</string>
+=======
+	<string>690457665277-ti01lfvscedjr4ldn0n32c154pqpp6t0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.690457665277-ti01lfvscedjr4ldn0n32c154pqpp6t0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDJ4pqRU5i07HSSTPXmXTmT1qfW77pk0aM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>690457665277</string>
+>>>>>>> dev
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>utcs.Spudy</string>
 	<key>PROJECT_ID</key>
+<<<<<<< HEAD
 	<string>spudy-d7a2b</string>
 	<key>STORAGE_BUCKET</key>
 	<string>spudy-d7a2b.appspot.com</string>
+=======
+	<string>spudy-9feb9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>spudy-9feb9.appspot.com</string>
+>>>>>>> dev
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +45,10 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
+<<<<<<< HEAD
 	<string>1:705096720688:ios:418ccb3c92203fbd9b28f5</string>
+=======
+	<string>1:690457665277:ios:b33dd82051b7bf2716e894</string>
+>>>>>>> dev
 </dict>
 </plist>
