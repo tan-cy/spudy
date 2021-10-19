@@ -7,17 +7,56 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+public let buildings = ["Battle Hall", "Belo Center for New Media", "Biomedical Engineering Building", "Burdine Hall", "College of Business Administration Building", "Peter T. Flawn Academic Center", "Garrison Hall", "Norman Hackerman Building", "Perry–Castañeda Library", "Welch Hall", "Engineering Education and Research Center", "Gates Dell Complex"]
+
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var PopularSpotsCollectionView: UICollectionView!
+    @IBOutlet weak var allBuildingsTableView: UITableView!
+    
+    @IBOutlet weak var popularSpotsCollectionView: UICollectionView!
+    
+    let textCellIdentifier = "TextCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PopularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
+        popularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
         
-        PopularSpotsCollectionView.delegate = self
-        PopularSpotsCollectionView.dataSource = self
+        popularSpotsCollectionView.delegate = self
+        popularSpotsCollectionView.dataSource = self
+        
+        allBuildingsTableView.delegate = self
+        allBuildingsTableView.dataSource = self
+    }
+    
+    // Took the functions from class demo code library
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return buildings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = allBuildingsTableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
+        let row = indexPath.row
+        cell.textLabel?.text = buildings[row]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        self.scrollToTop()
+        print(buildings[row])
+    }
+    
+    private func scrollToTop() {
+        // 1
+        let topRow = IndexPath(row: 0,
+                               section: 0)
+                               
+        // 2
+        allBuildingsTableView.scrollToRow(at: topRow,
+                                   at: .top,
+                                   animated: true)
     }
 
 }
