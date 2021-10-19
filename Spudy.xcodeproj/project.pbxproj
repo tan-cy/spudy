@@ -25,6 +25,8 @@
 		A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */; };
 		A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F427163B1600803E9B /* ReviewsViewController.swift */; };
 		A78430F927163B3000803E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F827163B3000803E9B /* HomeViewController.swift */; };
+		A7872C07271E6E250028424B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7872C06271E6E250028424B /* Constants.swift */; };
+		A7872C54271F72B70028424B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7872C53271F72B70028424B /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		A78430F427163B1600803E9B /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		A78430F627163B2900803E9B /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		A78430F827163B3000803E9B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A7872C06271E6E250028424B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A7872C53271F72B70028424B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +108,8 @@
 				A734D891271636AE00D660C8 /* Info.plist */,
 				461227462718EC140052DDCF /* GoogleService-Info.plist */,
 				A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */,
+				A7872C06271E6E250028424B /* Constants.swift */,
+				A7872C53271F72B70028424B /* UserData.swift */,
 			);
 			path = Spudy;
 			sourceTree = "<group>";
@@ -139,7 +145,6 @@
 				78F573926162E232EC162098 /* Pods-Spudy.debug.xcconfig */,
 				B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,6 +267,7 @@
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
+				A7872C54271F72B70028424B /* UserData.swift in Sources */,
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
@@ -276,6 +282,7 @@
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */,
+				A7872C07271E6E250028424B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
