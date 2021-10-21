@@ -8,6 +8,8 @@ target 'Spudy' do
   # Pods for Spudy
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
   # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’
   # for Analytics without IDFA collection capability
 

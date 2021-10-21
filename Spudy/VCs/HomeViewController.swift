@@ -7,15 +7,15 @@
 
 import UIKit
 
-public let buildings = ["Battle Hall", "Belo Center for New Media", "Biomedical Engineering Building", "Burdine Hall", "College of Business Administration Building", "Peter T. Flawn Academic Center", "Garrison Hall", "Norman Hackerman Building", "Perry–Castañeda Library", "Welch Hall", "Engineering Education and Research Center", "Gates Dell Complex"]
+public let buildings = ["Battle Hall", "Belo Center for New Media", "Biomedical Engineering Building", "Burdine Hall", "College of Business Administration Building", "Peter T. Flawn Academic Center", "Garrison Hall", "Norman Hackerman Building", "Perry–Castañeda Library", "Welch Hall", "Engineering Education and Research Center", "Gates Dell Complex", "Rowling", "William C. Powers Student Activity Center"]
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var allBuildingsTableView: UITableView!
-    
     @IBOutlet weak var popularSpotsCollectionView: UICollectionView!
     
     let textCellIdentifier = "TextCell"
+    let studySpotSegueIdentifier = "studySpotSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         self.scrollToTop()
-        print(buildings[row])
     }
     
     private func scrollToTop() {
@@ -57,6 +56,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.scrollToRow(at: topRow,
                                    at: .top,
                                    animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == studySpotSegueIdentifier,
+           let destination = segue.destination as? StudySpotViewController,
+           let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row{
+            destination.building = buildings[buildingIndex]
+        }
     }
 
 }

@@ -82,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="200" width="414" height="558"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pbl-Dy-nbW">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TextCell" id="pbl-Dy-nbW">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pbl-Dy-nbW" id="cpm-P4-47v">
@@ -118,6 +118,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BSf-Za-XIR"/>
+                    <connections>
+                        <outlet property="studySpotsTableView" destination="966-2r-lO9" id="zEc-SZ-dCp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xv5-mq-sv0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -406,7 +409,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="974-16-6Ir" kind="show" id="go7-3p-Wtt"/>
+                                            <segue destination="974-16-6Ir" kind="show" identifier="studySpotSegueIdentifier" id="go7-3p-Wtt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
