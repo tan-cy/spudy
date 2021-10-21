@@ -12,9 +12,12 @@ PODS:
   - Firebase/Database (8.8.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 8.8.0)
+<<<<<<< HEAD
   - Firebase/Storage (8.8.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.8.0)
+=======
+>>>>>>> profile-page
   - FirebaseAnalytics (8.8.0):
     - FirebaseAnalytics/AdIdSupport (= 8.8.0)
     - FirebaseCore (~> 8.0)
@@ -101,7 +104,10 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.5.2):
     - GoogleUtilities/Logger
+<<<<<<< HEAD
   - GTMSessionFetcher/Core (1.7.0)
+=======
+>>>>>>> profile-page
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -112,9 +118,13 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Analytics
+<<<<<<< HEAD
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+=======
+  - Firebase/Database
+>>>>>>> profile-page
 
 SPEC REPOS:
   trunk:
@@ -129,7 +139,10 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+<<<<<<< HEAD
     - GTMSessionFetcher
+=======
+>>>>>>> profile-page
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -146,11 +159,18 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 5ba1164e3c844ba84272555e916d0a6d3d977e91
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+<<<<<<< HEAD
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+=======
+>>>>>>> profile-page
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
 
+<<<<<<< HEAD
 PODFILE CHECKSUM: 256a96db9ac1101b6d580b58b174781098f175ef
+=======
+PODFILE CHECKSUM: fd8971465b981c3e4ee106f7bd7df72a3c00b4a6
+>>>>>>> profile-page
 
 COCOAPODS: 1.11.2

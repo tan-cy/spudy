@@ -1241,7 +1241,11 @@ Copyright 2021 Google
    limitations under the License.
 
 
+<<<<<<< HEAD
 ## FirebaseStorage
+=======
+## FirebaseDatabase
+>>>>>>> profile-page
 
 
                                  Apache License
@@ -1447,7 +1451,11 @@ Copyright 2021 Google
    limitations under the License.
 
 
+<<<<<<< HEAD
 ## GTMSessionFetcher
+=======
+## FirebaseInstallations
+>>>>>>> profile-page
 
 
                                  Apache License

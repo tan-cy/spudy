@@ -1502,7 +1502,11 @@
 			<key>License</key>
 			<string>Apache</string>
 			<key>Title</key>
+<<<<<<< HEAD
 			<string>FirebaseStorage</string>
+=======
+			<string>FirebaseDatabase</string>
+>>>>>>> profile-page
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -1714,7 +1718,11 @@
 			<key>License</key>
 			<string>Apache</string>
 			<key>Title</key>
+<<<<<<< HEAD
 			<string>GTMSessionFetcher</string>
+=======
+			<string>FirebaseInstallations</string>
+>>>>>>> profile-page
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
