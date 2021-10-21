@@ -12,3 +12,4 @@ Podfile.lock
 Spudy/GoogleService-Info.plist
 Pods/Manifest.lock
 Pods/Target Support Files/
+Pods/Firebase/CoreOnly/NOTICES
