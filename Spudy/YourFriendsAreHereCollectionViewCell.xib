@@ -37,8 +37,6 @@
             </constraints>
             <size key="customSize" width="205" height="143"/>
             <connections>
-                <outlet property="buildingName" destination="pAX-KC-73C" id="vSX-oR-e8i"/>
-                <outlet property="buildingNameLabel" destination="pAX-KC-73C" id="DxY-l4-TAu"/>
                 <outlet property="imageView" destination="5Sq-qJ-dgN" id="Bja-U7-6bw"/>
             </connections>
             <point key="canvasLocation" x="250.00000000000003" y="93.415178571428569"/>

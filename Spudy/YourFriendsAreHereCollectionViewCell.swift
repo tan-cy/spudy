@@ -10,7 +10,6 @@ import UIKit
 class YourFriendsAreHereCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var buildingNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
