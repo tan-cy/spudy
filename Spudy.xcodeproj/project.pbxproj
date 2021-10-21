@@ -27,6 +27,8 @@
 		A78430F927163B3000803E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F827163B3000803E9B /* HomeViewController.swift */; };
 		C589BDD6271E33BB0009F071 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */; };
 		C589BDD7271E33BB0009F071 /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */; };
+		C5B7AF62271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B7AF60271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.swift */; };
+		C5B7AF63271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B7AF61271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.xib */; };
 		C5F52EF5271B97CC00969DB5 /* PopSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F52EF4271B97CC00969DB5 /* PopSpots.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
 		C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
+		C5B7AF60271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFriendsAreHereCollectionViewCell.swift; sourceTree = "<group>"; };
+		C5B7AF61271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YourFriendsAreHereCollectionViewCell.xib; sourceTree = "<group>"; };
 		C5F52EF4271B97CC00969DB5 /* PopSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopSpots.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +111,8 @@
 				46B5AF2A271641E000ED0B48 /* Main.storyboard */,
 				C5F52EF4271B97CC00969DB5 /* PopSpots.swift */,
 				A734D88C271636AE00D660C8 /* Assets.xcassets */,
+				C5B7AF60271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.swift */,
+				C5B7AF61271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.xib */,
 				C589BDD4271E33BB0009F071 /* MyCollectionViewCell.swift */,
 				C589BDD5271E33BB0009F071 /* MyCollectionViewCell.xib */,
 				A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */,
@@ -213,6 +219,7 @@
 			files = (
 				C589BDD7271E33BB0009F071 /* MyCollectionViewCell.xib in Resources */,
 				46B5AF2B271641E000ED0B48 /* Main.storyboard in Resources */,
+				C5B7AF63271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.xib in Resources */,
 				461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */,
 				A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */,
 				A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */,
@@ -270,6 +277,7 @@
 			files = (
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
+				C5B7AF62271F76F400ED40EF /* YourFriendsAreHereCollectionViewCell.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
