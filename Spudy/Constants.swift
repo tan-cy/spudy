@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     struct Segues {
         static let loginSegueIdentifier = "LoginSegueIdentifier"
@@ -16,8 +18,20 @@ struct Constants {
 
     }
     
-    struct Keys {
-        
+    struct DatabaseKeys {
+        static let email = "email"
+        static let name = "name"
+        static let classes = "classes"
+        static let contactInfo = "contactInfo"
+        static let gradYear = "gradYear"
+        static let major = "major"
+        static let photo = "photo"
+        static let profilePath = "profile"
+    }
+    
+    struct CoreKeys {
+        static let userEntity = "Users"
+        static let username = "username"
     }
     
     struct Colors {
@@ -43,7 +57,8 @@ struct Constants {
         static let ok = "OK"
         static let shortName = "Name must be longer than 2 letters"
         static let shortPassword = "Password must be longer than 8 characters"
-        static let shortUsername = "Username must be 4 or more characters "
+        static let shortUsername = "Username must be 4 or more characters"
+        static let userTaken = "Username already in use"
     }
     
     struct RegEx {

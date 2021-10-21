@@ -7,7 +7,8 @@
 
 import UIKit
 import Firebase
-
+import FirebaseDatabase
+import FirebaseAuth
 
 class SignUpViewController: UIViewController {
 
@@ -16,9 +17,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    var ref: DatabaseReference!
 
-    
+    var ref: DatabaseReference!
     var users: [User] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class SignUpViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         confirmPasswordTextField.isSecureTextEntry = true
 
-        ref = Database.database().reference(withPath: "profile")
+        ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
 
         Auth.auth().addStateDidChangeListener() {
           auth, user in
@@ -108,26 +108,25 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        ref.observe(.value) {
-            snapshot in
+        ref.observe(.value) { snapshot in
             let values = snapshot.value as? NSDictionary
             let userExists = values?[username] != nil
             
             if (userExists) {
-                alert.message = "Username taken"
+                alert.message = Constants.Messages.userTaken
                 self.present(alert, animated: true, completion: nil)
                 return
             } else {
                 Auth.auth().createUser(withEmail: email, password: password) { user, error in
                     if error == nil {
                         let newItemRef = self.ref.child(username)
-                        newItemRef.child("email").setValue(email)
-                        newItemRef.child("name").setValue(name)
-                        newItemRef.child("classes").setValue([])
-                        newItemRef.child("contactInfo").setValue("")
-                        newItemRef.child("gradYear").setValue("")
-                        newItemRef.child("major").setValue("")
-                        newItemRef.child("photo").setValue("")
+                        newItemRef.child(Constants.DatabaseKeys.email).setValue(email)
+                        newItemRef.child(Constants.DatabaseKeys.name).setValue(name)
+                        newItemRef.child(Constants.DatabaseKeys.classes).setValue([])
+                        newItemRef.child(Constants.DatabaseKeys.contactInfo).setValue("")
+                        newItemRef.child(Constants.DatabaseKeys.gradYear).setValue("")
+                        newItemRef.child(Constants.DatabaseKeys.major).setValue("")
+                        newItemRef.child(Constants.DatabaseKeys.photo).setValue("")
                         
                         Auth.auth().signIn(withEmail: self.emailTextField.text!,
                                            password: self.passwordTextField.text!)

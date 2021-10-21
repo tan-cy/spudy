@@ -6,7 +6,9 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import CoreData
 
 class LoginViewController: UIViewController {
 
@@ -23,27 +25,58 @@ class LoginViewController: UIViewController {
         
         passwordTextField.isSecureTextEntry = true
 
-        Auth.auth().addStateDidChangeListener() {
-          auth, user in
-          
+        Auth.auth().addStateDidChangeListener() { auth, user in
           if user != nil {
               self.performSegue(withIdentifier: Constants.Segues.loginSegueIdentifier, sender: nil)
-            self.emailTextField.text = nil
-            self.passwordTextField.text = nil
+              self.emailTextField.text = nil
+              self.passwordTextField.text = nil
+              
+              // get username from server
+              let ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+              ref.observe(.value) { snapshot in
+                  let values = snapshot.value as? NSDictionary
+                  for username in values!.allKeys {
+                      let userInfo = values?.value(forKey: username as! String) as? NSDictionary
+                      if (userInfo!.value(forKey: Constants.DatabaseKeys.email) as? String == user?.email) {
+                          // store into core data
+                          let newSignedIn = NSEntityDescription.insertNewObject(forEntityName: Constants.CoreKeys.userEntity, into: Constants.context)
+                          newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
+                          do {
+                              try Constants.context.save()
+                          } catch {
+                              print("Error saving username into CoreData")
+                          }
+//                          
+//                          let fetchedResults = self.retrieveCore()
+//                          for u in fetchedResults {
+//                              if let un = u.value(forKey: "username") {
+//                                  print(un)
+//                              }
+//                          }
+                      }
+                  }
+              }
           }
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    func retrieveCore()->[NSManagedObject] {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.CoreKeys.userEntity)
+//        var fetchedResults:[NSManagedObject]? = nil
+//
+//        do {
+//            try fetchedResults = context.fetch(request) as? [NSManagedObject]
+//        } catch {
+//            let nserror = error as NSError
+//            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+//            abort()
+//        }
+//        return (fetchedResults)!
+//    }
+    
     @IBAction func touchLogin(_ sender: Any) {
         let alert = UIAlertController(
             title: Constants.Messages.failedLogin,
