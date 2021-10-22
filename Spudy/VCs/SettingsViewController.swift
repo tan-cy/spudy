@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
@@ -15,7 +14,6 @@ class SettingsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
     
 
     /*
@@ -27,21 +25,5 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func touchSignOut(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            self.performSegue(withIdentifier: Constants.Segues.logoutSegueIdentifier, sender: nil)
-        }
-        catch let error as NSError
-        {
-            let alert = UIAlertController(
-                title: Constants.Messages.failedSignOut,
-              message: error.localizedDescription,
-              preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Constants.Messages.ok, style:.default))
-            self.present(alert, animated: true, completion: nil)
-        }
 
-    }
-    
 }
