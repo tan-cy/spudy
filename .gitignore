@@ -6,3 +6,5 @@ Spudy.xcodeproj/xcuserdata/
 Spudy.xcworkspace/xcuserdata/
 Pods/Target Support Files/
 Pods/Firebase/CoreOnly/NOTICES
+Podfile.lock
+Pods/Manifest.lock
