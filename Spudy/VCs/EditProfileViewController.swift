@@ -195,6 +195,10 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         newItemRef.child("classes").setValue(currClasses)
         newItemRef.child("contactInfo").setValue(contactInfoTextField.text ?? "")
         
+        self.dismiss(animated: true, completion: nil)
         print("tried to store to database")
+    }
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
