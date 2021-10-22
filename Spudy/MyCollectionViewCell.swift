@@ -11,11 +11,18 @@ import UIKit
 // xib file is the template that the storyboard will use
 class MyCollectionViewCell: UICollectionViewCell {
     
+    var cornerRadius: CGFloat = 5.0
+    
     @IBOutlet var imageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = UIColor.black.cgColor
+        
     }
     
     public func configure(with image: UIImage) {
