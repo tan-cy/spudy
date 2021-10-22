@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import CoreData
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -22,12 +23,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var addFriendButton: UIButton!
     
     let cellIdentifier = "currentClassesCellIdentifier"
-    var username = "lilliantango"
+    var username = ""
     var currClasses: [String] = []
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getUsername()
 
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
@@ -68,13 +71,32 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         })
         
         // TODO if this profile is yours, hide add friend button
-        if username == "lilliantango" {
+        if username == self.username {
             addFriendButton.isHidden = true
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.currentClassesCollectionView.reloadData()
+    }
+    
+    func getUsername() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        // to store results of request
+        var fetchedResults:[NSManagedObject]? = nil
+        
+        do {
+            // get username of current person logged in
+            try fetchedResults = context.fetch(request) as? [NSManagedObject]
+            username = fetchedResults?[0].value(forKey: "username") as! String
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

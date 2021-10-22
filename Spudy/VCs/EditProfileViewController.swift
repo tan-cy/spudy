@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import CoreData
 
 class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -19,7 +20,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     @IBOutlet weak var currentClassesCollectionView: UICollectionView!
     
     let cellIdentifier = "editCurrClassesCellIdentiifer"
-    var username = "lilliantango"
+    var username = ""
     var photoURLString:String?
     var currClasses:[String] = []
     var toDeleteClassesIndices:[Int] = []
@@ -27,6 +28,8 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getUsername()
         
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
@@ -73,6 +76,25 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     override func viewWillAppear(_ animated: Bool) {
         self.currentClassesCollectionView.reloadData()
+    }
+    
+    func getUsername() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        // to store results of request
+        var fetchedResults:[NSManagedObject]? = nil
+        
+        do {
+            // get username of current person logged in
+            try fetchedResults = context.fetch(request) as? [NSManagedObject]
+            username = fetchedResults?[0].value(forKey: "username") as! String
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
