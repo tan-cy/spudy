@@ -27,6 +27,9 @@
 		A78430F927163B3000803E9B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78430F827163B3000803E9B /* HomeViewController.swift */; };
 		A7872C07271E6E250028424B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7872C06271E6E250028424B /* Constants.swift */; };
 		A7872C54271F72B70028424B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7872C53271F72B70028424B /* UserData.swift */; };
+		A7FCDA7227223D740052E44F /* AddClassCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7127223D740052E44F /* AddClassCollectionReusableView.swift */; };
+		A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */; };
+		A7FCDA7627223D7F0052E44F /* EditClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		A78430F827163B3000803E9B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A7872C06271E6E250028424B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A7872C53271F72B70028424B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		A7FCDA7127223D740052E44F /* AddClassCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassCollectionReusableView.swift; sourceTree = "<group>"; };
+		A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesCollectionViewCell.swift; sourceTree = "<group>"; };
+		A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditClassesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +108,9 @@
 				A78430F327163AF100803E9B /* VCs */,
 				A734D880271636AD00D660C8 /* AppDelegate.swift */,
 				A734D882271636AD00D660C8 /* SceneDelegate.swift */,
+				A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */,
+				A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */,
+				A7FCDA7127223D740052E44F /* AddClassCollectionReusableView.swift */,
 				46B5AF2A271641E000ED0B48 /* Main.storyboard */,
 				A734D88C271636AE00D660C8 /* Assets.xcassets */,
 				A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */,
@@ -264,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FCDA7227223D740052E44F /* AddClassCollectionReusableView.swift in Sources */,
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
@@ -274,11 +284,13 @@
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */,
 				A734D881271636AD00D660C8 /* AppDelegate.swift in Sources */,
+				A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */,
 				A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */,
 				8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */,
 				8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
+				A7FCDA7627223D7F0052E44F /* EditClassesCollectionViewCell.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */,
