@@ -6,45 +6,105 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import CoreData
 
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var selfStudyModeSwitch: UISwitch!
-    var user: Bool = false
+    var username = ""
+    var selfStudy: Bool = false
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: CHANGE WITH BACKEND
-        selfStudyModeSwitch.isOn = user
-        // Do any additional setup after loading the view.
+        getUsername()
+        
+        ref = Database.database().reference(withPath: "profile")
+        ref.observe(.value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let user = value?.value(forKey: self.username) as? NSDictionary
+            
+            let settings = user?[Constants.DatabaseKeys.settings] as? NSDictionary
+            
+            self.selfStudyModeSwitch.isOn = settings?[Constants.DatabaseKeys.selfStudy] as? Bool ?? false
+        })
+        
+    }
+    
+    func getUsername() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        // to store results of request
+        var fetchedResults:[NSManagedObject]? = nil
+        
+        do {
+            // get username of current person logged in
+            try fetchedResults = context.fetch(request) as? [NSManagedObject]
+            username = fetchedResults?[0].value(forKey: Constants.CoreKeys.username) as! String
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
     }
     
     @IBAction func changeSelfStudyMode(_ sender: Any) {
-        user = selfStudyModeSwitch.isOn
+        print(selfStudyModeSwitch.isOn)
+        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        
+        newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudyModeSwitch.isOn)
     }
     
     @IBAction func touchChangeNotifSettings(_ sender: Any) {
         let controller = UIAlertController(title: "Change notification settings", message: nil, preferredStyle: .actionSheet)
         
-        controller.addAction(UIAlertAction(title: "Send me all notifications", style: .default, handler: nil))
-        controller.addAction(UIAlertAction(title: "Notify me when friends are near", style: .default, handler: nil))
-        controller.addAction(UIAlertAction(title: "Don't send me notifications", style: .default, handler: nil))
+        controller.addAction(UIAlertAction(title: "Send me all notifications", style: .default, handler: { (action) in
+            self.submitNotifSettings(setting: Constants.NotificationSettings.all)
+        }))
+        controller.addAction(UIAlertAction(title: "Notify me when friends are near", style: .default, handler: { (action) in
+            self.submitNotifSettings(setting: Constants.NotificationSettings.friends)
+        }))
+        controller.addAction(UIAlertAction(title: "Don't send me notifications", style: .default, handler: { (action) in
+            self.submitNotifSettings(setting: Constants.NotificationSettings.none)
+        }))
+        
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(controller, animated: true, completion: nil)
     }
     
+    func submitNotifSettings(setting: Constants.NotificationSettings) {
+        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        newItemRef.child(Constants.DatabaseKeys.notificationSetting).setValue(setting.rawValue)
+    }
+    
     @IBAction func touchChangeLocationSettings(_ sender: Any) {
         let controller = UIAlertController(title: "Share my location with:", message: nil, preferredStyle: .actionSheet)
         
-        controller.addAction(UIAlertAction(title: "Everyone", style: .default, handler: nil))
-        controller.addAction(UIAlertAction(title: "Just friends", style: .default, handler: nil))
-        controller.addAction(UIAlertAction(title: "Don't share my location", style: .default, handler: nil))
+        controller.addAction(UIAlertAction(title: "Everyone", style: .default, handler: { (action) in
+            self.submitLocationSettings(setting: Constants.LocationSettings.everyone)
+        }))
+        controller.addAction(UIAlertAction(title: "Just friends", style: .default, handler: { (action) in
+            self.submitLocationSettings(setting: Constants.LocationSettings.friends)
+        }))
+        controller.addAction(UIAlertAction(title: "Don't share my location", style: .default, handler: { (action) in
+            self.submitLocationSettings(setting: Constants.LocationSettings.none)
+        }))
+        
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(controller, animated: true, completion: nil)
+    }
+    
+    func submitLocationSettings(setting: Constants.LocationSettings) {
+        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        newItemRef.child(Constants.DatabaseKeys.locationSetting).setValue(setting.rawValue)
     }
     
     @IBAction func touchSignOut(_ sender: Any) {
