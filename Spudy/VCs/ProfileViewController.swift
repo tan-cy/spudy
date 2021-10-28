@@ -91,7 +91,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         do {
             // get username of current person logged in
             try fetchedResults = context.fetch(request) as? [NSManagedObject]
-            username = fetchedResults?[0].value(forKey: "username") as! String
+            if (fetchedResults != []) {
+                username = fetchedResults?[0].value(forKey: "username") as! String
+            }
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
