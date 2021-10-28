@@ -46,10 +46,12 @@ class LoginViewController: UIViewController {
 
                           // if no user exists
                           if (fetchedResults.isEmpty) {
+                              print("no user exists")
                               let newSignedIn = NSEntityDescription.insertNewObject(forEntityName: Constants.CoreKeys.userEntity, into: Constants.context)
                               newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
                           } else {
                               // store into core data
+                              print("WENT INTO HERE")
                               fetchedResults[0].setValue(username, forKey: Constants.CoreKeys.username)
                           }
 
@@ -78,7 +80,7 @@ class LoginViewController: UIViewController {
             if fetchedResults.count > 0 {
                 for result:AnyObject in fetchedResults {
                     context.delete(result as! NSManagedObject)
-                    print("\(result.value(forKey: "username")!) has been deleted")
+//                    print("\(result.value(forKey: "username")!) has been deleted")
                 }
             }
         } catch {

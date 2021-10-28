@@ -142,6 +142,8 @@ class SettingsViewController: UIViewController {
     }
     
     func deleteUser() {
-        print("will delete user...")
+        print("will delete user")
     }
+    
+
 }
