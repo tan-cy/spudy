@@ -6,8 +6,8 @@
 //
 
 import UIKit
-
-public let buildings = ["Battle Hall", "Belo Center for New Media", "Biomedical Engineering Building", "Burdine Hall", "College of Business Administration Building", "Peter T. Flawn Academic Center", "Garrison Hall", "Norman Hackerman Building", "Perry–Castañeda Library", "Welch Hall", "Engineering Education and Research Center", "Gates Dell Complex", "Rowling", "William C Powers Student Activity Center"]
+import Firebase
+import FirebaseDatabase
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,6 +18,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let textCellIdentifier = "TextCell"
     let friendsCellIdentifier = "FriendsCell"
     let studySpotSegueIdentifier = "studySpotSegueIdentifier"
+    var buildings:[building] = []
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,43 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
         
+        ref = Database.database().reference(withPath: "buildings")
+        ref.observe(.value, with: { snapshot in
+            
+            var newList:[building] = []
+            
+            for child in (snapshot.children) {
+                
+                let snap = child as! DataSnapshot
+                let dict = snap.value as! [String:Any]
+                
+                let name = dict["name"] as? String ?? "Unknown"
+                let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
+                var image:UIImage = UIImage(systemName: "questionmark")!
+                let photoURLString = dict ["image"] as? String ?? nil
+                
+                if photoURLString != nil {
+                    if let photoURL = URL(string: photoURLString!) {
+                        if let data = try? Data(contentsOf: photoURL) {
+                            image = UIImage(data: data) ?? UIImage(systemName: "questionmark")!
+                        }
+                    }
+                }
+                
+                
+                let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image)
+                newList.append(newBuilding)
+                
+                print("(DEBUG) Retrieved building: \(name)")
+                
+            }
+            
+            self.buildings = newList
+            
+            print("(DEBUG) Buildings retrieved!")
+        
+        })
+        
     }
     
     // Took the functions from class demo code library
@@ -45,13 +84,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = allBuildingsTableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
         let row = indexPath.row
-        cell.textLabel?.text = buildings[row]
+        cell.textLabel?.text = buildings[row].name
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
         self.scrollToTop()
     }
     
@@ -70,7 +108,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == studySpotSegueIdentifier,
            let destination = segue.destination as? StudySpotViewController,
            let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row{
-            destination.building = buildings[buildingIndex]
+            destination.building = buildings[buildingIndex].name
         }
     }
 
@@ -123,6 +161,22 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
             
         }
+    }
+    
+}
+
+class building {
+    
+    var name:String
+    var xcoord:Float
+    var ycoord:Float
+    var image: UIImage
+    
+    init(n:String, x:Float, y:Float, i:UIImage) {
+        name = n
+        xcoord = x
+        ycoord = y
+        image = i
     }
     
 }

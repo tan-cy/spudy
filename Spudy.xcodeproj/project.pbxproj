@@ -154,14 +154,14 @@
 		A78430FC27163BC300803E9B /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */,
+				A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */,
 				46B57556272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib */,
+				A76850112722748500FF58DE /* MyCollectionViewCell.swift */,
+				46B575502722762A00F527E4 /* MyCollectionViewCell.xib */,
+				A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */,
 				A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */,
 				A7FCDA7127223D740052E44F /* AddClassCollectionReusableView.swift */,
-				A76850112722748500FF58DE /* MyCollectionViewCell.swift */,
 				A768500F2722746400FF58DE /* CollectionViewController.swift */,
-				A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */,
-				46B575502722762A00F527E4 /* MyCollectionViewCell.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
