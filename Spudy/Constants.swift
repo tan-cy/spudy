@@ -12,6 +12,7 @@ struct Constants {
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     struct Segues {
+        static let filterSegueIdentifier = "FilterSegueIdentifier"
         static let loginSegueIdentifier = "LoginSegueIdentifier"
         static let logoutSegueIdentifier = "LogoutSegueIdentifier"
         static let signupSegueIdentifier = "SignUpSegueIdentifier"
@@ -22,13 +23,15 @@ struct Constants {
         static let email = "email"
         static let name = "name"
         static let classes = "classes"
+        static let classPath = "people_in_courses"
         static let contactInfo = "contactInfo"
+        static let friends = "friends"
         static let gradYear = "gradYear"
+        static let latitude = "latitude"
+        static let longitude = "longitude"
         static let major = "major"
         static let photo = "photo"
         static let profilePath = "profile"
-        static let longitude = "longitude"
-        static let latitude = "latitude"
     }
     
     struct CoreKeys {
@@ -38,6 +41,12 @@ struct Constants {
     
     struct Colors {
         
+    }
+    
+    struct Filters {
+        static let everyone = "everyone"
+        static let friends = "friends"
+        static let classmates = "classmates"
     }
     
     struct Placeholders {

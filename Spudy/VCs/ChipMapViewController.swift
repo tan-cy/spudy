@@ -10,31 +10,34 @@ import MapKit
 import CoreLocation
 import FirebaseDatabase
 
-class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+protocol MapFilterSetter {
+    func setClasses (classesFilter: [String])
+    func setFilterMode (filter: String)
+}
+
+class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MapFilterSetter {
 
     let locationManager = CLLocationManager()
-    var ref: DatabaseReference!
+    var profileRef: DatabaseReference!
+    var classRef: DatabaseReference!
+    
+    var filters: String!
     var friends: [String]!
     var classmates: [String]!
+    var classesFilter: [String] = []
     
     @IBOutlet weak var chipMap: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         chipMap.isZoomEnabled = true
-        
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
+        profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+        classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classPath)
 
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
+        getFriends()
+        setupLocationManager()
         checkLocationServices()
+        showPeople()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,7 +47,20 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         chipMap.delegate = self
     }
     
-    @IBAction func didTouchFilters(_ sender: Any) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == Constants.Segues.filterSegueIdentifier) {
+            let destination = segue.destination as! ChipMapFiltersViewController
+            destination.mapFilterDelegate = self
+        }
+    }
+    
+    func getFriends() {
+        profileRef.observe(.value) { snapshot in
+            let profiles = snapshot.value as? NSDictionary
+            let user = profiles?[CURRENT_USER] as? NSDictionary
+            self.friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
+
+        }
     }
     
 //    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) { // need to enable zooming by changing these coords
@@ -55,12 +71,15 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 //        }
 //    }
     
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let location = view.annotation?.coordinate
+        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
+        chipMap.setRegion(region, animated: true)
+    }
+    
     // MARK CURRENT USER LOCATION
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: 4000, longitudinalMeters: 4000)
-        chipMap.setRegion(region, animated: true)
         
         let userLatitude = location.coordinate.latitude
         let userLongitude = location.coordinate.longitude
@@ -72,16 +91,15 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         switch locationManager.authorizationStatus {
         case .authorized:
             chipMap.showsUserLocation = true
-//                followUserLocation()
             locationManager.startUpdatingLocation()
             break
         case .denied:
-            // Show alert
+            // TODO Show alert
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            // Show alert
+            // TODO Show alert
             break
         case .authorizedAlways:
             break
@@ -98,41 +116,106 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             // the user didn't turn it on
         }
     }
-        
-//        func followUserLocation() {
-//            if let location = locationManager.location?.coordinate {
-//                let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 4000, longitudinalMeters: 4000)
-//                chipMap.setRegion(region, animated: true)
-//            }
-//        }
-        
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
     
     func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
     }
     
-    func showEveryone() {
-        
+    
+    // MARK Map Annotations
+    
+    func setUserAnnotation(username: String, person: NSDictionary?) {
+        let lat = person?[Constants.DatabaseKeys.latitude] as? Double ?? nil
+        let long = person?[Constants.DatabaseKeys.longitude] as? Double ?? nil
+        // add person to map
+        if (lat != nil && long != nil) {
+            let name = person?[Constants.DatabaseKeys.name] as! String
+            let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+            let photoURLString = person?[Constants.DatabaseKeys.photo] as? String
+            let annotation = UserMKAnnotation(name: name, username: username, coord: coordinate, photoURLString: photoURLString)
+            chipMap.addAnnotation(annotation)
+        }
+    }
+    
+    func showFriends(people: NSDictionary) {
+        friends.forEach() { friend in
+            let personDetails = people.value(forKey: friend) as? NSDictionary
+            setUserAnnotation(username: friend, person: personDetails)
+        }
+    }
+    
+    func showByClass(people: NSDictionary) {
+        classRef.observe(.value) { snapshot in
+            let classDict = snapshot.value as? NSDictionary
+            self.classesFilter.forEach() { course in
+                let peopleInCourse = classDict?[course] as? [String]
+                self.showClassmate(people: people, peopleInCourse: peopleInCourse ?? [])
+            }
+        }
+    }
+                         
+    func showClassmate(people: NSDictionary, peopleInCourse: [String]) {
+        peopleInCourse.forEach() { classmate in
+            if (!friends.contains(classmate)) {
+                let personDetails = people.value(forKey: classmate) as? NSDictionary
+                setUserAnnotation(username: classmate, person: personDetails)
+            }
+        }
+    }
+    
+    func showPeople() {
+        profileRef.observe(.value) { snapshot in
+            let peopleDict = snapshot.value as? NSDictionary
+            switch(self.filters) {
+            case Constants.Filters.friends:
+                self.showFriends(people: peopleDict!)
+                break
+            case Constants.Filters.classmates:
+                self.showByClass(people: peopleDict!)
+                break
+            default:
+                self.showFriends(people: peopleDict!)
+                self.showByClass(people: peopleDict!)
+                break
+            }
+        }
     }
     
     func saveUserLocationToFirebase(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
-        ref = Database.database().reference(withPath: "profile")
-        ref.observe(.value) { snapshot in
-            let newItemRef = self.ref.child(CURRENT_USER) // replace with username
-            newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
-            newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
+        profileRef.observe(.value) { snapshot in
+            if (CURRENT_USER != "") {
+                let newItemRef = self.profileRef.child(CURRENT_USER)
+                newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
+                newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
+            }
         }
+    }
+    
+    // MARK filter stuff
+    func setClasses(classesFilter: [String]) {
+        self.classesFilter = classesFilter
+    }
+    
+    func setFilterMode(filter: String) {
+        self.filters = filter
     }
 }
 private extension MKMapView {
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 730
-  ) {
+  func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 730) {
     let coordinateRegion = MKCoordinateRegion(
       center: location.coordinate,
       latitudinalMeters: regionRadius,
