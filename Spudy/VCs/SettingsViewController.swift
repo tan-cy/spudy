@@ -142,7 +142,21 @@ class SettingsViewController: UIViewController {
     }
     
     func deleteUser() {
-        print("will delete user")
+        let user = Auth.auth().currentUser
+
+        user?.delete { error in
+            if error != nil {
+                let controller = UIAlertController(title: "Error", message: "We could not delete your account.", preferredStyle: .alert)
+
+                controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+                self.present(controller, animated: true, completion: nil)
+            } else {
+                // delete user was a success, so sign out user & remove from database
+                self.signUserOut()
+                self.ref.child("\(self.username)").removeValue()
+            }
+        }
     }
     
 
