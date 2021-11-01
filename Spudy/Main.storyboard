@@ -526,9 +526,9 @@
                         <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="yvl-Y6-78H" kind="relationship" relationship="viewControllers" id="VtK-Dw-kam"/>
                         <segue destination="6h1-cB-5Tp" kind="relationship" relationship="viewControllers" id="DL1-PX-dik"/>
                         <segue destination="ccg-Yk-wge" kind="relationship" relationship="viewControllers" id="BOj-Y5-iGa"/>
+                        <segue destination="yvl-Y6-78H" kind="relationship" relationship="viewControllers" id="VtK-Dw-kam"/>
                         <segue destination="g5Y-et-yTB" kind="relationship" relationship="viewControllers" id="Tbv-fj-n1f"/>
                         <segue destination="BZe-SC-AVu" kind="relationship" relationship="viewControllers" id="t6s-dD-W0w"/>
                     </connections>

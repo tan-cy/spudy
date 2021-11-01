@@ -10,6 +10,8 @@ import Firebase
 import FirebaseDatabase
 import CoreData
 
+var CURRENT_USER = ""
+
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -23,7 +25,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var addFriendButton: UIButton!
     
     let cellIdentifier = "currentClassesCellIdentifier"
-    var username = ""
     var currClasses: [String] = []
     var ref: DatabaseReference!
     
@@ -38,14 +39,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Do any additional setup after loading the view.
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
-        usernameLabel.text = "@\(username)"
+        usernameLabel.text = "@\(CURRENT_USER)"
         
         // get the user's profile info
         ref = Database.database().reference(withPath: "profile")
         ref.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: self.username) as? NSDictionary
+            let user = value?.value(forKey: CURRENT_USER) as? NSDictionary
             
             // get profile photo
             let photoURLString = user?["photo"] as? String ?? nil
@@ -71,9 +72,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         })
         
         // TODO if this profile is yours, hide add friend button
-        if username == self.username {
-            addFriendButton.isHidden = true
-        }
+//        if username == self.username {
+//            addFriendButton.isHidden = true
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,7 +93,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             // get username of current person logged in
             try fetchedResults = context.fetch(request) as? [NSManagedObject]
             if (fetchedResults != []) {
-                username = fetchedResults?[0].value(forKey: "username") as! String
+                CURRENT_USER = fetchedResults?[0].value(forKey: "username") as! String
             }
         } catch {
             let nserror = error as NSError

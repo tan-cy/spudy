@@ -27,6 +27,8 @@ struct Constants {
         static let major = "major"
         static let photo = "photo"
         static let profilePath = "profile"
+        static let longitude = "longitude"
+        static let latitude = "latitude"
     }
     
     struct CoreKeys {

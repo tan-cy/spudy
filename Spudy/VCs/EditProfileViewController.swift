@@ -161,7 +161,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             imagePickerController.delegate = self
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
-                }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -209,7 +209,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             currClasses.remove(at: indexToRemove)
         }
         
-        let newItemRef = self.ref.child(username) // replace with username
+        let newItemRef = self.ref.child(CURRENT_USER) // replace with username
         newItemRef.child("photo").setValue(photoURLString ?? "")
         newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
         newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")

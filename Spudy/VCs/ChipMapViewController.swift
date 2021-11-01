@@ -8,10 +8,15 @@
 import UIKit
 import MapKit
 import CoreLocation
+import FirebaseDatabase
 
 class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
+    var ref: DatabaseReference!
+    var friends: [String]!
+    var classmates: [String]!
+    
     @IBOutlet weak var chipMap: MKMapView!
     
     override func viewDidLoad() {
@@ -52,62 +57,81 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     // MARK CURRENT USER LOCATION
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            guard let location = locations.last else { return }
-            let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: 4000, longitudinalMeters: 4000)
-            chipMap.setRegion(region, animated: true)
-        }
-       
-        func checkLocationAuthorization() {
-            switch locationManager.authorizationStatus {
-            case .authorized:
-                chipMap.showsUserLocation = true
-                followUserLocation()
-                locationManager.startUpdatingLocation()
-                break
-            case .denied:
-                // Show alert
-                break
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-            case .restricted:
-                // Show alert
-                break
-            case .authorizedAlways:
-                break
-            default:
-                fatalError()
-            }
-        }
+        guard let location = locations.last else { return }
         
-        func checkLocationServices() {
-            if CLLocationManager.locationServicesEnabled() {
-                setupLocationManager()
-                checkLocationAuthorization()
-            } else {
-                // the user didn't turn it on
-            }
-        }
+        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: 4000, longitudinalMeters: 4000)
+        chipMap.setRegion(region, animated: true)
         
-        func followUserLocation() {
-            if let location = locationManager.location?.coordinate {
-                let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 4000, longitudinalMeters: 4000)
-                chipMap.setRegion(region, animated: true)
-            }
-        }
+        let userLatitude = location.coordinate.latitude
+        let userLongitude = location.coordinate.longitude
         
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        saveUserLocationToFirebase(longitude: userLongitude, latitude: userLatitude)
+    }
+   
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .authorized:
+            chipMap.showsUserLocation = true
+//                followUserLocation()
+            locationManager.startUpdatingLocation()
+            break
+        case .denied:
+            // Show alert
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // Show alert
+            break
+        case .authorizedAlways:
+            break
+        default:
+            fatalError()
+        }
+    }
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
             checkLocationAuthorization()
+        } else {
+            // the user didn't turn it on
         }
+    }
         
-        func setupLocationManager() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        func followUserLocation() {
+//            if let location = locationManager.location?.coordinate {
+//                let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 4000, longitudinalMeters: 4000)
+//                chipMap.setRegion(region, animated: true)
+//            }
+//        }
+        
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
+    }
+    
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func showEveryone() {
+        
+    }
+    
+    func saveUserLocationToFirebase(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
+        ref = Database.database().reference(withPath: "profile")
+        ref.observe(.value) { snapshot in
+            let newItemRef = self.ref.child(CURRENT_USER) // replace with username
+            newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
+            newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
         }
+    }
 }
 private extension MKMapView {
   func centerToLocation(
     _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000 //730
+    regionRadius: CLLocationDistance = 730
   ) {
     let coordinateRegion = MKCoordinateRegion(
       center: location.coordinate,
