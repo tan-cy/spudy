@@ -22,7 +22,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        getData()
         
         popularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
         
@@ -36,6 +39,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.allBuildingsTableView.reloadData()
+        self.yourFriendsAreHereCollectionView.reloadData()
+        self.popularSpotsCollectionView.reloadData()
+    }
+    
+    func getData () {
         
         ref = Database.database().reference(withPath: "buildings")
         ref.observe(.value, with: { snapshot in
@@ -73,6 +86,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("(DEBUG) Buildings retrieved!")
         
         })
+        
+        self.allBuildingsTableView.reloadData()
+        self.yourFriendsAreHereCollectionView.reloadData()
+        self.popularSpotsCollectionView.reloadData()
+        print("(DEBUG) Tables reloaded!")
         
     }
     
@@ -133,12 +151,12 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if(collectionView == popularSpotsCollectionView) {
-            return 12
+            return buildings.count
         } else if (collectionView == yourFriendsAreHereCollectionView) {
-            return 8
+            return buildings.count
         }
         
-        return 4
+        return buildings.count
         
     }
     
@@ -148,7 +166,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCollectionViewCell", for: indexPath) as! MyCollectionViewCell
             
-            cell.configure(with: UIImage(named: "SAC")!)
+            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
             
             return cell
             
@@ -156,7 +174,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourFriendsAreHereCollectionViewCell", for: indexPath) as! YourFriendsAreHereCollectionViewCell
             
-            cell.configure(image: UIImage(named: "SAC")!)
+            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
             
             return cell
             
