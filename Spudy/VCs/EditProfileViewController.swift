@@ -22,9 +22,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     let cellIdentifier = "editCurrClassesCellIdentiifer"
     var username = ""
     var photoURLString:String?
+    
     var currClasses:[String] = []
+    var oldClasses:[String] = []
     var toDeleteClassesIndices:[Int] = []
-    var ref: DatabaseReference!
+    
+    var profileRef: DatabaseReference!
+    var classesRef: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +47,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         gradYearTextField.delegate = self
         contactInfoTextField.delegate = self
         
+        // get database reference to classes
+        classesRef = Database.database().reference(withPath: "classes")
+        
         // get the user's profile info
-        ref = Database.database().reference(withPath: "profile")
-        ref.observe(.value, with: { snapshot in
+        profileRef = Database.database().reference(withPath: "profile")
+        profileRef.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: self.username) as? NSDictionary
@@ -68,6 +75,9 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             let classes = user?["classes"] as? [String] ?? []
             self.currClasses.removeAll()
             self.currClasses.append(contentsOf: classes)
+            self.oldClasses.removeAll()
+            self.oldClasses.append(contentsOf: classes)
+
             self.contactInfoTextField.text = user?["contactInfo"] as? String ?? ""
             
             self.currentClassesCollectionView.reloadData()
@@ -106,6 +116,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         let labeledCell = cell as! EditClassesCollectionViewCell
         labeledCell.setText(newText: currClasses[indexPath.row])
         
+        if toDeleteClassesIndices.contains(indexPath.row) {
+            cell.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
+        } else {
+            cell.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
+        }
+        
         cell.layer.cornerRadius = 5.0
         cell.layer.masksToBounds = true
         return cell
@@ -124,26 +140,23 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "addClassCollectionViewFooter", for: indexPath) as! AddClassCollectionReusableView
-        print("getting reusable cell")
         return sectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = currentClassesCollectionView.cellForItem(at: indexPath)
-        let statusCell = cell as! EditClassesCollectionViewCell
-        statusCell.changeDeleteStatus()
+        cell!.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
+        
+        toDeleteClassesIndices.append(indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = currentClassesCollectionView.cellForItem(at: indexPath)
+        cell!.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
 
-        if !statusCell.getDeleteStatus() && cell != nil {
-            cell!.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
-            
-            toDeleteClassesIndices.removeAll(where: { value in
-                value == indexPath.row
-            })
-            
-        } else if cell != nil {
-            cell!.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
-            toDeleteClassesIndices.append(indexPath.row)
-        }
+        toDeleteClassesIndices.removeAll(where: { value in
+            value == indexPath.row
+        })
     }
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
@@ -161,7 +174,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             imagePickerController.delegate = self
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
-                }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -206,17 +219,65 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         for indexToRemove in toDeleteClassesIndices.sorted(by: >) {
+            print(currClasses[indexToRemove])
             currClasses.remove(at: indexToRemove)
         }
         
-        let newItemRef = self.ref.child(username) // replace with username
+        // reset
+        toDeleteClassesIndices.removeAll()
+        
+        updateUsersInClasses()
+        
+        let newItemRef = self.profileRef.child(username) // replace with username
         newItemRef.child("photo").setValue(photoURLString ?? "")
         newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
         newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")
         newItemRef.child("gradYear").setValue(gradYearTextField.text ?? "Unknown")
         newItemRef.child("classes").setValue(currClasses)
         newItemRef.child("contactInfo").setValue(contactInfoTextField.text ?? "")
-        
-        print("tried to store to database")
     }
+    
+    func updateUsersInClasses() {
+        let difference = currClasses.difference(from: oldClasses)
+        
+        var newClasses: [String] = []
+        var removedClasses: [String] = []
+        
+        for diff in difference {
+            if case let .insert(_, element, _) = diff {
+                newClasses.append(element)
+            }
+            if case let .remove(_, element, _) = diff {
+                removedClasses.append(element)
+            }
+        }
+        
+        newClasses.forEach { newClass in
+            var users: [String] = []
+            self.classesRef.child(newClass).getData(completion: {error, snapshot in
+                guard error == nil else {
+                    return
+                }
+                
+                users = snapshot.value as? [String] ?? []
+                users.append("\(self.username)")
+                self.classesRef.child(newClass).child("students").setValue(users)
+            })
+        }
+        
+        removedClasses.forEach { removeClass in
+            var users: [String] = []
+            self.classesRef.child(removeClass).getData(completion: {error, snapshot in
+                guard error == nil else {
+                    return
+                }
+                
+                users = snapshot.value as? [String] ?? []
+                users = users.filter() {$0 != removeClass}
+                self.classesRef.child(removeClass).child("students").setValue(users)
+            })
+        }
+        
+    }
+    
 }
