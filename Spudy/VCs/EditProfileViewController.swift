@@ -48,17 +48,17 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         contactInfoTextField.delegate = self
         
         // get database reference to classes
-        classesRef = Database.database().reference(withPath: "classes")
+        classesRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
         
         // get the user's profile info
-        profileRef = Database.database().reference(withPath: "profile")
+        profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         profileRef.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: self.username) as? NSDictionary
             
             // get profile photo
-            self.photoURLString = user?["photo"] as? String ?? nil
+            self.photoURLString = user?[Constants.DatabaseKeys.photo] as? String ?? nil
             if self.photoURLString != nil && self.photoURLString!.count != 0 {
                 if let photoURL = URL(string: self.photoURLString!) {
                     if let data = try? Data(contentsOf: photoURL) {
@@ -68,17 +68,17 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             }
             
             //store file in database
-            self.nameTextField.text = user?["name"] as? String ?? "Unknown"
-            self.majorTextField.text = user?["major"] as? String ?? "Unknown"
-            self.gradYearTextField.text = user?["gradYear"] as? String ?? "Unknown"
+            self.nameTextField.text = user?[Constants.DatabaseKeys.name] as? String ?? "Unknown"
+            self.majorTextField.text = user?[Constants.DatabaseKeys.major] as? String ?? "Unknown"
+            self.gradYearTextField.text = user?[Constants.DatabaseKeys.gradYear] as? String ?? "Unknown"
             
-            let classes = user?["classes"] as? [String] ?? []
+            let classes = user?[Constants.DatabaseKeys.classes] as? [String] ?? []
             self.currClasses.removeAll()
             self.currClasses.append(contentsOf: classes)
             self.oldClasses.removeAll()
             self.oldClasses.append(contentsOf: classes)
 
-            self.contactInfoTextField.text = user?["contactInfo"] as? String ?? ""
+            self.contactInfoTextField.text = user?[Constants.DatabaseKeys.contactInfo] as? String ?? ""
             
             self.currentClassesCollectionView.reloadData()
         })
@@ -92,14 +92,14 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.CoreKeys.userEntity)
         // to store results of request
         var fetchedResults:[NSManagedObject]? = nil
         
         do {
             // get username of current person logged in
             try fetchedResults = context.fetch(request) as? [NSManagedObject]
-            username = fetchedResults?[0].value(forKey: "username") as! String
+            username = fetchedResults?[0].value(forKey: Constants.CoreKeys.username) as! String
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -116,6 +116,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         let labeledCell = cell as! EditClassesCollectionViewCell
         labeledCell.setText(newText: currClasses[indexPath.row])
         
+        // determine what color the cell is
         if toDeleteClassesIndices.contains(indexPath.row) {
             cell.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
         } else {
@@ -137,11 +138,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         
           return CGSize(width: widthPerItem, height: 35)
       }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "addClassCollectionViewFooter", for: indexPath) as! AddClassCollectionReusableView
-        return sectionView
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = currentClassesCollectionView.cellForItem(at: indexPath)
@@ -229,12 +225,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         updateUsersInClasses()
         
         let newItemRef = self.profileRef.child(username) // replace with username
-        newItemRef.child("photo").setValue(photoURLString ?? "")
-        newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
-        newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")
-        newItemRef.child("gradYear").setValue(gradYearTextField.text ?? "Unknown")
-        newItemRef.child("classes").setValue(currClasses)
-        newItemRef.child("contactInfo").setValue(contactInfoTextField.text ?? "")
+        newItemRef.child(Constants.DatabaseKeys.photo).setValue(photoURLString ?? "")
+        newItemRef.child(Constants.DatabaseKeys.name).setValue(nameTextField.text ?? "Unknown")
+        newItemRef.child(Constants.DatabaseKeys.major).setValue(majorTextField.text ?? "Unknown")
+        newItemRef.child(Constants.DatabaseKeys.gradYear).setValue(gradYearTextField.text ?? "Unknown")
+        newItemRef.child(Constants.DatabaseKeys.classes).setValue(currClasses)
+        newItemRef.child(Constants.DatabaseKeys.contactInfo).setValue(contactInfoTextField.text ?? "")
     }
     
     func updateUsersInClasses() {
@@ -261,7 +257,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 
                 users = snapshot.value as? [String] ?? []
                 users.append("\(self.username)")
-                self.classesRef.child(newClass).child("students").setValue(users)
+                self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(users)
             })
         }
         
@@ -274,7 +270,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 
                 users = snapshot.value as? [String] ?? []
                 users = users.filter() {$0 != removeClass}
-                self.classesRef.child(removeClass).child("students").setValue(users)
+                self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(users)
             })
         }
         

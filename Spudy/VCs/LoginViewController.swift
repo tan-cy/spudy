@@ -51,7 +51,6 @@ class LoginViewController: UIViewController {
                               newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
                           } else {
                               // store into core data
-                              print("WENT INTO HERE")
                               fetchedResults[0].setValue(username, forKey: Constants.CoreKeys.username)
                           }
 
@@ -80,7 +79,6 @@ class LoginViewController: UIViewController {
             if fetchedResults.count > 0 {
                 for result:AnyObject in fetchedResults {
                     context.delete(result as! NSManagedObject)
-//                    print("\(result.value(forKey: "username")!) has been deleted")
                 }
             }
         } catch {

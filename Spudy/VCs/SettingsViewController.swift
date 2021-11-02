@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController {
 
         getUsername()
         
-        ref = Database.database().reference(withPath: "profile")
+        ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         ref.observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: self.username) as? NSDictionary
@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.CoreKeys.userEntity)
         // to store results of request
         var fetchedResults:[NSManagedObject]? = nil
         
