@@ -55,6 +55,7 @@ class LoginViewController: UIViewController {
 
                           do {
                               try Constants.context.save()
+                              getUsername()
                           } catch {
                               print("Error saving username into CoreData")
                           }
