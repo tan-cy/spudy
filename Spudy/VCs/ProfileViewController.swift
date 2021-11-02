@@ -10,8 +10,6 @@ import Firebase
 import FirebaseDatabase
 import CoreData
 
-var CURRENT_USER = ""
-
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -31,22 +29,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getUsername()
-
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
         
         // Do any additional setup after loading the view.
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
-        usernameLabel.text = "@\(CURRENT_USER)"
+        usernameLabel.text = "@\(CURRENT_USERNAME)"
         
         // get the user's profile info
         ref = Database.database().reference(withPath: "profile")
         ref.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: CURRENT_USER) as? NSDictionary
+            let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
             // get profile photo
             let photoURLString = user?["photo"] as? String ?? nil
@@ -79,27 +75,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         self.currentClassesCollectionView.reloadData()
-    }
-    
-    func getUsername() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
-        // to store results of request
-        var fetchedResults:[NSManagedObject]? = nil
-        
-        do {
-            // get username of current person logged in
-            try fetchedResults = context.fetch(request) as? [NSManagedObject]
-            if (fetchedResults != []) {
-                CURRENT_USER = fetchedResults?[0].value(forKey: "username") as! String
-            }
-        } catch {
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            abort()
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

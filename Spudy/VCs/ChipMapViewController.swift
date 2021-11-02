@@ -31,9 +31,10 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     override func viewDidLoad() {
         super.viewDidLoad()
         chipMap.isZoomEnabled = true
+        getUsername()
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classPath)
-
+        
         getFriends()
         setupLocationManager()
         checkLocationServices()
@@ -57,7 +58,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func getFriends() {
         profileRef.observe(.value) { snapshot in
             let profiles = snapshot.value as? NSDictionary
-            let user = profiles?[CURRENT_USER] as? NSDictionary
+            let user = profiles?[CURRENT_USERNAME] as? NSDictionary
             self.friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
 
         }
@@ -154,6 +155,9 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func showFriends(people: NSDictionary) {
+        // TODO REMOVE WHEN FRIENDS IMPLEMENTED
+        friends = (people.allKeys as! [String])
+        
         friends.forEach() { friend in
             let personDetails = people.value(forKey: friend) as? NSDictionary
             setUserAnnotation(username: friend, person: personDetails)
@@ -199,10 +203,12 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     func saveUserLocationToFirebase(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
         profileRef.observe(.value) { snapshot in
-            if (CURRENT_USER != "") {
-                let newItemRef = self.profileRef.child(CURRENT_USER)
+            if (CURRENT_USERNAME != "") {
+                let newItemRef = self.profileRef.child(CURRENT_USERNAME)
                 newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
                 newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
+            } else {
+                print("user not found")
             }
         }
     }

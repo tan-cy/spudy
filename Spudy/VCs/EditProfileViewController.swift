@@ -28,9 +28,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getUsername()
-        
+                
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
         
@@ -48,7 +46,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         ref.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: self.username) as? NSDictionary
+            let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
             // get profile photo
             self.photoURLString = user?["photo"] as? String ?? nil
@@ -76,25 +74,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     override func viewWillAppear(_ animated: Bool) {
         self.currentClassesCollectionView.reloadData()
-    }
-    
-    func getUsername() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
-        // to store results of request
-        var fetchedResults:[NSManagedObject]? = nil
-        
-        do {
-            // get username of current person logged in
-            try fetchedResults = context.fetch(request) as? [NSManagedObject]
-            username = fetchedResults?[0].value(forKey: "username") as! String
-        } catch {
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            abort()
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -209,7 +188,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             currClasses.remove(at: indexToRemove)
         }
         
-        let newItemRef = self.ref.child(CURRENT_USER) // replace with username
+        let newItemRef = self.ref.child(CURRENT_USERNAME) // replace with username
         newItemRef.child("photo").setValue(photoURLString ?? "")
         newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
         newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")

@@ -26,6 +26,7 @@
 		A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */; };
 		A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A734D88C271636AE00D660C8 /* Assets.xcassets */; };
 		A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */; };
+		A75180262731EEDA00E87FB1 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75180252731EEDA00E87FB1 /* Commons.swift */; };
 		A76850102722746400FF58DE /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768500F2722746400FF58DE /* CollectionViewController.swift */; };
 		A76850122722748500FF58DE /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76850112722748500FF58DE /* MyCollectionViewCell.swift */; };
 		A76850142722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */; };
@@ -63,6 +64,7 @@
 		A734D88C271636AE00D660C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A734D88F271636AE00D660C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A734D891271636AE00D660C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A75180252731EEDA00E87FB1 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		A768500F2722746400FF58DE /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		A76850112722748500FF58DE /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourFriendsAreHereCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */,
 				A7872C06271E6E250028424B /* Constants.swift */,
 				A7872C53271F72B70028424B /* UserData.swift */,
+				A75180252731EEDA00E87FB1 /* Commons.swift */,
 			);
 			path = Spudy;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
+				A75180262731EEDA00E87FB1 /* Commons.swift in Sources */,
 				A7FCDA7627223D7F0052E44F /* EditClassesCollectionViewCell.swift in Sources */,
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
