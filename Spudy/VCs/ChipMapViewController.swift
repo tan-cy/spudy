@@ -72,9 +72,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 //    }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let location = view.annotation?.coordinate
-        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
-        chipMap.setRegion(region, animated: true)
+//        let location = view.annotation?.coordinate
+//        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
+//        chipMap.setRegion(region, animated: true)
+//        let username = view.annotation?.subtitle
+//        performSegue(withIdentifier: Constants., sender: <#T##Any?#>)
     }
     
     // MARK CURRENT USER LOCATION
