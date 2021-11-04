@@ -249,28 +249,27 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         }
         
         newClasses.forEach { newClass in
-            var users: [String] = []
-            self.classesRef.child(newClass).getData(completion: {error, snapshot in
-                guard error == nil else {
-                    return
-                }
+            self.classesRef.child(newClass).getData(completion: {_, snapshot in
                 
-                users = snapshot.value as? [String] ?? []
-                users.append("\(self.username)")
-                self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(users)
+                let value = snapshot.value as? NSDictionary
+                var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
+                
+                students.append(self.username)
+                self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }
         
         removedClasses.forEach { removeClass in
-            var users: [String] = []
             self.classesRef.child(removeClass).getData(completion: {error, snapshot in
                 guard error == nil else {
                     return
                 }
                 
-                users = snapshot.value as? [String] ?? []
-                users = users.filter() {$0 != removeClass}
-                self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(users)
+                let value = snapshot.value as? NSDictionary
+                var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
+                
+                students = students.filter() {$0 != self.username}
+                self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }
         
