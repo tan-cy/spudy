@@ -18,15 +18,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let textCellIdentifier = "TextCell"
     let friendsCellIdentifier = "FriendsCell"
     let studySpotSegueIdentifier = "studySpotSegueIdentifier"
-    var buildings:[building] = []
-    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        getData()
-        
+        getData(completion: {
+            
+            print("(DEBUG) Reloading Tables!")
+            self.allBuildingsTableView.reloadData()
+            self.yourFriendsAreHereCollectionView.reloadData()
+            self.popularSpotsCollectionView.reloadData()
+            
+        })
+                
         popularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
         
         yourFriendsAreHereCollectionView.register(YourFriendsAreHereCollectionViewCell.nib(), forCellWithReuseIdentifier: "YourFriendsAreHereCollectionViewCell")
@@ -48,51 +53,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.popularSpotsCollectionView.reloadData()
     }
     
-    func getData () {
-        
-        ref = Database.database().reference(withPath: "buildings")
-        ref.observe(.value, with: { snapshot in
-            
-            var newList:[building] = []
-            
-            for child in (snapshot.children) {
-                
-                let snap = child as! DataSnapshot
-                let dict = snap.value as! [String:Any]
-                
-                let name = dict["name"] as? String ?? "Unknown"
-                let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
-                var image:UIImage = UIImage(systemName: "questionmark")!
-                let photoURLString = dict ["image"] as? String ?? nil
-                
-                if photoURLString != nil {
-                    if let photoURL = URL(string: photoURLString!) {
-                        if let data = try? Data(contentsOf: photoURL) {
-                            image = UIImage(data: data) ?? UIImage(systemName: "questionmark")!
-                        }
-                    }
-                }
-                
-                
-                let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image)
-                newList.append(newBuilding)
-                
-                print("(DEBUG) Retrieved building: \(name)")
-                
-            }
-            
-            self.buildings = newList
-            
-            print("(DEBUG) Buildings retrieved!")
-        
-        })
-        
-        self.allBuildingsTableView.reloadData()
-        self.yourFriendsAreHereCollectionView.reloadData()
-        self.popularSpotsCollectionView.reloadData()
-        print("(DEBUG) Tables reloaded!")
-        
-    }
+    
     
     // Took the functions from class demo code library
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
