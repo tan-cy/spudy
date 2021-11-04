@@ -34,6 +34,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         getUsername()
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
+
+        getFriends()
+        setupLocationManager()
+        checkLocationServices()
+        showPeople()
     }
     
     
