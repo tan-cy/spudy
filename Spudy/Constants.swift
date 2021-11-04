@@ -23,7 +23,7 @@ struct Constants {
         static let email = "email"
         static let name = "name"
         static let classes = "classes"
-        static let classPath = "people_in_courses"
+        static let classesPath = "classes"
         static let contactInfo = "contactInfo"
         static let friends = "friends"
         static let gradYear = "gradYear"
@@ -32,6 +32,7 @@ struct Constants {
         static let major = "major"
         static let photo = "photo"
         static let profilePath = "profile"
+        static let students = "students"
     }
     
     struct CoreKeys {

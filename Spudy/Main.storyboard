@@ -1171,8 +1171,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6pw-PJ-NLz">
-                                <rect key="frame" x="20" y="126" width="275" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6pw-PJ-NLz">
+                                <rect key="frame" x="20" y="126" width="362" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="OtE-z4-g5m"/>
                                 </constraints>
@@ -1220,7 +1220,7 @@
                                 <rect key="frame" x="0.0" y="351.5" width="414" height="490.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="GHM-ce-RPC" style="IBUITableViewCellStyleDefault" id="zlC-Gc-hBQ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="peopleCellIdentifier" textLabel="GHM-ce-RPC" style="IBUITableViewCellStyleDefault" id="zlC-Gc-hBQ">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zlC-Gc-hBQ" id="r3c-Rd-gxe">
@@ -1288,6 +1288,7 @@
                         <outlet property="classesCollectionView" destination="4MH-Wg-jt8" id="FLg-KL-Ovx"/>
                         <outlet property="classesLabel" destination="Wf7-K4-Ahv" id="4a8-eE-t3s"/>
                         <outlet property="filterSegmentCtrl" destination="6pw-PJ-NLz" id="vgM-R3-7XD"/>
+                        <outlet property="peopleTableView" destination="FY5-vT-Guq" id="mz7-7G-TGy"/>
                         <outlet property="peopleToClassesConstraint" destination="ngg-BA-A2Q" id="l1g-RR-BSA"/>
                         <outlet property="peopleToSegmentCtrlConstraint" destination="LLD-Eu-gUs" id="vu0-Bm-0xI"/>
                     </connections>

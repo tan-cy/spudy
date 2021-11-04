@@ -32,7 +32,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         super.viewDidLoad()
         chipMap.isZoomEnabled = true
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
-        classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classPath)
+        classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
 
         getFriends()
         setupLocationManager()

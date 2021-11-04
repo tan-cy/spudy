@@ -9,8 +9,9 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import CoreData
+import MapKit
 
-class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
     var mapFilterDelegate: MapFilterSetter!
     @IBOutlet weak var filterSegmentCtrl: UISegmentedControl!
@@ -18,33 +19,49 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var classesLabel: UILabel!
     @IBOutlet weak var classesCollectionView: UICollectionView!
     
+    @IBOutlet weak var peopleTableView: UITableView!
+    
     @IBOutlet var peopleToClassesConstraint: NSLayoutConstraint!
     @IBOutlet var peopleToSegmentCtrlConstraint: NSLayoutConstraint!
     
-    let cellIdentifier = "currentClassesCellIdentifier"
+    let classesCellIdentifier = "currentClassesCellIdentifier"
+    let peopleCellIdentifier = "peopleCellIdentifier"
     var showPeopleFilter: String = "Friends"
+    
     var totalClasses: [String] = []
     var filterClasses: [String] = []
-    var ref: DatabaseReference!
+    var filterPeople: [String] = []
+    
+    var profileRef: DatabaseReference!
+    var classesRef: DatabaseReference!
+    
+    let processClassmates = DispatchSemaphore(value: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         classesCollectionView.delegate = self
         classesCollectionView.dataSource = self
+        peopleTableView.delegate = self
+        peopleTableView.dataSource = self
         
-        classesCollectionView.register(ClassesFilterCollectionViewCell.nib(), forCellWithReuseIdentifier: cellIdentifier)
+        classesCollectionView.register(ClassesFilterCollectionViewCell.nib(), forCellWithReuseIdentifier: classesCellIdentifier)
         
-        CURRENT_USER = "lilliantango"
+        classesRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
         
-        ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
-        ref.observe(.value, with: { snapshot in
+        profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+        profileRef.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: CURRENT_USER) as? NSDictionary
             
+            // get friends for initial view
+            // TODO: Change this once we implement Friends feature
+            self.filterPeople = user?["friends"] as? [String] ?? []
+            self.peopleTableView.reloadData()
+            
             //store file in database
-            let tempClasses = user?["classes"] as? [String] ?? []
+            let tempClasses = user?[Constants.DatabaseKeys.classes] as? [String] ?? []
             self.totalClasses.removeAll()
             self.totalClasses.append(contentsOf: tempClasses)
             
@@ -68,6 +85,9 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         }
         
         hideClassesSection()
+        filterPeopleList()
+        
+        peopleTableView.reloadData()
     }
     
     func hideClassesSection() {
@@ -86,12 +106,76 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
+    func filterPeopleList() {
+        if showPeopleFilter == "Friends" {
+            // TODO: Change once Friends feature implemented
+            filterPeople.removeAll()
+            filterFriends()
+            
+        } else if showPeopleFilter == "Classmates" {
+            // create a set to not allow duplicates
+            filterClassmates(classesToUse: filterClasses, completed: nil)
+
+        } else {
+            filterClassmates(classesToUse: totalClasses, completed: {
+                self.filterFriends()
+            })
+        }
+        
+        self.peopleTableView.reloadData()
+    }
+    
+    func filterFriends() {
+        self.profileRef.getData(completion: { _, snapshot in
+
+            var value = snapshot.value as? NSDictionary
+            value = value?.value(forKey: CURRENT_USER) as? NSDictionary
+
+            let friendValue = value?.value(forKey: "friends") as? [String]
+            var friends = Set<String>()
+            friends = friends.union(friendValue ?? [])
+            
+                self.filterPeople = Array(friends.union(self.filterPeople))
+                self.peopleTableView.reloadData()
+        })
+    }
+    
+    func filterClassmates(classesToUse: [String], completed: (() -> ())?)  {
+        var classmates: Set<String> = []
+        let group = DispatchGroup()
+        
+        classesToUse.forEach { removeClass in
+            group.enter()
+            
+            self.classesRef.child(removeClass).getData(completion: {_, snapshot in
+     
+                var value = snapshot.value as? NSDictionary
+                value = value?.value(forKey: removeClass) as? NSDictionary
+                
+                var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
+                students = students.filter() {$0 != CURRENT_USER}
+                
+                classmates = classmates.union(students)
+                group.leave()
+            })
+        
+        }
+        
+        group.notify(queue: .main) {
+            self.filterPeople = Array(classmates)
+            self.peopleTableView.reloadData()
+            
+            completed?()
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalClasses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: classesCellIdentifier, for: indexPath)
         let labeledCell = cell as! ClassesFilterCollectionViewCell
         labeledCell.setText(newText: totalClasses[indexPath.row])
         
@@ -113,7 +197,19 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             filterClasses = filterClasses.filter() {$0 != cell.getText()}
         }
         
-        print(filterClasses)
+        filterPeopleList()
+        print(filterPeople)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filterPeople.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = peopleTableView.dequeueReusableCell(withIdentifier: peopleCellIdentifier, for: indexPath)
+        
+        cell.textLabel?.text = filterPeople[indexPath.row]
+        return cell
     }
 
 }
