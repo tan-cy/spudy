@@ -203,6 +203,8 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 let newItemRef = self.profileRef.child(CURRENT_USER)
                 newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
                 newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
+            } else {
+                print("user not found")
             }
         }
     }
