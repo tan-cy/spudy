@@ -119,14 +119,7 @@ class SignUpViewController: UIViewController {
             } else {
                 Auth.auth().createUser(withEmail: email, password: password) { user, error in
                     if error == nil {
-                        let newItemRef = self.ref.child(username)
-                        newItemRef.child(Constants.DatabaseKeys.email).setValue(email)
-                        newItemRef.child(Constants.DatabaseKeys.name).setValue(name)
-                        newItemRef.child(Constants.DatabaseKeys.classes).setValue([])
-                        newItemRef.child(Constants.DatabaseKeys.contactInfo).setValue("")
-                        newItemRef.child(Constants.DatabaseKeys.gradYear).setValue("")
-                        newItemRef.child(Constants.DatabaseKeys.major).setValue("")
-                        newItemRef.child(Constants.DatabaseKeys.photo).setValue("")
+                        self.initializeUserData(username: username, email: email, name: name)
                         
                         Auth.auth().signIn(withEmail: self.emailTextField.text!,
                                            password: self.passwordTextField.text!)
@@ -137,5 +130,27 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func initializeUserData(username: String, email: String, name: String) {
+        let newItemRef = self.ref.child(username)
+        newItemRef.child(Constants.DatabaseKeys.email).setValue(email)
+        newItemRef.child(Constants.DatabaseKeys.name).setValue(name)
+        
+        // profile data
+        newItemRef.child(Constants.DatabaseKeys.classes).setValue([])
+        newItemRef.child(Constants.DatabaseKeys.contactInfo).setValue("")
+        newItemRef.child(Constants.DatabaseKeys.gradYear).setValue("")
+        newItemRef.child(Constants.DatabaseKeys.major).setValue("")
+        newItemRef.child(Constants.DatabaseKeys.photo).setValue("")
+        
+        // settings data
+        let settingsRef = newItemRef.child(Constants.DatabaseKeys.settings)
+        let settingsData: [String : Any] = [
+            Constants.DatabaseKeys.selfStudy: false,
+            Constants.DatabaseKeys.notificationSetting: Constants.LocationSettings.everyone.rawValue,
+            Constants.DatabaseKeys.locationSetting: Constants.LocationSettings.everyone.rawValue
+        ]
+        settingsRef.setValue(settingsData)
     }
 }
