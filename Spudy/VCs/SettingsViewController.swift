@@ -14,19 +14,16 @@ import CoreData
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var selfStudyModeSwitch: UISwitch!
-    var username = ""
     var selfStudy: Bool = false
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getUsername()
         
         ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         ref.observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: self.username) as? NSDictionary
+            let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
             let settings = user?[Constants.DatabaseKeys.settings] as? NSDictionary
             
@@ -35,28 +32,9 @@ class SettingsViewController: UIViewController {
         
     }
     
-    func getUsername() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.CoreKeys.userEntity)
-        // to store results of request
-        var fetchedResults:[NSManagedObject]? = nil
-        
-        do {
-            // get username of current person logged in
-            try fetchedResults = context.fetch(request) as? [NSManagedObject]
-            username = fetchedResults?[0].value(forKey: Constants.CoreKeys.username) as! String
-        } catch {
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            abort()
-        }
-    }
-    
     @IBAction func changeSelfStudyMode(_ sender: Any) {
         print(selfStudyModeSwitch.isOn)
-        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         
         newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudyModeSwitch.isOn)
     }
@@ -80,7 +58,7 @@ class SettingsViewController: UIViewController {
     }
     
     func submitNotifSettings(setting: Constants.NotificationSettings) {
-        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         newItemRef.child(Constants.DatabaseKeys.notificationSetting).setValue(setting.rawValue)
     }
     
@@ -103,7 +81,7 @@ class SettingsViewController: UIViewController {
     }
     
     func submitLocationSettings(setting: Constants.LocationSettings) {
-        let newItemRef = self.ref.child(username).child(Constants.DatabaseKeys.settings)
+        let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         newItemRef.child(Constants.DatabaseKeys.locationSetting).setValue(setting.rawValue)
     }
     
@@ -154,7 +132,7 @@ class SettingsViewController: UIViewController {
             } else {
                 // delete user was a success, so sign out user & remove from database
                 self.signUserOut()
-                self.ref.child("\(self.username)").removeValue()
+                self.ref.child("\(CURRENT_USERNAME)").removeValue()
             }
         }
     }

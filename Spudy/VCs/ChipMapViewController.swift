@@ -33,7 +33,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         chipMap.isZoomEnabled = true
         getUsername()
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
-        classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classPath)
+        classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
     }
     
     
