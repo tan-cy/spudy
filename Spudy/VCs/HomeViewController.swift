@@ -6,9 +6,8 @@
 //
 
 import UIKit
-
-
-public let buildings = ["Battle Hall", "Belo Center for New Media", "Biomedical Engineering Building", "Burdine Hall", "College of Business Administration Building", "Peter T. Flawn Academic Center", "Garrison Hall", "Norman Hackerman Building", "Perry–Castañeda Library", "Welch Hall", "Engineering Education and Research Center", "Gates Dell Complex", "Rowling", "William C Powers Student Activity Center"]
+import Firebase
+import FirebaseDatabase
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -21,8 +20,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let studySpotSegueIdentifier = "studySpotSegueIdentifier"
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
+        getData(completion: {
+            
+            print("(DEBUG) Reloading Tables!")
+            self.allBuildingsTableView.reloadData()
+            self.yourFriendsAreHereCollectionView.reloadData()
+            self.popularSpotsCollectionView.reloadData()
+            
+        })
+                
         popularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
         
         yourFriendsAreHereCollectionView.register(YourFriendsAreHereCollectionViewCell.nib(), forCellWithReuseIdentifier: "YourFriendsAreHereCollectionViewCell")
@@ -38,6 +47,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.allBuildingsTableView.reloadData()
+        self.yourFriendsAreHereCollectionView.reloadData()
+        self.popularSpotsCollectionView.reloadData()
+    }
+    
+    
+    
     // Took the functions from class demo code library
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return buildings.count
@@ -46,13 +63,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = allBuildingsTableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
         let row = indexPath.row
-        cell.textLabel?.text = buildings[row]
+        cell.textLabel?.text = buildings[row].name
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
         self.scrollToTop()
     }
     
@@ -71,7 +87,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == studySpotSegueIdentifier,
            let destination = segue.destination as? StudySpotViewController,
            let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row{
-            destination.building = buildings[buildingIndex]
+            destination.building = buildings[buildingIndex].name
         }
     }
 
@@ -96,12 +112,12 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if(collectionView == popularSpotsCollectionView) {
-            return 12
+            return buildings.count
         } else if (collectionView == yourFriendsAreHereCollectionView) {
-            return 8
+            return buildings.count
         }
         
-        return 4
+        return buildings.count
         
     }
     
@@ -111,7 +127,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCollectionViewCell", for: indexPath) as! MyCollectionViewCell
             
-            cell.configure(with: UIImage(named: "SAC")!)
+            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
             
             return cell
             
@@ -119,11 +135,27 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourFriendsAreHereCollectionViewCell", for: indexPath) as! YourFriendsAreHereCollectionViewCell
             
-            cell.configure(image: UIImage(named: "SAC")!)
+            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
             
             return cell
             
         }
+    }
+    
+}
+
+class building {
+    
+    var name:String
+    var xcoord:Float
+    var ycoord:Float
+    var image: UIImage
+    
+    init(n:String, x:Float, y:Float, i:UIImage) {
+        name = n
+        xcoord = x
+        ycoord = y
+        image = i
     }
     
 }

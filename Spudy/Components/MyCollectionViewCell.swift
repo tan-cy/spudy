@@ -14,7 +14,8 @@ class MyCollectionViewCell: UICollectionViewCell {
     var cornerRadius: CGFloat = 5.0
     
     @IBOutlet var imageView: UIImageView!
-
+    @IBOutlet weak var buildingNameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -25,8 +26,9 @@ class MyCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configure(with image: UIImage) {
+    public func configure(image: UIImage, name: String) {
         imageView.image =  image
+        buildingNameLabel.text = name
     }
     
     // tells collection view hey we have a cell use it
