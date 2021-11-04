@@ -9,9 +9,11 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class StudySpotViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    @IBOutlet weak var studySpotsTableView: UITableView!
+    @IBOutlet weak var studySpotsImage: UIImageView!
+    @IBOutlet weak var studySpotsCollectionView: UICollectionView!
+    @IBOutlet weak var buildingName: UILabel!
     
     var building = ""
     var ref: DatabaseReference!
@@ -19,32 +21,68 @@ class StudySpotViewController: UIViewController, UITableViewDelegate, UITableVie
     let textCellIdentifier = "TextCell"
     
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return studySpots.count
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = studySpotsTableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
-        let row = indexPath.row
-        cell.textLabel?.text = studySpots[row]
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: textCellIdentifier, for: indexPath) as! StudySpotsCollectionViewCell
+        
+        cell.label.text = studySpots[indexPath.row]
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 15
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        cell.layer.masksToBounds = false
+        
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.7
+        cell.layer.shadowOffset = CGSize(width:5, height:5)
+        cell.layer.shadowRadius = 4
         
         return cell
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let layout = UICollectionViewFlowLayout()
+        let containerWidth = studySpotsCollectionView.bounds.width
+        layout.itemSize = CGSize(width:containerWidth, height:70)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        studySpotsCollectionView.collectionViewLayout = layout
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        studySpotsTableView.delegate = self
-        studySpotsTableView.dataSource = self
-
+        studySpotsCollectionView.delegate = self
+        studySpotsCollectionView.dataSource = self
+        
         // Do any additional setup after loading the view.
-        ref = Database.database().reference(withPath: "\(building)")
-        print(building)
+        buildingName.text = building
+        ref = Database.database().reference(withPath: "buildings")
         
         ref.observe(.value, with: {snapshot in
             let value = snapshot.value as? NSDictionary
-            self.studySpots = value?.value(forKey: "studyspots") as? [String] ?? []
-            self.studySpotsTableView.reloadData()
+            let buildingDB = value?.value(forKey: "\(self.building)") as? NSDictionary
+            self.studySpots = buildingDB?["studyspots"] as? [String] ?? []
+            
+            let imageURLString = buildingDB?["image"] as? String ?? nil
+                if imageURLString != nil {
+                    if let imageURL = URL(string: imageURLString!) {
+                        if let data = try? Data(contentsOf: imageURL) {
+                            self.studySpotsImage.image = UIImage(data: data)
+                        }
+                    }
+                }
+
+            
+            self.studySpotsCollectionView.reloadData()
         }
         )
         

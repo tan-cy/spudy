@@ -14,6 +14,8 @@
 		46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D327163B0E00115504 /* LoginViewController.swift */; };
 		46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D527163B2500115504 /* SignUpViewController.swift */; };
 		46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BAF6D727163B3700115504 /* ProfileViewController.swift */; };
+		8E4A746D272B5A60009B9535 /* StudySpotsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A746C272B5A60009B9535 /* StudySpotsCollectionViewCell.swift */; };
+		8E6F42C12731F87E000069ED /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F42C02731F87E000069ED /* ReviewCollectionViewCell.swift */; };
 		8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */; };
 		8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */; };
 		8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B327163B3700120DDA /* SettingsViewController.swift */; };
@@ -52,6 +54,8 @@
 		46BAF6D727163B3700115504 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5EBE809D50A3D80987171000 /* Pods_Spudy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spudy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F573926162E232EC162098 /* Pods-Spudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.debug.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.debug.xcconfig"; sourceTree = "<group>"; };
+		8E4A746C272B5A60009B9535 /* StudySpotsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySpotsCollectionViewCell.swift; sourceTree = "<group>"; };
+		8E6F42C02731F87E000069ED /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		8EA3F1AF27163AFA00120DDA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B127163B1E00120DDA /* ChipMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipMapViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B327163B3700120DDA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				8EA3F1B327163B3700120DDA /* SettingsViewController.swift */,
 				8EA3F1B527163B5000120DDA /* FriendsViewController.swift */,
 				8EA3F1B727163B5E00120DDA /* StudySpotViewController.swift */,
+				8E4A746C272B5A60009B9535 /* StudySpotsCollectionViewCell.swift */,
+				8E6F42C02731F87E000069ED /* ReviewCollectionViewCell.swift */,
 				46BAF6D327163B0E00115504 /* LoginViewController.swift */,
 				46BAF6D527163B2500115504 /* SignUpViewController.swift */,
 				46BAF6D727163B3700115504 /* ProfileViewController.swift */,
@@ -321,6 +327,7 @@
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */,
 				A734D881271636AD00D660C8 /* AppDelegate.swift in Sources */,
+				8E6F42C12731F87E000069ED /* ReviewCollectionViewCell.swift in Sources */,
 				A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */,
 				A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */,
 				8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */,
@@ -332,6 +339,7 @@
 				A78430F927163B3000803E9B /* HomeViewController.swift in Sources */,
 				46BAF6D827163B3700115504 /* ProfileViewController.swift in Sources */,
 				A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */,
+				8E4A746D272B5A60009B9535 /* StudySpotsCollectionViewCell.swift in Sources */,
 				A76850122722748500FF58DE /* MyCollectionViewCell.swift in Sources */,
 				A7872C07271E6E250028424B /* Constants.swift in Sources */,
 				A78DC62E27303F1600093B9C /* ChipMapFiltersViewController.swift in Sources */,
