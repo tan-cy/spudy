@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461227462718EC140052DDCF /* GoogleService-Info.plist */; };
+		462890322731F51B00685E11 /* ClassesFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */; };
+		462890332731F51B00685E11 /* ClassesFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */; };
 		46B575512722762A00F527E4 /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B575502722762A00F527E4 /* MyCollectionViewCell.xib */; };
 		46B57553272276D700F527E4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B57552272276D700F527E4 /* TabBarViewController.swift */; };
 		46B57557272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B57556272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		461227462718EC140052DDCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassesFilterCollectionViewCell.xib; sourceTree = "<group>"; };
 		46B575502722762A00F527E4 /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
 		46B57552272276D700F527E4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		46B57556272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourFriendsAreHereCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */,
 				46B575502722762A00F527E4 /* MyCollectionViewCell.xib */,
 				A78DC62F27306A4300093B9C /* UserMKAnnotation.swift */,
+				462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */,
+				462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 				46B575512722762A00F527E4 /* MyCollectionViewCell.xib in Resources */,
 				46B57557272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib in Resources */,
 				461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */,
+				462890332731F51B00685E11 /* ClassesFilterCollectionViewCell.xib in Resources */,
 				A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */,
 				A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */,
 			);
@@ -329,6 +336,7 @@
 				A734D881271636AD00D660C8 /* AppDelegate.swift in Sources */,
 				8E6F42C12731F87E000069ED /* ReviewCollectionViewCell.swift in Sources */,
 				A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */,
+				462890322731F51B00685E11 /* ClassesFilterCollectionViewCell.swift in Sources */,
 				A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */,
 				8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */,
 				8EA3F1B027163AFB00120DDA /* EditProfileViewController.swift in Sources */,
