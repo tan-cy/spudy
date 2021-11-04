@@ -23,15 +23,20 @@ struct Constants {
         static let email = "email"
         static let name = "name"
         static let classes = "classes"
-        static let classPath = "classes"
+        static let classesPath = "classes"
         static let contactInfo = "contactInfo"
         static let friends = "friends"
         static let gradYear = "gradYear"
         static let latitude = "latitude"
         static let longitude = "longitude"
+        static let locationSetting = "locationSetting"
         static let major = "major"
+        static let notificationSetting = "notificationSetting"
         static let photo = "photo"
         static let profilePath = "profile"
+        static let selfStudy = "selfStudy"
+        static let settings = "settings"
+        static let students = "students"
     }
     
     struct CoreKeys {
@@ -76,6 +81,14 @@ struct Constants {
         static let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
         static let regexFormat = "SELF MATCHES %@"
         static let usernameRegEx = "[A-Z0-9a-z.-_]+"
+    }
+    
+    enum NotificationSettings: String {
+        case all, friends, none
+    }
+    
+    enum LocationSettings: String {
+        case everyone, friends, none
     }
     
 }
