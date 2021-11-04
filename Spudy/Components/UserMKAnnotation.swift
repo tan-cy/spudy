@@ -14,8 +14,9 @@ class UserMKAnnotation: NSObject, MKAnnotation {
     let subtitle: String?
     var coordinate: CLLocationCoordinate2D
     var image: UIImage?
+    var color: UIColor
     
-    init(name: String, username: String, coord: CLLocationCoordinate2D, photoURLString: String?) {
+    init(name: String, username: String, coord: CLLocationCoordinate2D, photoURLString: String?, pinColor: UIColor) {
         title = name
         subtitle = username
         coordinate = coord
@@ -27,5 +28,7 @@ class UserMKAnnotation: NSObject, MKAnnotation {
                 }
             }
         }
+        
+        color = pinColor
     }
 }

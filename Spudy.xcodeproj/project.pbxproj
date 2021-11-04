@@ -25,6 +25,7 @@
 		A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */; };
 		A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A734D88C271636AE00D660C8 /* Assets.xcassets */; };
 		A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */; };
+		A7507AE227345304003B6938 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7507AE127345304003B6938 /* MapKit.framework */; };
 		A75180262731EEDA00E87FB1 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75180252731EEDA00E87FB1 /* Commons.swift */; };
 		A751802C2731F31700E87FB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A751802B2731F31700E87FB1 /* Main.storyboard */; };
 		A76850102722746400FF58DE /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768500F2722746400FF58DE /* CollectionViewController.swift */; };
@@ -63,6 +64,7 @@
 		A734D88C271636AE00D660C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A734D88F271636AE00D660C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A734D891271636AE00D660C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7507AE127345304003B6938 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A75180252731EEDA00E87FB1 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		A751802B2731F31700E87FB1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = SOURCE_ROOT; };
 		A768500F2722746400FF58DE /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7507AE227345304003B6938 /* MapKit.framework in Frameworks */,
 				A40FD50BE337D6942F0ED55E /* Pods_Spudy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +99,7 @@
 		2C74BDB5E14B4BEA0221E1B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7507AE127345304003B6938 /* MapKit.framework */,
 				5EBE809D50A3D80987171000 /* Pods_Spudy.framework */,
 			);
 			name = Frameworks;

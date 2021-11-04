@@ -37,28 +37,24 @@ class LoginViewController: UIViewController {
               let ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
               ref.observe(.value) { snapshot in
                   let values = snapshot.value as? NSDictionary
+                  // fetch current users
                   for username in values!.allKeys {
                       let userInfo = values?.value(forKey: username as! String) as? NSDictionary
                       if (userInfo!.value(forKey: Constants.DatabaseKeys.email) as? String == user?.email) {
 
-                          // fetch current users
-                          let fetchedResults = self.retrieveCurrentUser()
-
-                          // if no user exists
-                          if (fetchedResults.isEmpty) {
-                              let newSignedIn = NSEntityDescription.insertNewObject(forEntityName: Constants.CoreKeys.userEntity, into: Constants.context)
-                              newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
-                          } else {
-                              // store into core data
-                              fetchedResults[0].setValue(username, forKey: Constants.CoreKeys.username)
-                          }
-
+                          // store into core data
+                          let newSignedIn = NSEntityDescription.insertNewObject(forEntityName: Constants.CoreKeys.userEntity, into: Constants.context)
+                          newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
+                          
+                          CURRENT_USERNAME = username as! String
+                          print("current user is " + CURRENT_USERNAME)
+                          
                           do {
                               try Constants.context.save()
-                              getUsername()
                           } catch {
                               print("Error saving username into CoreData")
                           }
+                          break;
                       }
                   }
               }

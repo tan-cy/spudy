@@ -25,24 +25,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     let cellIdentifier = "currentClassesCellIdentifier"
     var currClasses: [String] = []
     var ref: DatabaseReference!
+    var userToGet: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
         
         // Do any additional setup after loading the view.
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
-        usernameLabel.text = "@\(CURRENT_USERNAME)"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        usernameLabel.text = "@\(userToGet!)"
         
         // get the user's profile info
         ref = Database.database().reference(withPath: "profile")
         ref.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
+            let user = value?.value(forKey: self.userToGet!) as? NSDictionary
             
             // get profile photo
             let photoURLString = user?["photo"] as? String ?? nil
@@ -67,13 +70,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.currentClassesCollectionView.reloadData()
         })
         
-        // TODO if this profile is yours, hide add friend button
-//        if username == self.username {
-//            addFriendButton.isHidden = true
-//        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        if CURRENT_USERNAME == self.userToGet {
+            addFriendButton.isHidden = true
+        }
         self.currentClassesCollectionView.reloadData()
     }
     

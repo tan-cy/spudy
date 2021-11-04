@@ -34,24 +34,27 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         getUsername()
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classPath)
-        
-        getFriends()
-        setupLocationManager()
-        checkLocationServices()
-        showPeople()
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         // Set location to UT
         let initialLocation = CLLocation(latitude: 30.285607, longitude: -97.738202)
         chipMap.centerToLocation(initialLocation)
         chipMap.delegate = self
+        
+        setupLocationManager()
+        checkLocationServices()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == Constants.Segues.filterSegueIdentifier) {
-            let destination = segue.destination as! ChipMapFiltersViewController
+        if segue.identifier == Constants.Segues.filterSegueIdentifier,
+            let destination = segue.destination as? ChipMapFiltersViewController {
             destination.mapFilterDelegate = self
+        } else if segue.identifier == Constants.Segues.chipSegueIdentifier,
+            let destination = segue.destination as? ProfileViewController,
+            let annotation = sender as? UserMKAnnotation {
+            destination.userToGet = annotation.subtitle!
         }
     }
     
@@ -73,12 +76,17 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 //    }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        let location = view.annotation?.coordinate
-//        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
-//        chipMap.setRegion(region, animated: true)
-//        let username = view.annotation?.subtitle
-//        performSegue(withIdentifier: Constants., sender: <#T##Any?#>)
+        let location = view.annotation?.coordinate
+        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
+        chipMap.setRegion(region, animated: true)
+        let annotation = (view.annotation as? UserMKAnnotation)
+        if let selectedUsername = annotation?.subtitle,
+            selectedUsername != CURRENT_USERNAME {
+//            print(selectedUsername)
+            performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
+        }
     }
+    
     
     // MARK CURRENT USER LOCATION
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -91,20 +99,30 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
    
     func checkLocationAuthorization() {
+        let controller = UIAlertController(
+            title: "Cannot determine location",
+            message: "There was an issue locating you" ,
+            preferredStyle: .alert)
+        controller.addAction(UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil))
+        
         switch locationManager.authorizationStatus {
-        case .authorized:
+        case .authorizedWhenInUse, .authorized, .authorizedAlways:
             chipMap.showsUserLocation = true
             locationManager.startUpdatingLocation()
+            getFriends()
+            showPeople()
             break
         case .denied:
-            // TODO Show alert
+            controller.message = "Location services must be turned on to see other users"
+            present(controller, animated: true, completion: nil)
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            // TODO Show alert
-            break
-        case .authorizedAlways:
+            present(controller, animated: true, completion: nil)
             break
         default:
             fatalError()
@@ -115,8 +133,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
             checkLocationAuthorization()
-        } else {
-            // the user didn't turn it on
         }
     }
     
@@ -141,7 +157,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     // MARK Map Annotations
     
-    func setUserAnnotation(username: String, person: NSDictionary?) {
+    func setUserAnnotation(username: String, person: NSDictionary?, pinColor: UIColor) {
         let lat = person?[Constants.DatabaseKeys.latitude] as? Double ?? nil
         let long = person?[Constants.DatabaseKeys.longitude] as? Double ?? nil
         // add person to map
@@ -149,7 +165,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             let name = person?[Constants.DatabaseKeys.name] as! String
             let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
             let photoURLString = person?[Constants.DatabaseKeys.photo] as? String
-            let annotation = UserMKAnnotation(name: name, username: username, coord: coordinate, photoURLString: photoURLString)
+            let annotation = UserMKAnnotation(name: name, username: username, coord: coordinate, photoURLString: photoURLString, pinColor: pinColor)
             chipMap.addAnnotation(annotation)
         }
     }
@@ -157,10 +173,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func showFriends(people: NSDictionary) {
         // TODO REMOVE WHEN FRIENDS IMPLEMENTED
         friends = (people.allKeys as! [String])
-        
+        friends.removeAll { $0 == CURRENT_USERNAME }
+        // show all friends
         friends.forEach() { friend in
             let personDetails = people.value(forKey: friend) as? NSDictionary
-            setUserAnnotation(username: friend, person: personDetails)
+            setUserAnnotation(username: friend, person: personDetails, pinColor: UIColor.red)
         }
     }
     
@@ -178,7 +195,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         peopleInCourse.forEach() { classmate in
             if (!friends.contains(classmate)) {
                 let personDetails = people.value(forKey: classmate) as? NSDictionary
-                setUserAnnotation(username: classmate, person: personDetails)
+                setUserAnnotation(username: classmate, person: personDetails, pinColor: UIColor.cyan)
             }
         }
     }

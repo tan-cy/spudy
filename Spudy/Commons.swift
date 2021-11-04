@@ -23,7 +23,8 @@ internal func getUsername() {
     do {
         // get username of current person logged in
         try fetchedResults = context.fetch(request) as? [NSManagedObject]
-        CURRENT_USERNAME = fetchedResults?[0].value(forKey: "username") as! String
+        CURRENT_USERNAME = (fetchedResults != []) ? fetchedResults?[0].value(forKey: "username") as! String : ""
+        print("current user is " + CURRENT_USERNAME)
     } catch {
         let nserror = error as NSError
         NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
