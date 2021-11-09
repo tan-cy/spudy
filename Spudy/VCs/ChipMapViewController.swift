@@ -100,6 +100,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let userLatitude = location.coordinate.latitude
         let userLongitude = location.coordinate.longitude
         
+        print("calling save user")
         saveUserLocationToFirebase(longitude: userLongitude, latitude: userLatitude)
     }
    
@@ -224,14 +225,12 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func saveUserLocationToFirebase(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
-        profileRef.observe(.value) { snapshot in
-            if (CURRENT_USERNAME != "") {
-                let newItemRef = self.profileRef.child(CURRENT_USERNAME)
-                newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
-                newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
-            } else {
-                print("user not found")
-            }
+        if (CURRENT_USERNAME != "") {
+            let newItemRef = self.profileRef.child(CURRENT_USERNAME)
+            newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
+            newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
+        } else {
+            print("user not found")
         }
     }
     
