@@ -22,15 +22,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        getData(completion: {
-            
-            print("(DEBUG) Reloading Tables!")
-            self.allBuildingsTableView.reloadData()
-            self.yourFriendsAreHereCollectionView.reloadData()
-            self.popularSpotsCollectionView.reloadData()
-            
-        })
                 
         popularSpotsCollectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: "MyCollectionViewCell")
         

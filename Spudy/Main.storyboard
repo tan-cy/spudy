@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -131,7 +131,7 @@
                         <outlet property="nameTextField" destination="sWT-S6-7nO" id="0ia-1r-vAg"/>
                         <outlet property="passwordTextField" destination="HUa-cj-7kW" id="wig-Op-Qe1"/>
                         <outlet property="usernameTextField" destination="vVC-4k-KYS" id="btR-EE-GU0"/>
-                        <segue destination="hdf-br-uec" kind="presentation" identifier="SignUpSegueIdentifier" modalPresentationStyle="fullScreen" id="m0E-r2-baX"/>
+                        <segue destination="CQL-5D-b7b" kind="presentation" identifier="SignUpSegueIdentifier" id="1IJ-F4-9cG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSc-1Y-1CR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -367,7 +367,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="D9n-ol-EpQ" id="Be7-dQ-tJ8"/>
                         <outlet property="passwordTextField" destination="gIi-52-erh" id="pPP-Qz-BQi"/>
-                        <segue destination="hdf-br-uec" kind="presentation" identifier="LoginSegueIdentifier" modalPresentationStyle="fullScreen" id="Dlr-Av-dgM"/>
+                        <segue destination="CQL-5D-b7b" kind="presentation" identifier="LoginSegueIdentifier" modalPresentationStyle="fullScreen" id="ozV-2U-zGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8J-Wv-lsm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -840,6 +840,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="js1-pj-gH7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2714" y="-370"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="UyQ-nE-84o">
+            <objects>
+                <viewController id="CQL-5D-b7b" customClass="LoadingViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BG8-mc-dAb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fX8-1M-eXA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <segue destination="hdf-br-uec" kind="presentation" identifier="LoadingSegueIdentifier" modalPresentationStyle="fullScreen" id="BNc-VL-Tpk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RMX-73-fsD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1978" y="-1602"/>
         </scene>
         <!--Home-->
         <scene sceneID="PS7-61-R4M">
@@ -1401,11 +1419,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DL1-PX-dik"/>
         <segue reference="uSh-r2-IEh"/>
         <segue reference="BOj-Y5-iGa"/>
+        <segue reference="ozV-2U-zGc"/>
         <segue reference="ONz-UM-rDC"/>
-        <segue reference="Dlr-Av-dgM"/>
         <segue reference="ERw-zc-w9P"/>
     </inferredMetricsTieBreakers>
     <resources>
