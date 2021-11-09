@@ -8,7 +8,9 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseStorage
 import CoreData
+import AVFoundation
 
 class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -30,11 +32,15 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     var profileRef: DatabaseReference!
     var classesRef: DatabaseReference!
     
+    let imagePicker = UIImagePickerController()
+    var changedPhoto = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         currentClassesCollectionView.delegate = self
         currentClassesCollectionView.dataSource = self
+        imagePicker.delegate = self
         
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
@@ -56,13 +62,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
             // get profile photo
-            self.photoURLString = user?[Constants.DatabaseKeys.photo] as? String ?? nil
-            if self.photoURLString != nil && self.photoURLString!.count != 0 {
-                if let photoURL = URL(string: self.photoURLString!) {
-                    if let data = try? Data(contentsOf: photoURL) {
-                        self.profileImage.image = UIImage(data: data)
-                    }
-                }
+            let urlString = user?[Constants.DatabaseKeys.photo] as? NSString
+            if urlString != nil && urlString!.length != 0,
+                let photoURL = URL(string: urlString! as String),
+                let data = try? Data(contentsOf: photoURL) {
+                    self.profileImage.image = UIImage(data: data)
+            } else {
+                self.profileImage.image = UIImage(systemName: "person.circle.fill")
             }
             
             //store file in database
@@ -144,12 +150,54 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     }
     
     @IBAction func editPhotoButtonPressed(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
+        // show actionsheet allowing user to choose between uploading a photo or taking a photo
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
+            self.takePhotoPressed()
+        })
+        alert.addAction(UIAlertAction(title: "Upload Photo", style: .default) { _ in
+            self.uploadPhotoPressed()
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func takePhotoPressed() {
+        if UIImagePickerController.availableCaptureModes(for: .rear) != nil  {
+            
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) {
+                    accessGranted in
+                    guard accessGranted == true else { return }
+                }
+            case .authorized:
+                break
+            default:
+                let alert = UIAlertController(title: "Please Grant Access", message: "Our app currently does not have permission to use your camera.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .camera
+            imagePicker.cameraCaptureMode = .photo
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Camera Not Found", message: "Our app could not find a camera on your device.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func uploadPhotoPressed() {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -157,9 +205,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        print("selected")
+        let image = info[.originalImage] as! UIImage
         profileImage.image = image
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.changedPhoto = true
+        })
     }
     
     @IBAction func addClassButtonPressed(_ sender: Any) {
@@ -199,12 +251,16 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         }
         
         let newItemRef = self.profileRef.child(CURRENT_USERNAME) // replace with username
-        newItemRef.child("photo").setValue(photoURLString ?? "")
+//        newItemRef.child("photo").setValue(profileImage.image ?? nil)
         newItemRef.child("name").setValue(nameTextField.text ?? "Unknown")
         newItemRef.child("major").setValue(majorTextField.text ?? "Unknown")
         newItemRef.child("gradYear").setValue(gradYearTextField.text ?? "Unknown")
         newItemRef.child("classes").setValue(currClasses)
         newItemRef.child("contactInfo").setValue(contactInfoTextField.text ?? "")
+        
+        if self.changedPhoto {
+            saveProfilePhotoData()
+        }
 
         // reset
         toDeleteClassesIndices.removeAll()
@@ -249,6 +305,46 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 
                 students = students.filter() {$0 != self.username}
                 self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(students)
+            })
+        }
+        
+    }
+    
+    func saveProfilePhotoData() {
+        guard let image = profileImage.image, let data = image.jpegData(compressionQuality: 0.3) else {
+            // alert something went wrong
+            return
+        }
+        
+        let md = StorageMetadata()
+        md.contentType = "image/png"
+        
+        let imageName = UUID().uuidString
+        let imageReference = Storage.storage().reference().child("profileImages").child(CURRENT_USERNAME).child(imageName)
+        
+        imageReference.putData(data, metadata: md) {
+            (metadata, error) in
+            
+            // upload didn't work? show error
+            if let error = error {
+                let alert = UIAlertController(title: "Error Uploading Image", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            // need to save url now
+            imageReference.downloadURL(completion: {
+                (url, _) in
+                
+                guard let url = url else {
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                
+                self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.photo).setValue(urlString)
             })
         }
         

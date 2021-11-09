@@ -1401,7 +1401,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DL1-PX-dik"/>
         <segue reference="uSh-r2-IEh"/>
         <segue reference="BOj-Y5-iGa"/>
         <segue reference="ONz-UM-rDC"/>

@@ -49,12 +49,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             // get profile photo
             let photoURLString = user?["photo"] as? String ?? nil
-            if photoURLString != nil {
-                if let photoURL = URL(string: photoURLString!) {
-                    if let data = try? Data(contentsOf: photoURL) {
-                        self.profileImage.image = UIImage(data: data)
-                    }
-                }
+            if photoURLString != nil,
+                let photoURL = URL(string: photoURLString!),
+                let data = try? Data(contentsOf: photoURL) {
+                    self.profileImage.image = UIImage(data: data)
+            } else {
+                self.profileImage.image = UIImage(systemName: "person.circle.fill")
             }
 
             self.nameLabel.text = user?["name"] as? String ?? "Unknown"

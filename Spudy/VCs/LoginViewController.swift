@@ -47,7 +47,6 @@ class LoginViewController: UIViewController {
                           newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
                           
                           CURRENT_USERNAME = username as! String
-                          print("current user is " + CURRENT_USERNAME)
                           
                           // fetch current users
                           let fetchedResults = self.retrieveCurrentUser()
