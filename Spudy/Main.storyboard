@@ -1266,6 +1266,9 @@
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKJ-U6-hpy">
                                 <rect key="frame" x="761" y="47" width="51" height="31"/>
+                                <connections>
+                                    <action selector="changeSelfStudyMode:" destination="Qah-Tt-rvu" eventType="valueChanged" id="nPc-gb-Zty"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chip Filters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86L-pz-HuT">
                                 <rect key="frame" x="20" y="87" width="107" height="24"/>
@@ -1393,6 +1396,7 @@
                         <outlet property="peopleTableView" destination="E35-S8-mTp" id="dF6-2g-P4Z"/>
                         <outlet property="peopleToClassesConstraint" destination="cHB-90-bnF" id="CEl-bp-Cgc"/>
                         <outlet property="peopleToSegmentCtrlConstraint" destination="ynr-nO-D2u" id="caf-su-IfF"/>
+                        <outlet property="selfStudySwitch" destination="HKJ-U6-hpy" id="FbK-F0-xbe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vo9-1b-8Ix" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1401,7 +1405,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DL1-PX-dik"/>
         <segue reference="uSh-r2-IEh"/>
         <segue reference="BOj-Y5-iGa"/>
         <segue reference="ONz-UM-rDC"/>
