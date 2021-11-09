@@ -20,7 +20,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     @IBOutlet weak var currentClassesCollectionView: UICollectionView!
     
     let cellIdentifier = "editCurrClassesCellIdentiifer"
-    var username = ""
     var photoURLString:String?
     
     var currClasses:[String] = []
@@ -233,7 +232,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 let value = snapshot.value as? NSDictionary
                 var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
                 
-                students.append(self.username)
+                students.append(CURRENT_USERNAME)
                 self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }
@@ -247,7 +246,7 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 let value = snapshot.value as? NSDictionary
                 var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
                 
-                students = students.filter() {$0 != self.username}
+                students = students.filter() {$0 != CURRENT_USERNAME}
                 self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }
