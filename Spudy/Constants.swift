@@ -17,6 +17,7 @@ struct Constants {
         static let logoutSegueIdentifier = "LogoutSegueIdentifier"
         static let signupSegueIdentifier = "SignUpSegueIdentifier"
         static let chipSegueIdentifier = "ChipSegueIdentifier"
+        static let loadingSegueIdentifier = "LoadingSegueIdentifier"
     }
     
     struct DatabaseKeys {

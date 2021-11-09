@@ -12,7 +12,10 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        getData {
+            self.performSegue(withIdentifier: Constants.Segues.loadingSegueIdentifier, sender: nil)
+        }
+
     }
     
 

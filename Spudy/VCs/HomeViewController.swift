@@ -78,7 +78,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == studySpotSegueIdentifier,
            let destination = segue.destination as? StudySpotViewController,
            let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row{
-            destination.building = buildings[buildingIndex].name
+//            destination.building = buildings[buildingIndex].name
+            destination.index = buildingIndex
         }
     }
 
@@ -141,12 +142,14 @@ class building {
     var xcoord:Float
     var ycoord:Float
     var image: UIImage
+    var studyspots: [String]
     
-    init(n:String, x:Float, y:Float, i:UIImage) {
+    init(n:String, x:Float, y:Float, i:UIImage, ss:[String]) {
         name = n
         xcoord = x
         ycoord = y
         image = i
+        studyspots = ss
     }
     
 }

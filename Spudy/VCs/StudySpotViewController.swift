@@ -16,6 +16,7 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var buildingName: UILabel!
     
     var building = ""
+    var index = 0
     var ref: DatabaseReference!
     var studySpots: [String] = []
     let textCellIdentifier = "TextCell"
@@ -64,27 +65,12 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         studySpotsCollectionView.dataSource = self
         
         // Do any additional setup after loading the view.
-        buildingName.text = building
-        ref = Database.database().reference(withPath: "buildings")
+        buildingName.text = buildings[index].name
+        self.studySpotsImage.image = buildings[index].image
+        self.studySpots = buildings[index].studyspots
+        self.studySpotsCollectionView.reloadData()
         
-        ref.observe(.value, with: {snapshot in
-            let value = snapshot.value as? NSDictionary
-            let buildingDB = value?.value(forKey: "\(self.building)") as? NSDictionary
-            self.studySpots = buildingDB?["studyspots"] as? [String] ?? []
-            
-            let imageURLString = buildingDB?["image"] as? String ?? nil
-                if imageURLString != nil {
-                    if let imageURL = URL(string: imageURLString!) {
-                        if let data = try? Data(contentsOf: imageURL) {
-                            self.studySpotsImage.image = UIImage(data: data)
-                        }
-                    }
-                }
-
-            
-            self.studySpotsCollectionView.reloadData()
-        }
-        )
+        
         
     }
     

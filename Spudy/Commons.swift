@@ -13,6 +13,7 @@ import CoreData
 
 var CURRENT_USERNAME = ""
 var buildings:[building] = []
+
 internal func getUsername() {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let context = appDelegate.persistentContainer.viewContext
@@ -50,6 +51,7 @@ internal func getData (completion:(() -> ())?) {
             let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
             var image:UIImage = UIImage(systemName: "questionmark")!
             let photoURLString = dict ["image"] as? String ?? nil
+            let studySpots = dict["studyspots"] as? [String] ?? []
             
             if photoURLString != nil {
                 if let photoURL = URL(string: photoURLString!) {
@@ -60,7 +62,7 @@ internal func getData (completion:(() -> ())?) {
             }
             
             
-            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image)
+            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studySpots)
             newList.append(newBuilding)
             
             print("(DEBUG) Retrieved building: \(name)")
