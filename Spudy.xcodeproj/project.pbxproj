@@ -10,6 +10,8 @@
 		461227472718EC140052DDCF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461227462718EC140052DDCF /* GoogleService-Info.plist */; };
 		462890322731F51B00685E11 /* ClassesFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */; };
 		462890332731F51B00685E11 /* ClassesFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */; };
+		462A5DDE273B33C0001DAE5E /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462A5DDC273B33C0001DAE5E /* FriendsTableViewCell.swift */; };
+		4644E2A9273CF33300B0C9F7 /* MapPeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4644E2A8273CF33300B0C9F7 /* MapPeopleTableViewCell.swift */; };
 		46B575512722762A00F527E4 /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B575502722762A00F527E4 /* MyCollectionViewCell.xib */; };
 		46B57553272276D700F527E4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B57552272276D700F527E4 /* TabBarViewController.swift */; };
 		46B57557272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B57556272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib */; };
@@ -50,6 +52,8 @@
 		461227462718EC140052DDCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassesFilterCollectionViewCell.xib; sourceTree = "<group>"; };
+		462A5DDC273B33C0001DAE5E /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		4644E2A8273CF33300B0C9F7 /* MapPeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPeopleTableViewCell.swift; sourceTree = "<group>"; };
 		46B575502722762A00F527E4 /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
 		46B57552272276D700F527E4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		46B57556272277B000F527E4 /* YourFriendsAreHereCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourFriendsAreHereCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -185,8 +189,10 @@
 				A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */,
 				46B575502722762A00F527E4 /* MyCollectionViewCell.xib */,
 				A78DC62F27306A4300093B9C /* UserMKAnnotation.swift */,
+				4644E2A8273CF33300B0C9F7 /* MapPeopleTableViewCell.swift */,
 				462890302731F51B00685E11 /* ClassesFilterCollectionViewCell.swift */,
 				462890312731F51B00685E11 /* ClassesFilterCollectionViewCell.xib */,
+				462A5DDC273B33C0001DAE5E /* FriendsTableViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -322,9 +328,11 @@
 				A76850102722746400FF58DE /* CollectionViewController.swift in Sources */,
 				A7FCDA7227223D740052E44F /* AddClassCollectionReusableView.swift in Sources */,
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
+				462A5DDE273B33C0001DAE5E /* FriendsTableViewCell.swift in Sources */,
 				A78DC63027306A4300093B9C /* UserMKAnnotation.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46B57553272276D700F527E4 /* TabBarViewController.swift in Sources */,
+				4644E2A9273CF33300B0C9F7 /* MapPeopleTableViewCell.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A7872C54271F72B70028424B /* UserData.swift in Sources */,
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,

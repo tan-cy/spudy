@@ -232,7 +232,12 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 let value = snapshot.value as? NSDictionary
                 var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
                 
+                print(students)
+                
                 students.append(CURRENT_USERNAME)
+                
+                print(students)
+                
                 self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }

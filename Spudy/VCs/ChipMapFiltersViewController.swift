@@ -26,11 +26,14 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     
     let classesCellIdentifier = "currentClassesCellIdentifier"
     let peopleCellIdentifier = "peopleCellIdentifier"
+    let segueIdentifier = "filterPeopleSegueIdentifier"
     var showPeopleFilter: String = "Friends"
     
     var totalClasses: [String] = []
     var filterClasses: [String] = []
-    var filterPeople: [String] = []
+    var filterPeopleKeys: [String] = []
+    var filterPeopleSortedKeys: [String] = []
+    var filterPeopleDict: [String: Any] = [:]
     
     var profileRef: DatabaseReference!
     var classesRef: DatabaseReference!
@@ -55,9 +58,14 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
+            print("USER DATA \(user)")
+            
             // get friends for initial view
             // TODO: Change this once we implement Friends feature
-            self.filterPeople = user?["friends"] as? [String] ?? []
+            self.filterPeopleKeys = user?["friends"] as? [String] ?? []
+            self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
+            print(self.filterPeopleKeys)
+            self.getProfileData(value: value)
             self.peopleTableView.reloadData()
             
             //store file in database
@@ -109,10 +117,17 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     func filterPeopleList() {
         if showPeopleFilter == "Friends" {
             // TODO: Change once Friends feature implemented
-            filterPeople.removeAll()
+            filterPeopleKeys.removeAll()
+            filterPeopleSortedKeys.removeAll()
+            filterPeopleDict.removeAll()
+            
             filterFriends()
             
         } else if showPeopleFilter == "Classmates" {
+            filterPeopleKeys.removeAll()
+            filterPeopleSortedKeys.removeAll()
+            filterPeopleDict.removeAll()
+            
             // create a set to not allow duplicates
             filterClassmates(classesToUse: filterClasses, completed: nil)
 
@@ -128,16 +143,34 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     func filterFriends() {
         self.profileRef.getData(completion: { _, snapshot in
 
-            var value = snapshot.value as? NSDictionary
-            value = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
+            let value = snapshot.value as? NSDictionary
+            let thisValue = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
 
-            let friendValue = value?.value(forKey: "friends") as? [String]
+            let friendValue = thisValue?.value(forKey: "friends") as? [String]
             var friends = Set<String>()
             friends = friends.union(friendValue ?? [])
             
-                self.filterPeople = Array(friends.union(self.filterPeople))
-                self.peopleTableView.reloadData()
+            self.filterPeopleKeys = Array(friends.union(self.filterPeopleKeys))
+            self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
+            self.getProfileData(value: value)
+            self.peopleTableView.reloadData()
         })
+    }
+    
+    func getProfileData(value: NSDictionary?) {
+        
+        filterPeopleKeys.forEach { person in
+            let thisValue = value?.value(forKey: person) as? NSDictionary
+            let name = thisValue?.value(forKey: Constants.DatabaseKeys.name) as! String
+            let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as! String
+            
+            filterPeopleDict[name] = [
+                "username": person,
+                "photo": photo
+            ]
+        }
+        
+        filterPeopleSortedKeys = filterPeopleDict.keys.sorted(by: <)
     }
     
     func filterClassmates(classesToUse: [String], completed: (() -> ())?)  {
@@ -162,13 +195,18 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         }
         
         group.notify(queue: .main) {
-            self.filterPeople = Array(classmates)
-            self.peopleTableView.reloadData()
+            self.filterPeopleKeys = Array(classmates)
+            self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
             
-            completed?()
+            self.profileRef.getData(completion: {_, snapshot in
+                let value = snapshot.value as? NSDictionary
+                self.getProfileData(value: value)
+                
+                self.peopleTableView.reloadData()
+                completed?()
+            })
         }
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalClasses.count
@@ -198,18 +236,52 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         }
         
         filterPeopleList()
-        print(filterPeople)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterPeople.count
+        print(filterPeopleKeys)
+        return filterPeopleKeys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = peopleTableView.dequeueReusableCell(withIdentifier: peopleCellIdentifier, for: indexPath)
+        let cell = peopleTableView.dequeueReusableCell(withIdentifier: peopleCellIdentifier, for: indexPath) as! MapPeopleTableViewCell
         
-        cell.textLabel?.text = filterPeople[indexPath.row]
+        print("FILTER PEOPLE KEYS: \(filterPeopleKeys)")
+        print("FILTER PEOPLE SORTED KEYS: \(filterPeopleSortedKeys)")
+        print("FILTER PEOPLE DICT: \(filterPeopleDict)")
+        
+        // grab user's name for cell
+        let name = filterPeopleSortedKeys[indexPath.row]
+        cell.setName(name: name)
+        
+        // grab user's username for cell
+        let userData = filterPeopleDict[name] as! NSDictionary
+        let username = userData["username"] as! String
+        cell.setUsername(username: username)
+        
+        // grab user's profile photo for cell
+        let photoURL = userData["photo"] as? String ?? nil
+        if photoURL != nil, let url = URL(string: photoURL!), let data = try? Data(contentsOf: url) {
+            cell.setPhoto(photo: UIImage(data: data)!)
+        } else {
+            cell.setPhoto(photo: UIImage(systemName: "person.circle.fill")!)
+        }
+
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: segueIdentifier, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueIdentifier, let destination = segue.destination as? ProfileViewController {
+            // set profile to show up as user selected
+            let name = filterPeopleSortedKeys[peopleTableView.indexPathForSelectedRow!.row]
+            let userData = filterPeopleDict[name] as! NSDictionary
+            
+            destination.userToGet = userData["username"] as? String
+        }
     }
 
 }
