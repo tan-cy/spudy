@@ -213,6 +213,10 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         toDeleteClassesIndices.removeAll()
         
         updateUsersInClasses()
+        
+        let successAlert = UIAlertController(title: "Success!", message: "Your changes have been saved.", preferredStyle: .alert)
+        successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(successAlert, animated: true, completion: nil)
     }
     
     func updateUsersInClasses() {
