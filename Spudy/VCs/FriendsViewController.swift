@@ -12,7 +12,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var profileRef: DatabaseReference!
     var friendsList: [String: Any] = [:]
-//    var friendsKeysSorted: [String] = []
+
     let cellIdentifier = "friendsTableIdentifier"
     let segueIdentifier = "friendsProfileSegueIdentifier"
 
@@ -35,8 +35,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let group = DispatchGroup()
 
+            // grab all friends data
             friends.forEach({ friendID in
-                
                 group.enter()
                 
                 self.profileRef.child(friendID).getData() { (_, friendSnap) in
@@ -46,13 +46,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let name = friendUser?["name"] as? String ?? "Unknown"
                     let photo = friendUser?["photo"] as? String ?? nil
                     
-                    let letter = name.prefix(1)
+                    // create dictionary based on first letter of name
+                    let letter = name.prefix(1).uppercased()
                     self.friendsList[String(letter)] =  [
                         "\(name)": [
                             "username": friendID,
                             "photo": photo
                         ]
-                        
                     ]
                     
                     group.leave()
@@ -78,28 +78,32 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        // need to find the number of names within a section
         let sectionName = Array(friendsList.keys).sorted(by: <)[section]
+        // get dictionary of names under sectionName
         let peopleInSection = friendsList[sectionName] as! [String: Any]
         return peopleInSection.keys.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // need to get the names within the given section
         let sectionName = Array(friendsList.keys).sorted(by: <)[indexPath.section]
         let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+        // get the user we want within the section
         let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! FriendsTableViewCell
 
-//        let name = friendsKeysSorted[indexPath.row]
+        // set name
         cell.setName(name: name)
         
+        // set username
         let userData = peopleDataInSection[name] as! NSDictionary
         let username = userData["username"] as! String
         cell.setUsername(username: username)
         
+        // set profile photo
         let photoURL = userData["photo"] as? String ?? nil
-
         if photoURL != nil, let url = URL(string: photoURL!), let data = try? Data(contentsOf: url) {
             cell.setPhoto(photo: UIImage(data: data)!)
         } else {
@@ -115,11 +119,14 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueIdentifier, let destination = segue.destination as? ProfileViewController {
+            // need to get the username of the person we selected
             let section = tableView.indexPathForSelectedRow!.section
             let row = tableView.indexPathForSelectedRow!.row
             
+            // get the section for the person we selected
             let sectionName = Array(friendsList.keys).sorted(by: <)[section]
             let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+            // get the name for the person we selected
             let nameClicked = Array(peopleDataInSection.keys).sorted(by: <)[row]
             
             let userData = peopleDataInSection[nameClicked] as! NSDictionary
@@ -130,7 +137,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func addFriendButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Add a Friend", message: "Type in the username of the friend you wish to add.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add a Friend", message: "Type in your friend's username.", preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: {
             (textField:UITextField!) in textField.placeholder = "Enter username"
@@ -143,8 +150,12 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             if let textFieldArray = alert.textFields {
                 let textFields = textFieldArray as [UITextField]
-                let enteredText = textFields[0].text
+                var enteredText = textFields[0].text
                 if enteredText != nil {
+                    // in case the user typed in the @ sign
+                    if enteredText!.prefix(1) == "@" {
+                        enteredText!.removeFirst()
+                    }
                     self.saveNewFriend(newFriend: enteredText!)
                 }
                 
@@ -159,6 +170,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let value = snapshot.value as? NSDictionary
             let user = value?[CURRENT_USERNAME] as? NSDictionary
 
+            // add new friend to user's list of friends
             var friends = user?["friends"] as? [String] ?? []
             friends.append(newFriend)
             self.profileRef.child(CURRENT_USERNAME).child("friends").setValue(friends)
