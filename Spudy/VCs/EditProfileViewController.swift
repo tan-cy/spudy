@@ -119,18 +119,22 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = currentClassesCollectionView.cellForItem(at: indexPath)
-        cell!.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
         
-        toDeleteClassesIndices.append(indexPath.row)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = currentClassesCollectionView.cellForItem(at: indexPath)
-        cell!.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
+        let statusCell = cell as! EditClassesCollectionViewCell
+        
+        statusCell.changeRemoveStatus()
+        
+        if statusCell.willBeRemoved() {
+            cell!.contentView.backgroundColor = UIColor(red: 1.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0)
+            
+            toDeleteClassesIndices.append(indexPath.row)
+        } else {
+            cell!.contentView.backgroundColor = UIColor(red: 214.0 / 255.0, green: 218.0 / 255.0, blue: 1.0, alpha: 1.0)
 
-        toDeleteClassesIndices.removeAll(where: { value in
-            value == indexPath.row
-        })
+            toDeleteClassesIndices.removeAll(where: { value in
+                value == indexPath.row
+            })
+        }
     }
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
