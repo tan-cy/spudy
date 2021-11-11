@@ -60,7 +60,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
             
             group.notify(queue: .main) {
-//                self.friendsKeysSorted = self.friendsList.keys.sorted(by: <)
                 self.tableView.reloadData()
             }
         })
@@ -129,5 +128,42 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             destination.userToGet = usernameClicked
         }
     }
+    
+    @IBAction func addFriendButtonPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Add a Friend", message: "Type in the username of the friend you wish to add.", preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: {
+            (textField:UITextField!) in textField.placeholder = "Enter username"
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: {
+            (paramAction:UIAlertAction!) in
+            
+            if let textFieldArray = alert.textFields {
+                let textFields = textFieldArray as [UITextField]
+                let enteredText = textFields[0].text
+                if enteredText != nil {
+                    self.saveNewFriend(newFriend: enteredText!)
+                }
+                
+            }
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func saveNewFriend(newFriend: String) {
+        profileRef.getData(completion: { (_, snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let user = value?[CURRENT_USERNAME] as? NSDictionary
+
+            var friends = user?["friends"] as? [String] ?? []
+            friends.append(newFriend)
+            self.profileRef.child(CURRENT_USERNAME).child("friends").setValue(friends)
+        })
+    }
+    
 
 }
