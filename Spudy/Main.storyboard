@@ -546,39 +546,39 @@
             <objects>
                 <viewController id="vw8-mv-oqk" customClass="EditProfileViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CGX-ed-C9W">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="H7s-Gx-39P">
-                                <rect key="frame" x="119.5" y="10.5" width="175" height="174"/>
+                                <rect key="frame" x="119.5" y="98.5" width="175" height="174"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="175" id="oc0-q9-vsX"/>
                                     <constraint firstAttribute="height" constant="175" id="ugg-Dn-cTd"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUu-cb-niM">
-                                <rect key="frame" x="35" y="393" width="344" height="19.5"/>
+                                <rect key="frame" x="35" y="481" width="344" height="19.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Major" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GBd-ZJ-eIT">
-                                <rect key="frame" x="35" y="275" width="344" height="34"/>
+                                <rect key="frame" x="35" y="363" width="344" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fll-gP-EPa">
-                                <rect key="frame" x="35" y="216" width="344" height="34"/>
+                                <rect key="frame" x="35" y="304" width="344" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Graduation Year" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZHV-VD-w9W">
-                                <rect key="frame" x="35" y="334" width="344" height="34"/>
+                                <rect key="frame" x="35" y="422" width="344" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6cv-Dl-z5p">
-                                <rect key="frame" x="35" y="414.5" width="344" height="80"/>
+                                <rect key="frame" x="35" y="502.5" width="344" height="80"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Qhn-EY-3pP"/>
@@ -617,7 +617,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LP2-ne-N39">
-                                <rect key="frame" x="35" y="496.5" width="344" height="31"/>
+                                <rect key="frame" x="35" y="584.5" width="344" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add Class"/>
                                 <connections>
@@ -625,12 +625,12 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contact Information" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-pq-T9D">
-                                <rect key="frame" x="35" y="552.5" width="344" height="34"/>
+                                <rect key="frame" x="35" y="640.5" width="344" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDk-pu-w95">
-                                <rect key="frame" x="157" y="601.5" width="100" height="31"/>
+                                <rect key="frame" x="157" y="689.5" width="100" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="knR-fh-vuK"/>
                                 </constraints>
@@ -1408,7 +1408,6 @@
                                             <outlet property="nameLabel" destination="5PO-R5-0IV" id="dK9-A8-OKu"/>
                                             <outlet property="profilePhoto" destination="9C5-zu-890" id="T37-rp-S1g"/>
                                             <outlet property="usernameLabel" destination="nft-l5-lVN" id="bcK-NW-aoe"/>
-                                            <segue destination="zE7-tJ-sQs" kind="show" identifier="filterPeopleSegueIdentifier" id="1Nn-Ik-TtT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

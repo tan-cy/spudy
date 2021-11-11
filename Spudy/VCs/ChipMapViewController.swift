@@ -13,6 +13,7 @@ import FirebaseDatabase
 protocol MapFilterSetter {
     func setClasses (classesFilter: [String])
     func setFilterMode (filter: String)
+    func focusOnUser(longitude: Double, latitude: Double)
 }
 
 class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MapFilterSetter {
@@ -241,6 +242,10 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     func setFilterMode(filter: String) {
         self.filters = filter
+    }
+    
+    func focusOnUser(longitude: Double, latitude: Double) {
+        chipMap.centerToLocation(CLLocation(latitude: latitude, longitude: longitude), regionRadius: 200)
     }
 }
 private extension MKMapView {

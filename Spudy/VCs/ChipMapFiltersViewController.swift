@@ -26,7 +26,6 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     
     let classesCellIdentifier = "currentClassesCellIdentifier"
     let peopleCellIdentifier = "peopleCellIdentifier"
-    let segueIdentifier = "filterPeopleSegueIdentifier"
     var showPeopleFilter: String = "Friends"
     
     var totalClasses: [String] = []
@@ -62,7 +61,6 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             // TODO: Change this once we implement Friends feature
             self.filterPeopleKeys = user?["friends"] as? [String] ?? []
             self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
-            print(self.filterPeopleKeys)
             self.getProfileData(value: value, addingFriends: true)
             self.peopleTableView.reloadData()
             
@@ -161,13 +159,17 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let thisValue = value?.value(forKey: person) as? NSDictionary
             let name = thisValue?.value(forKey: Constants.DatabaseKeys.name) as! String
             let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as! String
+            let longitude = thisValue?.value(forKey: Constants.DatabaseKeys.longitude) as? Double ?? Double.greatestFiniteMagnitude
+            let latitude = thisValue?.value(forKey: Constants.DatabaseKeys.latitude)  as? Double ?? Double.greatestFiniteMagnitude
             
             // only add to dict if it doesn't exist yet
             if filterPeopleDict[name] == nil {
                 filterPeopleDict[name] = [
                     "username": person,
                     "photo": photo,
-                    "isFriend": addingFriends
+                    "isFriend": addingFriends,
+                    "longitude": longitude,
+                    "latitude": latitude
                 ]
             }
         }
@@ -269,19 +271,22 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: segueIdentifier, sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueIdentifier, let destination = segue.destination as? ProfileViewController {
-            // set profile to show up as user selected
-            let name = filterPeopleSortedKeys[peopleTableView.indexPathForSelectedRow!.row]
-            let userData = filterPeopleDict[name] as! NSDictionary
-            let friendProfile = userData["isFriend"] as? Bool ?? false
+        let name = filterPeopleSortedKeys[indexPath.row]
+        let userData = filterPeopleDict[name] as! NSDictionary
+        
+        let longitude = userData["longitude"] as! Double
+        let latitude = userData["latitude"] as! Double
+        
+        // move map focusing if they are on map
+        if (longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude) {
+            mapFilterDelegate.focusOnUser(longitude: longitude, latitude: latitude)
+            self.dismiss(animated: true, completion: nil)
             
-            destination.userToGet = userData["username"] as? String
-            // only allow someone's profile to have add button IF they are not already a friend
-            destination.showAddFriendButton = !friendProfile
+        // just show error if they are not on the map
+        } else {
+            let alert = UIAlertController(title: "User Not Found", message: "This user is not sharing their location.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 
