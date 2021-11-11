@@ -230,9 +230,13 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
             self.classesRef.child(newClass).getData(completion: {_, snapshot in
                 
                 let value = snapshot.value as? NSDictionary
+                print(value)
+                
                 var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
+                print(students)
                 
                 students.append(CURRENT_USERNAME)
+                print(students)
                 self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }

@@ -1,21 +1,20 @@
 //
-//  UserMKAnnotation.swift
+//  UserMKAnnotationView.swift
 //  Spudy
 //
-//  Created by Cindy Tan on 11/1/21.
+//  Created by Cindy Tan on 11/10/21.
 //
 
 import UIKit
 import MapKit
 
-class UserMKAnnotation: NSObject, MKAnnotation {
-
+class UserMKAnnotationView: MKAnnotationView {
     let title: String?
     let subtitle: String?
     var coordinate: CLLocationCoordinate2D
     var image: UIImage?
-    var pinColor: UIColor!
-    
+    var pinTintColor: UIColor!
+
     init(name: String, username: String, coord: CLLocationCoordinate2D, photoURLString: String?, pinColor: UIColor) {
         title = name
         subtitle = username
@@ -24,11 +23,11 @@ class UserMKAnnotation: NSObject, MKAnnotation {
         if photoURLString != nil {
             if let photoURL = URL(string: photoURLString!) {
                 if let data = try? Data(contentsOf: photoURL) {
-                    image = UIImage(data: data)
+                    self.image = UIImage(data: data)
                 }
             }
         }
         
-        self.pinColor = pinColor
+        pinTintColor = pinColor
     }
 }
