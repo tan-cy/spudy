@@ -12,7 +12,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var profileRef: DatabaseReference!
     var friendsList: [String: Any] = [:]
-    var friendsKeysSorted: [String] = []
+//    var friendsKeysSorted: [String] = []
     let cellIdentifier = "friendsTableIdentifier"
     let segueIdentifier = "friendsProfileSegueIdentifier"
 
@@ -20,11 +20,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
-//
-//        tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         
@@ -47,9 +46,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let name = friendUser?["name"] as? String ?? "Unknown"
                     let photo = friendUser?["photo"] as? String ?? nil
                     
-                    self.friendsList[name] =  [
-                        "username": friendID,
-                        "photo": photo
+                    let letter = name.prefix(1)
+                    self.friendsList[String(letter)] =  [
+                        "\(name)": [
+                            "username": friendID,
+                            "photo": photo
+                        ]
+                        
                     ]
                     
                     group.leave()
@@ -57,7 +60,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
             
             group.notify(queue: .main) {
-                self.friendsKeysSorted = self.friendsList.keys.sorted(by: <)
+//                self.friendsKeysSorted = self.friendsList.keys.sorted(by: <)
                 self.tableView.reloadData()
             }
         })
@@ -67,17 +70,32 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.reloadData()
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return friendsList.keys.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Array(friendsList.keys).sorted(by: <)[section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsKeysSorted.count
+        
+        let sectionName = Array(friendsList.keys).sorted(by: <)[section]
+        let peopleInSection = friendsList[sectionName] as! [String: Any]
+        return peopleInSection.keys.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let sectionName = Array(friendsList.keys).sorted(by: <)[indexPath.section]
+        let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+        let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! FriendsTableViewCell
 
-        let name = friendsKeysSorted[indexPath.row]
+//        let name = friendsKeysSorted[indexPath.row]
         cell.setName(name: name)
         
-        let userData = friendsList[name] as! NSDictionary
+        let userData = peopleDataInSection[name] as! NSDictionary
         let username = userData["username"] as! String
         cell.setUsername(username: username)
         
@@ -98,38 +116,18 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueIdentifier, let destination = segue.destination as? ProfileViewController {
+            let section = tableView.indexPathForSelectedRow!.section
+            let row = tableView.indexPathForSelectedRow!.row
             
-            let nameClicked = friendsKeysSorted[tableView.indexPathForSelectedRow!.row]
-            let userData = friendsList[nameClicked] as! NSDictionary
+            let sectionName = Array(friendsList.keys).sorted(by: <)[section]
+            let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+            let nameClicked = Array(peopleDataInSection.keys).sorted(by: <)[row]
+            
+            let userData = peopleDataInSection[nameClicked] as! NSDictionary
             let usernameClicked = userData["username"] as! String
             
             destination.userToGet = usernameClicked
         }
     }
-    /*
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Segues.filterSegueIdentifier,
-            let destination = segue.destination as? ChipMapFiltersViewController {
-            destination.mapFilterDelegate = self
-        } else if segue.identifier == Constants.Segues.chipSegueIdentifier,
-            let destination = segue.destination as? ProfileViewController,
-            let annotation = sender as? UserMKAnnotation {
-            destination.userToGet = annotation.subtitle!
-        }
-    }
-    
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let location = view.annotation?.coordinate
-        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
-        chipMap.setRegion(region, animated: true)
-        let annotation = (view.annotation as? UserMKAnnotation)
-        if let selectedUsername = annotation?.subtitle,
-            selectedUsername != CURRENT_USERNAME {
-//            print(selectedUsername)
-            performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
-        }
-    }*/
 
 }

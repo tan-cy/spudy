@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var currentClassesCollectionView: UICollectionView!
     
     @IBOutlet weak var addFriendButton: UIButton!
+    var showAddFriendButton = false
     
     let cellIdentifier = "currentClassesCellIdentifier"
     var currClasses: [String] = []
@@ -70,7 +71,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.currentClassesCollectionView.reloadData()
         })
         
-        if CURRENT_USERNAME == self.userToGet {
+        if !showAddFriendButton {
             addFriendButton.isHidden = true
         }
         self.currentClassesCollectionView.reloadData()

@@ -58,14 +58,12 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
-            print("USER DATA \(user)")
-            
             // get friends for initial view
             // TODO: Change this once we implement Friends feature
             self.filterPeopleKeys = user?["friends"] as? [String] ?? []
             self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
             print(self.filterPeopleKeys)
-            self.getProfileData(value: value)
+            self.getProfileData(value: value, addingFriends: true)
             self.peopleTableView.reloadData()
             
             //store file in database
@@ -152,22 +150,26 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             
             self.filterPeopleKeys = Array(friends.union(self.filterPeopleKeys))
             self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
-            self.getProfileData(value: value)
+            self.getProfileData(value: value, addingFriends: true)
             self.peopleTableView.reloadData()
         })
     }
     
-    func getProfileData(value: NSDictionary?) {
+    func getProfileData(value: NSDictionary?, addingFriends: Bool) {
         
         filterPeopleKeys.forEach { person in
             let thisValue = value?.value(forKey: person) as? NSDictionary
             let name = thisValue?.value(forKey: Constants.DatabaseKeys.name) as! String
             let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as! String
             
-            filterPeopleDict[name] = [
-                "username": person,
-                "photo": photo
-            ]
+            // only add to dict if it doesn't exist yet
+            if filterPeopleDict[name] == nil {
+                filterPeopleDict[name] = [
+                    "username": person,
+                    "photo": photo,
+                    "isFriend": addingFriends
+                ]
+            }
         }
         
         filterPeopleSortedKeys = filterPeopleDict.keys.sorted(by: <)
@@ -200,7 +202,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             
             self.profileRef.getData(completion: {_, snapshot in
                 let value = snapshot.value as? NSDictionary
-                self.getProfileData(value: value)
+                self.getProfileData(value: value, addingFriends: false)
                 
                 self.peopleTableView.reloadData()
                 completed?()
@@ -246,10 +248,6 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = peopleTableView.dequeueReusableCell(withIdentifier: peopleCellIdentifier, for: indexPath) as! MapPeopleTableViewCell
         
-        print("FILTER PEOPLE KEYS: \(filterPeopleKeys)")
-        print("FILTER PEOPLE SORTED KEYS: \(filterPeopleSortedKeys)")
-        print("FILTER PEOPLE DICT: \(filterPeopleDict)")
-        
         // grab user's name for cell
         let name = filterPeopleSortedKeys[indexPath.row]
         cell.setName(name: name)
@@ -279,8 +277,11 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             // set profile to show up as user selected
             let name = filterPeopleSortedKeys[peopleTableView.indexPathForSelectedRow!.row]
             let userData = filterPeopleDict[name] as! NSDictionary
+            let friendProfile = userData["isFriend"] as? Bool ?? false
             
             destination.userToGet = userData["username"] as? String
+            // only allow someone's profile to have add button IF they are not already a friend
+            destination.showAddFriendButton = !friendProfile
         }
     }
 
