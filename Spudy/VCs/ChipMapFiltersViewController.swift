@@ -47,6 +47,18 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         peopleTableView.delegate = self
         peopleTableView.dataSource = self
         
+        // select correct segment
+        switch showPeopleFilter {
+        case "Friends":
+            filterSegmentCtrl.selectedSegmentIndex = 0
+        case "Classmates":
+            filterSegmentCtrl.selectedSegmentIndex = 1
+        case "All":
+            filterSegmentCtrl.selectedSegmentIndex = 2
+        default:
+            print("something has gone wrong in setting up filter's segment ctrl")
+        }
+        
         classesCollectionView.register(ClassesFilterCollectionViewCell.nib(), forCellWithReuseIdentifier: classesCellIdentifier)
         
         classesRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
@@ -73,6 +85,8 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         })
                     
         hideClassesSection()
+        filterPeopleList()
+        peopleTableView.reloadData()
         // Do any additional setup after loading the view.
     }
     
@@ -80,17 +94,22 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         switch filterSegmentCtrl.selectedSegmentIndex {
         case 0:
             showPeopleFilter = "Friends"
+            break
         case 1:
             showPeopleFilter = "Classmates"
+            break
         case 2:
             showPeopleFilter = "All"
+            filterClasses = totalClasses
+            classesCollectionView.reloadData()
+            break
         default:
-            showPeopleFilter = "Friends"
+            print("error in changing map filter")
         }
         
         hideClassesSection()
         filterPeopleList()
-        
+        mapFilterDelegate.setFilterMode(filter: showPeopleFilter)
         peopleTableView.reloadData()
     }
     
@@ -223,6 +242,10 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         
         cell.layer.cornerRadius = 5.0
         cell.layer.masksToBounds = true
+        
+         if (filterClasses.contains(totalClasses[indexPath.row]) && !(cell as! ClassesFilterCollectionViewCell).getCheckedStatus()) {
+             (cell as! ClassesFilterCollectionViewCell).checkBox()
+         }
         return cell
     }
     
@@ -238,12 +261,12 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             // don't want to filter using this anymore
             filterClasses = filterClasses.filter() {$0 != cell.getText()}
         }
-        
+        // update map with new classes
+        mapFilterDelegate.setClasses(classesFilter: filterClasses)
         filterPeopleList()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(filterPeopleKeys)
         return filterPeopleKeys.count
     }
     

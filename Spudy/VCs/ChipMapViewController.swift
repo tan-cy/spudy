@@ -22,10 +22,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     var profileRef: DatabaseReference!
     var classRef: DatabaseReference!
     
-    var filters: String!
+    var filters: String! = "All"
     var friends: [String]!
     var classmates: [String]!
     var classesFilter: [String] = []
+    var classes: [String]!
     
     @IBOutlet weak var chipMap: MKMapView!
     
@@ -36,10 +37,9 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
 
-        getFriends()
+        getPeopleFromDatabase()
         setupLocationManager()
         checkLocationServices()
-        showPeople()
     }
     
     
@@ -48,7 +48,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let initialLocation = CLLocation(latitude: 30.285607, longitude: -97.738202)
         chipMap.centerToLocation(initialLocation)
         chipMap.delegate = self
-        
+        showPeople()
         setupLocationManager()
         checkLocationServices()
     }
@@ -57,6 +57,9 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         if segue.identifier == Constants.Segues.filterSegueIdentifier,
             let destination = segue.destination as? ChipMapFiltersViewController {
             destination.mapFilterDelegate = self
+            destination.totalClasses = classes
+            destination.filterClasses = classesFilter
+            destination.showPeopleFilter = filters
         } else if segue.identifier == Constants.Segues.chipSegueIdentifier,
             let destination = segue.destination as? ProfileViewController,
             let annotation = sender as? UserMKAnnotation {
@@ -64,12 +67,13 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-    func getFriends() {
+    func getPeopleFromDatabase() {
         profileRef.observe(.value) { snapshot in
             let profiles = snapshot.value as? NSDictionary
             let user = profiles?[CURRENT_USERNAME] as? NSDictionary
             self.friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
-
+            self.classes = user?[Constants.DatabaseKeys.classes] as? [String] ?? []
+            self.classesFilter = self.classes
         }
     }
     
@@ -88,7 +92,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let annotation = (view.annotation as? UserMKAnnotation)
         if let selectedUsername = annotation?.subtitle,
             selectedUsername != CURRENT_USERNAME {
-//            print(selectedUsername)
             performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
         }
     }
@@ -101,7 +104,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let userLatitude = location.coordinate.latitude
         let userLongitude = location.coordinate.longitude
         
-        print("calling save user")
         saveUserLocationToFirebase(longitude: userLongitude, latitude: userLatitude)
     }
    
@@ -119,7 +121,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         case .authorizedWhenInUse, .authorized, .authorizedAlways:
             chipMap.showsUserLocation = true
             locationManager.startUpdatingLocation()
-            getFriends()
+            getPeopleFromDatabase()
             showPeople()
             break
         case .denied:
@@ -163,7 +165,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     
     // MARK Map Annotations
-    
     func setUserAnnotation(username: String, person: NSDictionary?, pinColor: UIColor) {
         let lat = person?[Constants.DatabaseKeys.latitude] as? Double ?? nil
         let long = person?[Constants.DatabaseKeys.longitude] as? Double ?? nil
@@ -178,9 +179,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func showFriends(people: NSDictionary) {
-        // TODO REMOVE WHEN FRIENDS IMPLEMENTED
-        friends = (people.allKeys as! [String])
-        friends.removeAll { $0 == CURRENT_USERNAME }
         // show all friends
         friends.forEach() { friend in
             let personDetails = people.value(forKey: friend) as? NSDictionary
@@ -192,7 +190,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         classRef.observe(.value) { snapshot in
             let classDict = snapshot.value as? NSDictionary
             self.classesFilter.forEach() { course in
-                let peopleInCourse = classDict?[course] as? [String]
+                let peopleInCourse = (classDict?.value(forKey: course) as? NSDictionary)?.value(forKey: "students") as? [String]
                 self.showClassmate(people: people, peopleInCourse: peopleInCourse ?? [])
             }
         }
@@ -208,6 +206,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func showPeople() {
+        clearMapOfAnnotations()
         profileRef.observe(.value) { snapshot in
             let peopleDict = snapshot.value as? NSDictionary
             switch(self.filters) {
@@ -235,13 +234,23 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
+    func clearMapOfAnnotations() {
+        self.chipMap.annotations.forEach {
+          if !($0 is MKUserLocation) {
+            self.chipMap.removeAnnotation($0)
+          }
+        }
+    }
+    
     // MARK filter stuff
     func setClasses(classesFilter: [String]) {
         self.classesFilter = classesFilter
     }
     
     func setFilterMode(filter: String) {
+        print("filter mode is ", filter)
         self.filters = filter
+        showPeople()
     }
     
     func focusOnUser(longitude: Double, latitude: Double) {
