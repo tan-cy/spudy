@@ -198,7 +198,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                          
     func showClassmate(people: NSDictionary, peopleInCourse: [String]) {
         peopleInCourse.forEach() { classmate in
-            if (!friends.contains(classmate)) {
+            if (!friends.contains(classmate) && classmate != CURRENT_USERNAME) {
                 let personDetails = people.value(forKey: classmate) as? NSDictionary
                 setUserAnnotation(username: classmate, person: personDetails, pinColor: UIColor.cyan)
             }
@@ -245,10 +245,10 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     // MARK filter stuff
     func setClasses(classesFilter: [String]) {
         self.classesFilter = classesFilter
+        showPeople()
     }
     
     func setFilterMode(filter: String) {
-        print("filter mode is ", filter)
         self.filters = filter
         showPeople()
     }
