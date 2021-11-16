@@ -20,7 +20,6 @@ class TabBarViewController: UITabBarController {
     }
         
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("tapped", item)
         if (item.title == "Profile") {
             let nav = self.viewControllers?[4] as! UINavigationController
             let profileVC = nav.viewControllers[0] as! ProfileViewController

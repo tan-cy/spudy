@@ -32,7 +32,7 @@
 		A734D88B271636AD00D660C8 /* Spudy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A734D889271636AD00D660C8 /* Spudy.xcdatamodeld */; };
 		A734D88D271636AE00D660C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A734D88C271636AE00D660C8 /* Assets.xcassets */; };
 		A734D890271636AE00D660C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A734D88E271636AE00D660C8 /* LaunchScreen.storyboard */; };
-		A7507AE227345304003B6938 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7507AE127345304003B6938 /* MapKit.framework */; };
+		A7507B05273DE4BD003B6938 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7507AE127345304003B6938 /* MapKit.framework */; };
 		A75180262731EEDA00E87FB1 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75180252731EEDA00E87FB1 /* Commons.swift */; };
 		A76850102722746400FF58DE /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768500F2722746400FF58DE /* CollectionViewController.swift */; };
 		A76850122722748500FF58DE /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76850112722748500FF58DE /* MyCollectionViewCell.swift */; };
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7507AE227345304003B6938 /* MapKit.framework in Frameworks */,
+				A7507B05273DE4BD003B6938 /* MapKit.framework in Frameworks */,
 				A40FD50BE337D6942F0ED55E /* Pods_Spudy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
