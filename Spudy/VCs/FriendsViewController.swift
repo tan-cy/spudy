@@ -12,6 +12,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var profileRef: DatabaseReference!
     var friendsList: [String: Any] = [:]
+    var originalFriends: [String] = []
 
     let cellIdentifier = "friendsTableIdentifier"
     let segueIdentifier = "friendsProfileSegueIdentifier"
@@ -31,12 +32,12 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
-            let friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            self.originalFriends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
             
             let group = DispatchGroup()
 
             // grab all friends data
-            friends.forEach({ friendID in
+            self.originalFriends.forEach({ friendID in
                 group.enter()
                 
                 self.profileRef.child(friendID).getData() { (_, friendSnap) in
@@ -83,6 +84,21 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // get dictionary of names under sectionName
         let peopleInSection = friendsList[sectionName] as! [String: Any]
         return peopleInSection.keys.count
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // need to get the names within the given section
+            let sectionName = Array(friendsList.keys).sorted(by: <)[indexPath.section]
+            var peopleDataInSection = friendsList[sectionName] as! [String: Any]
+            // get the user we want within the section
+            let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
+            // get username
+            let userData = peopleDataInSection[name] as! NSDictionary
+            let username = userData["username"] as! String
+            
+            deleteOldFriends(username: username, name: name, section: sectionName, namesInSection: &peopleDataInSection, indexPath: indexPath)
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -171,11 +187,34 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let user = value?[CURRENT_USERNAME] as? NSDictionary
 
             // add new friend to user's list of friends
-            var friends = user?["friends"] as? [String] ?? []
+            var friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
             friends.append(newFriend)
-            self.profileRef.child(CURRENT_USERNAME).child("friends").setValue(friends)
+            self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(friends)
         })
     }
     
-
+    func deleteOldFriends(username: String,
+                          name: String,
+                          section: String,
+                          namesInSection: inout [String: Any],
+                          indexPath: IndexPath) {
+        
+        tableView.beginUpdates()
+        // get rid of username we want to delete from friends list
+        originalFriends = originalFriends.filter {
+            $0 != username
+        }
+        namesInSection.removeValue(forKey: name)
+        if namesInSection.isEmpty {
+            friendsList.removeValue(forKey: section)
+            let indexSet = IndexSet(arrayLiteral: indexPath.section)
+            tableView.deleteSections(indexSet, with: .fade)
+        }
+        
+        // remove data from table
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
+        
+        profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(originalFriends)
+    }
 }
