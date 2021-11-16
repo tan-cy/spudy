@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import FirebaseDatabase
+import CoreData
 
 protocol MapFilterSetter {
     func setClasses (classesFilter: [String])
@@ -22,13 +23,14 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     var profileRef: DatabaseReference!
     var classRef: DatabaseReference!
     
-    var filters: String! = "All"
+    var filters: String!
     var friends: [String]!
     var classmates: [String]!
     var classesFilter: [String] = []
     var classes: [String]!
     
     @IBOutlet weak var chipMap: MKMapView!
+    @IBOutlet weak var selfStudyMessage: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +40,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         classRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
 
         getPeopleFromDatabase()
-        setupLocationManager()
-        checkLocationServices()
     }
     
     
@@ -48,7 +48,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         let initialLocation = CLLocation(latitude: 30.285607, longitude: -97.738202)
         chipMap.centerToLocation(initialLocation)
         chipMap.delegate = self
-        showPeople()
         setupLocationManager()
         checkLocationServices()
     }
@@ -121,8 +120,8 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         case .authorizedWhenInUse, .authorized, .authorizedAlways:
             chipMap.showsUserLocation = true
             locationManager.startUpdatingLocation()
-            getPeopleFromDatabase()
-            showPeople()
+//            getPeopleFromDatabase()
+//            showPeople()
             break
         case .denied:
             controller.message = "Location services must be turned on to see other users"
@@ -155,7 +154,22 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-
+        profileRef.observe(.value) { snapshot in
+            let profiles = snapshot.value as? NSDictionary
+            let user = profiles?[CURRENT_USERNAME] as? NSDictionary
+            let selfStudy =  (user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool
+            
+            self.filters = selfStudy ? Constants.Filters.selfStudyMode : Constants.Filters.everyone
+            if (self.filters == Constants.Filters.selfStudyMode) {
+                self.selfStudyMessage.isHidden = false
+                self.chipMap.isHidden = true
+            } else {
+                self.selfStudyMessage.isHidden = true
+                self.chipMap.isHidden = false
+                self.showPeople()
+            }
+        }
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -216,9 +230,13 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             case Constants.Filters.classmates:
                 self.showByClass(people: peopleDict!)
                 break
-            default:
+            case Constants.Filters.everyone:
                 self.showFriends(people: peopleDict!)
                 self.showByClass(people: peopleDict!)
+                break
+            default:
+                self.selfStudyMessage.isHidden = true
+                self.chipMap.isHidden = true
                 break
             }
         }

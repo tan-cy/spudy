@@ -52,6 +52,7 @@ struct Constants {
         static let everyone = "everyone"
         static let friends = "friends"
         static let classmates = "classmates"
+        static let selfStudyMode = "selfStudyMode"
     }
     
     struct Placeholders {

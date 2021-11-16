@@ -176,8 +176,8 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         
         filterPeopleKeys.forEach { person in
             let thisValue = value?.value(forKey: person) as? NSDictionary
-            let name = thisValue?.value(forKey: Constants.DatabaseKeys.name) as! String
-            let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as! String
+            let name = thisValue?.value(forKey: Constants.DatabaseKeys.name) as? String ?? ""
+            let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as? String ?? ""
             let longitude = thisValue?.value(forKey: Constants.DatabaseKeys.longitude) as? Double ?? Double.greatestFiniteMagnitude
             let latitude = thisValue?.value(forKey: Constants.DatabaseKeys.latitude)  as? Double ?? Double.greatestFiniteMagnitude
             
