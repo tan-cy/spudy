@@ -10,7 +10,7 @@ target 'Spudy' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
-  # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’
+  pod 'GoogleSignIn'
   # for Analytics without IDFA collection capability
 
   # add pods for any other desired Firebase products
