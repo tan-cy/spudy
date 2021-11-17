@@ -120,8 +120,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         case .authorizedWhenInUse, .authorized, .authorizedAlways:
             chipMap.showsUserLocation = true
             locationManager.startUpdatingLocation()
-//            getPeopleFromDatabase()
-//            showPeople()
             break
         case .denied:
             controller.message = "Location services must be turned on to see other users"
@@ -160,14 +158,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             let selfStudy =  (user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool
             
             self.filters = selfStudy ? Constants.Filters.selfStudyMode : Constants.Filters.everyone
-            if (self.filters == Constants.Filters.selfStudyMode) {
-                self.selfStudyMessage.isHidden = false
-                self.chipMap.isHidden = true
-            } else {
-                self.selfStudyMessage.isHidden = true
-                self.chipMap.isHidden = false
-                self.showPeople()
-            }
+            self.showPeople()
         }
         
         if CLLocationManager.locationServicesEnabled() {
@@ -221,6 +212,9 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     func showPeople() {
         clearMapOfAnnotations()
+
+        self.selfStudyMessage.isHidden = true
+        self.chipMap.isHidden = false
         profileRef.observe(.value) { snapshot in
             let peopleDict = snapshot.value as? NSDictionary
             switch(self.filters) {
@@ -235,7 +229,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                 self.showByClass(people: peopleDict!)
                 break
             default:
-                self.selfStudyMessage.isHidden = true
+                self.selfStudyMessage.isHidden = false
                 self.chipMap.isHidden = true
                 break
             }

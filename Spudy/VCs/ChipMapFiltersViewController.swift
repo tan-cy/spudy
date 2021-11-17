@@ -47,14 +47,22 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         peopleTableView.delegate = self
         peopleTableView.dataSource = self
         
+        filterSegmentCtrl.isHidden = false
+        
+        
         // select correct segment
         switch showPeopleFilter {
-        case "Friends":
+        case Constants.Filters.friends:
             filterSegmentCtrl.selectedSegmentIndex = 0
-        case "Classmates":
+            break
+        case Constants.Filters.classmates:
             filterSegmentCtrl.selectedSegmentIndex = 1
-        case "All":
+            break
+        case Constants.Filters.everyone:
             filterSegmentCtrl.selectedSegmentIndex = 2
+            break
+        case Constants.Filters.selfStudyMode:
+            filterSegmentCtrl.isHidden = true
         default:
             print("something has gone wrong in setting up filter's segment ctrl")
         }
@@ -93,13 +101,13 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     @IBAction func changeFilter(_ sender: Any) {
         switch filterSegmentCtrl.selectedSegmentIndex {
         case 0:
-            showPeopleFilter = "Friends"
+            showPeopleFilter = Constants.Filters.friends
             break
         case 1:
-            showPeopleFilter = "Classmates"
+            showPeopleFilter = Constants.Filters.classmates
             break
         case 2:
-            showPeopleFilter = "All"
+            showPeopleFilter = Constants.Filters.everyone
             filterClasses = totalClasses
             classesCollectionView.reloadData()
             break
@@ -114,7 +122,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func hideClassesSection() {
-        if showPeopleFilter == "Classmates" {
+        if showPeopleFilter == Constants.Filters.classmates {
             classesLabel.isHidden = false
             classesCollectionView.isHidden = false
             
@@ -130,7 +138,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func filterPeopleList() {
-        if showPeopleFilter == "Friends" {
+        if showPeopleFilter == Constants.Filters.friends {
             // TODO: Change once Friends feature implemented
             filterPeopleKeys.removeAll()
             filterPeopleSortedKeys.removeAll()
@@ -138,7 +146,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             
             filterFriends()
             
-        } else if showPeopleFilter == "Classmates" {
+        } else if showPeopleFilter == Constants.Filters.classmates {
             filterPeopleKeys.removeAll()
             filterPeopleSortedKeys.removeAll()
             filterPeopleDict.removeAll()
@@ -161,7 +169,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let value = snapshot.value as? NSDictionary
             let thisValue = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
 
-            let friendValue = thisValue?.value(forKey: "friends") as? [String]
+            let friendValue = thisValue?.value(forKey: Constants.DatabaseKeys.friends) as? [String]
             var friends = Set<String>()
             friends = friends.union(friendValue ?? [])
             
@@ -283,7 +291,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         cell.setUsername(username: username)
         
         // grab user's profile photo for cell
-        let photoURL = userData["photo"] as? String ?? nil
+        let photoURL = userData[Constants.DatabaseKeys.photo] as? String ?? nil
         if photoURL != nil, let url = URL(string: photoURL!), let data = try? Data(contentsOf: url) {
             cell.setPhoto(photo: UIImage(data: data)!)
         } else {
@@ -297,8 +305,8 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         let name = filterPeopleSortedKeys[indexPath.row]
         let userData = filterPeopleDict[name] as! NSDictionary
         
-        let longitude = userData["longitude"] as! Double
-        let latitude = userData["latitude"] as! Double
+        let longitude = userData[Constants.DatabaseKeys.longitude] as! Double
+        let latitude = userData[Constants.DatabaseKeys.latitude] as! Double
         
         // move map focusing if they are on map
         if (longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude) {

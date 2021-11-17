@@ -11,8 +11,10 @@ import FirebaseDatabase
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var profileRef: DatabaseReference!
-    var friendsList: [String: Any] = [:]
-
+    var allUsers: [String]!
+    var alphabetizedFriendList: [String: Any] = [:]
+    var friendList: [String] = []
+    
     let cellIdentifier = "friendsTableIdentifier"
     let segueIdentifier = "friendsProfileSegueIdentifier"
 
@@ -27,6 +29,22 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         
+        getAllUsers()
+        getFriends()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
+    func getAllUsers() {
+        profileRef.observe(.value) { snapshot in
+            let values = snapshot.value as? NSDictionary
+            self.allUsers = values?.allKeys as? [String] ?? []
+        }
+    }
+    
+    func getFriends() {
         profileRef.observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
@@ -48,12 +66,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     // create dictionary based on first letter of name
                     let letter = name.prefix(1).uppercased()
-                    self.friendsList[String(letter)] =  [
+                    self.alphabetizedFriendList[String(letter)] =  [
                         "\(name)": [
                             "username": friendID,
                             "photo": photo
                         ]
                     ]
+                    self.friendList.append(friendID)
                     
                     group.leave()
                 }
@@ -65,30 +84,27 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return friendsList.keys.count
+        return alphabetizedFriendList.keys.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Array(friendsList.keys).sorted(by: <)[section]
+        return Array(alphabetizedFriendList.keys).sorted(by: <)[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // need to find the number of names within a section
-        let sectionName = Array(friendsList.keys).sorted(by: <)[section]
+        let sectionName = Array(alphabetizedFriendList.keys).sorted(by: <)[section]
         // get dictionary of names under sectionName
-        let peopleInSection = friendsList[sectionName] as! [String: Any]
+        let peopleInSection = alphabetizedFriendList[sectionName] as! [String: Any]
         return peopleInSection.keys.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // need to get the names within the given section
-        let sectionName = Array(friendsList.keys).sorted(by: <)[indexPath.section]
-        let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+        let sectionName = Array(alphabetizedFriendList.keys).sorted(by: <)[indexPath.section]
+        let peopleDataInSection = alphabetizedFriendList[sectionName] as! [String: Any]
         // get the user we want within the section
         let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
         
@@ -124,8 +140,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let row = tableView.indexPathForSelectedRow!.row
             
             // get the section for the person we selected
-            let sectionName = Array(friendsList.keys).sorted(by: <)[section]
-            let peopleDataInSection = friendsList[sectionName] as! [String: Any]
+            let sectionName = Array(alphabetizedFriendList.keys).sorted(by: <)[section]
+            let peopleDataInSection = alphabetizedFriendList[sectionName] as! [String: Any]
             // get the name for the person we selected
             let nameClicked = Array(peopleDataInSection.keys).sorted(by: <)[row]
             
@@ -156,9 +172,23 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if enteredText!.prefix(1) == "@" {
                         enteredText!.removeFirst()
                     }
-                    self.saveNewFriend(newFriend: enteredText!)
+                    
+                    // error checking
+                    let badAlert = UIAlertController(title: "An error has occurred", message: "", preferredStyle: .alert)
+                    badAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    if (!self.allUsers.contains(enteredText!)) {
+                        badAlert.message = Constants.Messages.userNonexistent
+                        self.present(badAlert, animated: true, completion: nil)
+                        return
+                    } else if (self.friendList.contains(enteredText!)) {
+                        badAlert.message = Constants.Messages.userAlreadyFriend
+                        self.present(badAlert, animated: true, completion: nil)
+                        return
+                    } else {
+                        self.saveNewFriend(newFriend: enteredText!)
+                        return
+                    }
                 }
-                
             }
         }))
         

@@ -75,7 +75,10 @@ struct Constants {
         static let shortName = "Name must be longer than 2 letters"
         static let shortPassword = "Password must be longer than 8 characters"
         static let shortUsername = "Username must be 4 or more characters"
+        static let userAlreadyFriend = "User is already on friends list."
+        static let userNonexistent = "User doesn't exist. Please check your spelling and try again"
         static let userTaken = "Username already in use"
+        
     }
     
     struct RegEx {
