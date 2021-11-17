@@ -27,7 +27,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     
     let classesCellIdentifier = "currentClassesCellIdentifier"
     let peopleCellIdentifier = "peopleCellIdentifier"
-    var showPeopleFilter: String = "Friends"
+    var showPeopleFilter: String = Constants.Filters.everyone
     
     var totalClasses: [String] = []
     var filterClasses: [String] = []
@@ -129,6 +129,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         
         hideClassesSection()
         filterPeopleList()
+
         mapFilterDelegate.setFilterMode(filter: showPeopleFilter)
         peopleTableView.reloadData()
     }
