@@ -105,16 +105,26 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // need to get the names within the given section
-            let sectionName = Array(alphabetizedFriendList.keys).sorted(by: <)[indexPath.section]
-            var peopleDataInSection = alphabetizedFriendList[sectionName] as! [String: Any]
-            // get the user we want within the section
-            let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
-            // get username
-            let userData = peopleDataInSection[name] as! NSDictionary
-            let username = userData["username"] as! String
+            let deleteFriendAlert = UIAlertController(title: "Are you sure?", message: "By deleting this friend, you will also remove yourself from their friends list.", preferredStyle: .alert)
             
-            deleteOldFriends(username: username, name: name, section: sectionName, namesInSection: &peopleDataInSection, indexPath: indexPath)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                
+                // need to get the names within the given section
+                let sectionName = Array(self.alphabetizedFriendList.keys).sorted(by: <)[indexPath.section]
+                var peopleDataInSection = self.alphabetizedFriendList[sectionName] as! [String: Any]
+                // get the user we want within the section
+                let name = Array(peopleDataInSection.keys).sorted(by: <)[indexPath.row]
+                // get username
+                let userData = peopleDataInSection[name] as! NSDictionary
+                let username = userData["username"] as! String
+                
+                self.deleteOldFriends(username: username, name: name, section: sectionName, namesInSection: &peopleDataInSection, indexPath: indexPath)
+            })
+            
+            deleteFriendAlert.addAction(deleteAction)
+            deleteFriendAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            present(deleteFriendAlert, animated: true, completion: nil)
         }
     }
 
