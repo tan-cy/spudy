@@ -15,20 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-X2-7A8">
-                                <rect key="frame" x="87" y="280" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Logo" translatesAutoresizingMaskIntoConstraints="NO" id="gUo-gM-phD">
+                                <rect key="frame" x="87" y="273" width="240" height="240"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBB-xO-sSX">
-                                <rect key="frame" x="161" y="505" width="92" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.83921568629999999" green="0.85490196080000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="gUo-gM-phD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="229" id="INi-Fe-tOD"/>
+                            <constraint firstItem="gUo-gM-phD" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="15:56" id="Jfk-i9-piZ"/>
+                            <constraint firstItem="gUo-gM-phD" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.267857" id="LuX-yZ-sv2"/>
+                            <constraint firstItem="gUo-gM-phD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Nyx-ZS-jw9"/>
+                            <constraint firstItem="gUo-gM-phD" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.57971" id="lgy-95-bKn"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -37,6 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="2048" height="2048"/>
+        <image name="Launch Logo" width="294" height="386"/>
     </resources>
 </document>

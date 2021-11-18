@@ -48,6 +48,7 @@ internal func getData (completion:(() -> ())?) {
             let dict = snap.value as! NSDictionary
             let name = dict["name"] as? String ?? "Unknown"
             let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
+            let rating:Float = dict["rating"] as? Float ?? 0.00
             var image:UIImage = UIImage(systemName: "questionmark")!
             let photoURLString = dict ["image"] as? String ?? nil
             let studyDict = dict["studyspots"] as? NSDictionary ?? [:]
@@ -61,7 +62,8 @@ internal func getData (completion:(() -> ())?) {
             }
             
             
-            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studyDict)
+            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studyDict, r:rating)
+
             newList.append(newBuilding)
             
             print("(DEBUG) Retrieved building: \(name)")
