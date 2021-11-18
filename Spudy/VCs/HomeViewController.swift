@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MapKit
+import CoreLocation
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,9 +17,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var popularSpotsCollectionView: UICollectionView!
     @IBOutlet weak var yourFriendsAreHereCollectionView: UICollectionView!
     
+    
     let textCellIdentifier = "TextCell"
     let friendsCellIdentifier = "FriendsCell"
     let studySpotSegueIdentifier = "studySpotSegueIdentifier"
+    let studySpotSegueIdentifier2 = "studySpotSegueIdentifier2"
+    let studySpotSegueIdentifier3 = "studySpotSegueIdentifier3"
+    
     
     override func viewDidLoad() {
         
@@ -77,9 +83,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == studySpotSegueIdentifier,
            let destination = segue.destination as? StudySpotViewController,
-           let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row{
+           let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row {
+            print("First segue used")
 //            destination.building = buildings[buildingIndex].name
             destination.index = buildingIndex
+        }
+        if segue.identifier == studySpotSegueIdentifier2,
+                  let destination2 = segue.destination as? StudySpotViewController, let index2 = sender as? Int {
+            destination2.index = index2
+        }
+        if segue.identifier == studySpotSegueIdentifier3,
+                  let destination3 = segue.destination as? StudySpotViewController, let index3 = sender as? Int {
+            destination3.index = index3
         }
     }
 
@@ -90,9 +105,15 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        collectionView.deselectItem(at: indexPath, animated: true)
+//        collectionView.deselectItem(at: indexPath, animated: true)
         
-        print("You tapped me!")
+        let selectedItem = indexPath.row
+        
+        if(collectionView == popularSpotsCollectionView) {
+            self.performSegue(withIdentifier: studySpotSegueIdentifier3, sender: selectedItem)
+        } else if (collectionView ==  yourFriendsAreHereCollectionView) {
+            self.performSegue(withIdentifier: studySpotSegueIdentifier2, sender: selectedItem)
+        }
         
     }
     
@@ -143,13 +164,15 @@ class building {
     var ycoord:Float
     var image: UIImage
     var studyspots: [String]
+    var rating: Float
     
-    init(n:String, x:Float, y:Float, i:UIImage, ss:[String]) {
+    init(n:String, x:Float, y:Float, i:UIImage, ss:[String], r:Float) {
         name = n
         xcoord = x
         ycoord = y
         image = i
         studyspots = ss
+        rating = r
     }
     
 }

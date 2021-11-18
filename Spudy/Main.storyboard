@@ -143,7 +143,7 @@
             <objects>
                 <viewController id="eOI-AD-ZhW" customClass="ReviewsViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2pd-9g-onW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviews " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4C-9t-mVD">
@@ -917,7 +917,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="e7z-z6-Y3J">
-                                <rect key="frame" x="26" y="44.5" width="362" height="817"/>
+                                <rect key="frame" x="26" y="42" width="362" height="817"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a building" translatesAutoresizingMaskIntoConstraints="NO" id="crH-ET-Y9o">
                                         <rect key="frame" x="0.0" y="0.0" width="362" height="51"/>
@@ -946,7 +946,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCollectionViewCell" id="zrz-09-JjC" customClass="CollectionViewCell" customModule="Spudy" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="zrz-09-JjC" customClass="CollectionViewCell" customModule="Spudy" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="198" height="128"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="u4e-sR-uI6">
@@ -963,6 +963,9 @@
                                                             </subviews>
                                                         </collectionViewCellContentView>
                                                         <size key="customSize" width="198" height="128"/>
+                                                        <connections>
+                                                            <segue destination="dgc-e4-jop" kind="show" identifier="studySpotSegueIdentifier3" id="fTy-hP-sQA"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
@@ -1003,6 +1006,9 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionViewCellContentView>
                                                         <size key="customSize" width="198" height="128"/>
+                                                        <connections>
+                                                            <segue destination="dgc-e4-jop" kind="show" identifier="studySpotSegueIdentifier2" id="Wfm-WL-e16"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
@@ -1031,7 +1037,7 @@
                                                         <color key="backgroundColor" red="0.83921568629999999" green="0.85490196080000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <connections>
-                                                            <segue destination="dgc-e4-jop" kind="show" identifier="studySpotSegueIdentifier" id="VYn-E2-3dP"/>
+                                                            <segue destination="dgc-e4-jop" kind="show" identifier="studySpotSegueIdentifier" destinationCreationSelector="studySpotSegue:" id="VYn-E2-3dP"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -1066,11 +1072,11 @@
             <objects>
                 <viewController id="dgc-e4-jop" customClass="StudySpotViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9QX-eH-Zkf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPx-oc-s3F">
-                                <rect key="frame" x="344" y="-44" width="41" height="59"/>
+                                <rect key="frame" x="344" y="44" width="41" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="wGl-cH-jOC"/>
                                 </constraints>
@@ -1080,13 +1086,13 @@
                                 </buttonConfiguration>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2o-1n-Ymi">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="oSC-xJ-Op8"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x18-7m-Y4U">
-                                <rect key="frame" x="15" y="238" width="384" height="601"/>
+                                <rect key="frame" x="15" y="326" width="384" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SAa-qA-6fb">
                                     <size key="itemSize" width="376" height="128"/>
@@ -1440,7 +1446,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uSh-r2-IEh"/>
+        <segue reference="Wfm-WL-e16"/>
+        <segue reference="AMP-Tt-yhQ"/>
         <segue reference="BOj-Y5-iGa"/>
         <segue reference="ozV-2U-zGc"/>
         <segue reference="ONz-UM-rDC"/>

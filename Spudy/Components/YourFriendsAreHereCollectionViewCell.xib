@@ -19,8 +19,8 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Sq-qJ-dgN">
                         <rect key="frame" x="-8" y="-7" width="219" height="157"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-KC-73C">
-                        <rect key="frame" x="10" y="41" width="185" height="92"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-KC-73C">
+                        <rect key="frame" x="10" y="108" width="185" height="23.5"/>
                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -36,7 +36,6 @@
                 <constraint firstAttribute="trailing" secondItem="pAX-KC-73C" secondAttribute="trailing" constant="10" id="i1S-Dd-o8X"/>
                 <constraint firstItem="pAX-KC-73C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="xnJ-hm-lhf"/>
                 <constraint firstItem="5Sq-qJ-dgN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yRU-tB-duG"/>
-                <constraint firstItem="pAX-KC-73C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="41" id="zyz-vz-lPj"/>
             </constraints>
             <size key="customSize" width="205" height="143"/>
             <connections>
