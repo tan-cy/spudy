@@ -81,8 +81,14 @@ class SettingsViewController: UIViewController {
     }
     
     func submitLocationSettings(setting: Constants.LocationSettings) {
-        let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
-        newItemRef.child(Constants.DatabaseKeys.locationSetting).setValue(setting.rawValue)
+        let newItemRef = self.ref.child(CURRENT_USERNAME)
+        let newItemRefSettings = newItemRef.child(Constants.DatabaseKeys.settings)
+        newItemRefSettings.child(Constants.DatabaseKeys.locationSetting).setValue(setting.rawValue)
+        // erase user location from database 
+        if (setting == Constants.LocationSettings.none) {
+            newItemRef.child(Constants.DatabaseKeys.latitude).setValue(Double.greatestFiniteMagnitude)
+            newItemRef.child(Constants.DatabaseKeys.longitude).setValue(Double.greatestFiniteMagnitude)
+        }
     }
     
     @IBAction func touchSignOut(_ sender: Any) {

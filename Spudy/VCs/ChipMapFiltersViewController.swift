@@ -200,7 +200,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let photo = thisValue?.value(forKey: Constants.DatabaseKeys.photo) as? String ?? ""
             let longitude = thisValue?.value(forKey: Constants.DatabaseKeys.longitude) as? Double ?? Double.greatestFiniteMagnitude
             let latitude = thisValue?.value(forKey: Constants.DatabaseKeys.latitude)  as? Double ?? Double.greatestFiniteMagnitude
-            
+            let settings = thisValue?.value(forKey: Constants.DatabaseKeys.settings) as? NSDictionary
             // only add to dict if it doesn't exist yet
             if filterPeopleDict[name] == nil {
                 filterPeopleDict[name] = [
@@ -208,7 +208,8 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
                     "photo": photo,
                     "isFriend": addingFriends,
                     "longitude": longitude,
-                    "latitude": latitude
+                    "latitude": latitude,
+                    "settings": settings
                 ]
             }
         }
@@ -320,9 +321,10 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         
         let longitude = userData[Constants.DatabaseKeys.longitude] as! Double
         let latitude = userData[Constants.DatabaseKeys.latitude] as! Double
+        let locationSettings = ((userData[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting]) as! String
         
         // move map focusing if they are on map
-        if (longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude) {
+        if ((longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude) && locationSettings != Constants.LocationSettings.none.rawValue) {
             mapFilterDelegate.focusOnUser(longitude: longitude, latitude: latitude)
             self.dismiss(animated: true, completion: nil)
             

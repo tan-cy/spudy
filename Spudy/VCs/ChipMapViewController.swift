@@ -182,8 +182,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func showFriends(people: NSDictionary) {
         // show all friends
         friends.forEach() { friend in
-            let personDetails = people.value(forKey: friend) as? NSDictionary
-            setUserAnnotation(username: friend, person: personDetails, pinColor: UIColor.red)
+            let personDetails = people.value(forKey: friend) as! NSDictionary
+            let locationSetting = (personDetails[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
+            if (locationSetting != Constants.LocationSettings.none.rawValue) {
+                setUserAnnotation(username: friend, person: personDetails, pinColor: UIColor.red)
+            }
         }
     }
     
@@ -200,8 +203,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func showClassmate(people: NSDictionary, peopleInCourse: [String]) {
         peopleInCourse.forEach() { classmate in
             if (!friends.contains(classmate) && classmate != CURRENT_USERNAME) {
-                let personDetails = people.value(forKey: classmate) as? NSDictionary
-                setUserAnnotation(username: classmate, person: personDetails, pinColor: UIColor.cyan)
+                let personDetails = people.value(forKey: classmate) as! NSDictionary
+                let locationSetting = (personDetails[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
+                if (locationSetting != Constants.LocationSettings.none.rawValue) {
+                    setUserAnnotation(username: classmate, person: personDetails, pinColor: UIColor.cyan)
+                }
             }
         }
     }
