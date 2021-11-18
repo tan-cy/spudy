@@ -15,7 +15,11 @@ protocol MapFilterSetter {
     func setClasses (classesFilter: [String])
     func setFilterMode (filter: String)
     func selfStudyMode (selfStudy: Bool)
-    func focusOnUser(longitude: Double, latitude: Double)
+    func focusOnUser (longitude: Double, latitude: Double)
+}
+
+protocol TappedUser {
+    func tappedUser (view: MKAnnotationView)
 }
 
 class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MapFilterSetter {
@@ -86,7 +90,19 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 //        }
 //    }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//        print("tapped annotation")
+//        let location = view.annotation?.coordinate
+//        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
+//        chipMap.setRegion(region, animated: true)
+//        let annotation = (view.annotation as? UserMKAnnotation)
+//        if let selectedUsername = annotation?.subtitle,
+//            selectedUsername != CURRENT_USERNAME {
+//            performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
+//        }
+//    }
+    @objc func tappedUser(_ sender: UITapGestureRecognizer) {
+        let view = sender.view as! MKAnnotationView
         let location = view.annotation?.coordinate
         let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
         chipMap.setRegion(region, animated: true)
@@ -95,6 +111,37 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             selectedUsername != CURRENT_USERNAME {
             performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+        let userAnnotationIdentifier =  "userAnnotationIdentifier"
+        var annotationView = chipMap.dequeueReusableAnnotationView(withIdentifier:userAnnotationIdentifier)
+        if (annotationView == nil) {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: userAnnotationIdentifier)
+            annotationView?.canShowCallout = true
+            
+//            let button = UIButton(primaryAction: UIAction(handler: #selector(tappedUser(view: annotationView))))
+//            button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//            annotationView!.rightCalloutAccessoryView = button
+            annotationView?.isUserInteractionEnabled = true
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.tappedUser(_:)))
+            annotationView?.addGestureRecognizer(tap)
+            let userAnnotation = annotation as! UserMKAnnotation
+            annotationView?.addSubview(userAnnotation.imageView)
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        
+        
+//        annotationView?.image = userAnnotation.image
+        
+            
+        return annotationView
     }
     
     
@@ -211,7 +258,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             let profiles = snapshot.value as? NSDictionary
             let user = profiles?[CURRENT_USERNAME] as? NSDictionary
             self.selfStudy =  ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool)
-            print("self study mode is", self.selfStudy)
         }
         clearMapOfAnnotations()
         if (selfStudy) {
