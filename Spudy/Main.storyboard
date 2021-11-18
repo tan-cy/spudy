@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -853,7 +853,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIh-XA-jPM">
-                                <rect key="frame" x="35" y="555.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="35" y="555.5" width="344" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -892,6 +892,7 @@
                             <constraint firstItem="E33-y6-0wC" firstAttribute="leading" secondItem="GRl-SO-FBf" secondAttribute="leading" constant="35" id="Z6c-jf-hCe"/>
                             <constraint firstItem="GRl-SO-FBf" firstAttribute="trailing" secondItem="L2N-pK-u9Y" secondAttribute="trailing" constant="35" id="aDF-6T-e6v"/>
                             <constraint firstItem="E33-y6-0wC" firstAttribute="top" secondItem="ghj-wv-ODW" secondAttribute="bottom" constant="2" id="dne-L1-BAW"/>
+                            <constraint firstItem="GRl-SO-FBf" firstAttribute="trailing" secondItem="yIh-XA-jPM" secondAttribute="trailing" constant="35" id="fby-D6-7h1"/>
                             <constraint firstItem="EU4-LN-sTV" firstAttribute="centerX" secondItem="IA9-Lm-HRg" secondAttribute="centerX" id="fuh-Nb-eaD"/>
                             <constraint firstItem="1UV-7r-Vhc" firstAttribute="leading" secondItem="GRl-SO-FBf" secondAttribute="leading" constant="35" id="gRk-0w-JfP"/>
                             <constraint firstItem="pcl-kH-iPm" firstAttribute="top" secondItem="1UV-7r-Vhc" secondAttribute="bottom" constant="25" id="k67-HP-1NB"/>
@@ -1527,7 +1528,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mjm-6d-PxL"/>
         <segue reference="eyr-TL-EYU"/>
         <segue reference="Dlr-Av-dgM"/>
         <segue reference="ERw-zc-w9P"/>
