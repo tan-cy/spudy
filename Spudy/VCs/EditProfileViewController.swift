@@ -197,7 +197,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         for indexToRemove in toDeleteClassesIndices.sorted(by: >) {
-            print(currClasses[indexToRemove])
             currClasses.remove(at: indexToRemove)
         }
         
@@ -235,29 +234,26 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
         }
         
         newClasses.forEach { newClass in
-            self.classesRef.child(newClass).getData(completion: {_, snapshot in
+            self.classesRef.getData(completion: {_, snapshot in
                 
                 let value = snapshot.value as? NSDictionary
-                var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
-                
-                print(students)
+                let classValue = value?.value(forKey: newClass) as? NSDictionary
+                var students = classValue?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
                 
                 students.append(CURRENT_USERNAME)
-                
-                print(students)
-                
                 self.classesRef.child(newClass).child(Constants.DatabaseKeys.students).setValue(students)
             })
         }
         
         removedClasses.forEach { removeClass in
-            self.classesRef.child(removeClass).getData(completion: {error, snapshot in
+            self.classesRef.getData(completion: {error, snapshot in
                 guard error == nil else {
                     return
                 }
                 
                 let value = snapshot.value as? NSDictionary
-                var students = value?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
+                let classValue = value?.value(forKey: removeClass) as? NSDictionary
+                var students = classValue?.value(forKey: Constants.DatabaseKeys.students) as? [String] ?? []
                 
                 students = students.filter() {$0 != CURRENT_USERNAME}
                 self.classesRef.child(removeClass).child(Constants.DatabaseKeys.students).setValue(students)
