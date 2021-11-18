@@ -47,14 +47,12 @@ class LoginViewController: UIViewController {
                           newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
                           
                           CURRENT_USERNAME = username as! String
-                          print("current user is " + CURRENT_USERNAME)
                           
                           // fetch current users
                           let fetchedResults = self.retrieveCurrentUser()
 
                           // if no user exists
                           if (fetchedResults.isEmpty) {
-                              print("no user exists")
                               let newSignedIn = NSEntityDescription.insertNewObject(forEntityName: Constants.CoreKeys.userEntity, into: Constants.context)
                               newSignedIn.setValue(username, forKey: Constants.CoreKeys.username)
                           } else {

@@ -64,7 +64,6 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             break
         case Constants.Filters.selfStudyMode:
             filterSegmentCtrl.selectedSegmentIndex = 2
-//            filterSegmentCtrl.isHidden = true
         default:
             print("something has gone wrong in setting up filter's segment ctrl")
         }

@@ -33,7 +33,6 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func changeSelfStudyMode(_ sender: Any) {
-        print(selfStudyModeSwitch.isOn)
         let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         
         newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudyModeSwitch.isOn)
@@ -97,7 +96,6 @@ class SettingsViewController: UIViewController {
     func signUserOut() {
         do {
             try Auth.auth().signOut()
-            print("success")
             self.performSegue(withIdentifier: Constants.Segues.logoutSegueIdentifier, sender: nil)
         }
         catch let error as NSError
