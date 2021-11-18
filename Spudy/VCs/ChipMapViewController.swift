@@ -217,7 +217,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             let profiles = snapshot.value as? NSDictionary
             let user = profiles?[CURRENT_USERNAME] as? NSDictionary
             self.selfStudy =  ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool)
-            print("self study mode is", self.selfStudy)
         }
         clearMapOfAnnotations()
         if (selfStudy) {
