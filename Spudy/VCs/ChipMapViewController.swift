@@ -14,6 +14,7 @@ import CoreData
 protocol MapFilterSetter {
     func setClasses (classesFilter: [String])
     func setFilterMode (filter: String)
+    func selfStudyMode (selfStudy: Bool)
     func focusOnUser(longitude: Double, latitude: Double)
 }
 
@@ -23,7 +24,8 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     var profileRef: DatabaseReference!
     var classRef: DatabaseReference!
     
-    var filters: String!
+    var selfStudy: Bool! = false
+    var filters: String! = Constants.Filters.everyone
     var friends: [String]!
     var classmates: [String]!
     var classesFilter: [String] = []
@@ -152,15 +154,9 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
 
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-        profileRef.observe(.value) { snapshot in
-            let profiles = snapshot.value as? NSDictionary
-            let user = profiles?[CURRENT_USERNAME] as? NSDictionary
-            let selfStudy =  (user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool
-            
-            self.filters = selfStudy ? Constants.Filters.selfStudyMode : Constants.Filters.everyone
-            self.showPeople()
-        }
         
+        self.showPeople()
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -211,29 +207,39 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func showPeople() {
-        clearMapOfAnnotations()
-
-        self.selfStudyMessage.isHidden = true
-        self.chipMap.isHidden = false
         profileRef.observe(.value) { snapshot in
-            let peopleDict = snapshot.value as? NSDictionary
-            switch(self.filters) {
-            case Constants.Filters.friends:
-                self.showFriends(people: peopleDict!)
-                break
-            case Constants.Filters.classmates:
-                self.showByClass(people: peopleDict!)
-                break
-            case Constants.Filters.everyone:
-                self.showFriends(people: peopleDict!)
-                self.showByClass(people: peopleDict!)
-                break
-            default:
-                self.selfStudyMessage.isHidden = false
-                self.chipMap.isHidden = true
-                break
+            let profiles = snapshot.value as? NSDictionary
+            let user = profiles?[CURRENT_USERNAME] as? NSDictionary
+            self.selfStudy =  ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool)
+            print("self study mode is", self.selfStudy)
+        }
+        clearMapOfAnnotations()
+        if (selfStudy) {
+            self.selfStudyMessage.isHidden = false
+            self.chipMap.isHidden = true
+        } else {
+            self.selfStudyMessage.isHidden = true
+            self.chipMap.isHidden = false
+            profileRef.observe(.value) { snapshot in
+                let peopleDict = snapshot.value as? NSDictionary
+                switch(self.filters) {
+                case Constants.Filters.friends:
+                    self.showFriends(people: peopleDict!)
+                    break
+                case Constants.Filters.classmates:
+                    self.showByClass(people: peopleDict!)
+                    break
+                case Constants.Filters.everyone:
+                    self.showFriends(people: peopleDict!)
+                    self.showByClass(people: peopleDict!)
+                    break
+                default:
+                    print("filters has gone wrong ")
+                    break
+                }
             }
         }
+        
     }
     
     func saveUserLocationToFirebase(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
@@ -262,6 +268,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     func setFilterMode(filter: String) {
         self.filters = filter
+        showPeople()
+    }
+    
+    func selfStudyMode(selfStudy: Bool) {
+        self.selfStudy = selfStudy
         showPeople()
     }
     
