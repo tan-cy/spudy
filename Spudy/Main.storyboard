@@ -449,6 +449,7 @@
                                             <outlet property="nameLabel" destination="xH0-Zm-BqE" id="ql5-Rg-ZzN"/>
                                             <outlet property="profilePhoto" destination="HdZ-aS-s2g" id="7e5-h1-OMh"/>
                                             <outlet property="usernameLabel" destination="tci-XX-Ckq" id="kSH-lu-zkz"/>
+                                            <segue destination="zE7-tJ-sQs" kind="show" identifier="friendsProfileSegueIdentifier" id="eyr-TL-EYU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1492,7 +1493,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ONz-UM-rDC"/>
+        <segue reference="eyr-TL-EYU"/>
         <segue reference="Dlr-Av-dgM"/>
         <segue reference="ERw-zc-w9P"/>
     </inferredMetricsTieBreakers>

@@ -215,12 +215,20 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func saveNewFriend(newFriend: String) {
         profileRef.getData(completion: { (_, snapshot) in
             let value = snapshot.value as? NSDictionary
-            let user = value?[CURRENT_USERNAME] as? NSDictionary
 
             // add new friend to user's list of friends
-            var friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
-            friends.append(newFriend)
-            self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(friends)
+            let user = value?[CURRENT_USERNAME] as? NSDictionary
+            
+            var myFriends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            myFriends.append(newFriend)
+            self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(myFriends)
+            
+            // add this user to newFriend's list of friends
+            let friendUser = value?[newFriend] as? NSDictionary
+            
+            var theirFriends = friendUser?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            theirFriends.append(CURRENT_USERNAME)
+            self.profileRef.child(newFriend).child(Constants.DatabaseKeys.friends).setValue(theirFriends)
         })
     }
     
@@ -247,5 +255,23 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.endUpdates()
         
         profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(originalFriends)
+        // delete CURRENT_USER from friend's list of friends
+        deleteOtherUserFriends(otherUser: username)
+    }
+    
+    func deleteOtherUserFriends(otherUser: String) {
+        profileRef.getData(completion: { (_, snapshot) in
+            let value = snapshot.value as? NSDictionary
+
+            // add new friend to user's list of friends
+            let user = value?[otherUser] as? NSDictionary
+            // get rid of CURRENT_USERNAME from username's friends list
+            var friends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            friends = friends.filter {
+                $0 != CURRENT_USERNAME
+            }
+            
+            self.profileRef.child(otherUser).child(Constants.DatabaseKeys.friends).setValue(friends)
+        })
     }
 }
