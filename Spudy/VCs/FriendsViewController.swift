@@ -193,6 +193,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     // error checking
                     let badAlert = UIAlertController(title: "An error has occurred", message: "", preferredStyle: .alert)
                     badAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
                     if (!self.allUsers.contains(enteredText!)) {
                         badAlert.message = Constants.Messages.userNonexistent
                         self.present(badAlert, animated: true, completion: nil)
@@ -201,8 +202,16 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                         badAlert.message = Constants.Messages.userAlreadyFriend
                         self.present(badAlert, animated: true, completion: nil)
                         return
+                        
                     } else {
-                        self.saveNewFriend(newFriend: enteredText!)
+                        // add notice since friends auth has not been implemented yet
+                        let addingFriendAlert = UIAlertController(title: "Friends Auth Incomplete", message: "We have not implemented the feature to accept/reject friends at this time. You will be automatically added to \(enteredText!)'s list of friends.", preferredStyle: .alert)
+                        addingFriendAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        
+                        self.present(addingFriendAlert, animated: true, completion: {
+                            self.saveNewFriend(newFriend: enteredText!)
+                        })
+                        
                         return
                     }
                 }
