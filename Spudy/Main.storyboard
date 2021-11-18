@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1320,7 +1320,7 @@
         <scene sceneID="ycg-jc-zfo">
             <objects>
                 <viewController id="fFI-oh-sQy" customClass="ChipMapFiltersViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="top" id="l0W-ff-N7a">
+                    <view key="view" contentMode="top" ambiguous="YES" id="l0W-ff-N7a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1350,7 +1350,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Etz-Vz-ipN">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Etz-Vz-ipN">
                                 <rect key="frame" x="-174" y="220.5" width="350" height="80"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -1375,7 +1375,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Cjb-0K-s1F">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Cjb-0K-s1F">
                                 <rect key="frame" x="0.0" y="341" width="2" height="501"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -1450,13 +1450,11 @@
                         <constraints>
                             <constraint firstItem="OSJ-V9-iR5" firstAttribute="leading" secondItem="wtY-Mn-fcz" secondAttribute="leading" constant="200" id="AK9-aT-Kt2"/>
                             <constraint firstItem="SwU-9r-kFh" firstAttribute="top" secondItem="wtY-Mn-fcz" secondAttribute="top" constant="87" id="BQM-Ua-BUJ"/>
+                            <constraint firstItem="OSJ-V9-iR5" firstAttribute="top" secondItem="wtY-Mn-fcz" secondAttribute="top" constant="43" id="GOC-Lr-wnI"/>
                             <constraint firstItem="2Uq-Wy-35g" firstAttribute="leading" secondItem="JgM-lu-hPj" secondAttribute="leading" id="GU2-hM-I49"/>
-                            <constraint firstItem="One-GN-vMs" firstAttribute="trailing" secondItem="wtY-Mn-fcz" secondAttribute="trailing" constant="384" id="Lcg-RX-JfN"/>
-                            <constraint firstItem="One-GN-vMs" firstAttribute="top" secondItem="wtY-Mn-fcz" secondAttribute="top" constant="38" id="RUt-ue-qBP"/>
                             <constraint firstItem="Etz-Vz-ipN" firstAttribute="top" secondItem="JgM-lu-hPj" secondAttribute="bottom" constant="8" symbolic="YES" id="W3S-e3-RPj"/>
                             <constraint firstAttribute="bottom" secondItem="Cjb-0K-s1F" secondAttribute="bottom" id="WVS-Jx-NHt"/>
                             <constraint firstItem="One-GN-vMs" firstAttribute="leading" secondItem="OSJ-V9-iR5" secondAttribute="trailing" constant="8" symbolic="YES" id="aEp-fH-c0R"/>
-                            <constraint firstItem="OSJ-V9-iR5" firstAttribute="top" secondItem="wtY-Mn-fcz" secondAttribute="top" constant="43" id="b1D-MH-iUn"/>
                             <constraint firstItem="2Uq-Wy-35g" firstAttribute="top" secondItem="Etz-Vz-ipN" secondAttribute="bottom" constant="20" id="cMQ-iW-abt"/>
                             <constraint firstItem="Cjb-0K-s1F" firstAttribute="trailing" secondItem="wtY-Mn-fcz" secondAttribute="trailing" id="csu-Cf-WeL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="o4H-lY-mhi" secondAttribute="trailing" constant="20" id="evO-fA-OYM"/>
@@ -1470,6 +1468,7 @@
                             <constraint firstItem="Cjb-0K-s1F" firstAttribute="leading" secondItem="wtY-Mn-fcz" secondAttribute="leading" id="vsP-Mn-p0h"/>
                             <constraint firstItem="JgM-lu-hPj" firstAttribute="leading" secondItem="SwU-9r-kFh" secondAttribute="leading" id="vtF-R1-uoN"/>
                             <constraint firstItem="o4H-lY-mhi" firstAttribute="leading" secondItem="SwU-9r-kFh" secondAttribute="leading" id="xAa-rD-Tfp"/>
+                            <constraint firstItem="One-GN-vMs" firstAttribute="top" secondItem="wtY-Mn-fcz" secondAttribute="top" constant="38" id="yd0-MS-kwv"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="MPH-yL-Jqd"/>
