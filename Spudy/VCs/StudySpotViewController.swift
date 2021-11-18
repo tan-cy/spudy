@@ -15,10 +15,14 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var studySpotsCollectionView: UICollectionView!
     @IBOutlet weak var buildingName: UILabel!
     
+    let reviewSegueIdentifier = "reviewSegueIdentifier"
+    
     var building = ""
+    var index = 0
     var ref: DatabaseReference!
     var studySpots: [String] = []
     let textCellIdentifier = "TextCell"
+    var studyDict:NSDictionary = [:]
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,6 +59,15 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         studySpotsCollectionView.collectionViewLayout = layout
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == reviewSegueIdentifier,
+           let destination = segue.destination as? ReviewsViewController,
+           let studySpotIndex = studySpotsCollectionView.indexPathsForSelectedItems{
+            let spot = studyDict.value(forKey: studySpots[studySpotIndex[0].row]) as! NSDictionary
+            destination.review = spot as! NSDictionary
+        }
+    }
+    
 
 
     override func viewDidLoad() {
@@ -64,27 +77,13 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         studySpotsCollectionView.dataSource = self
         
         // Do any additional setup after loading the view.
-        buildingName.text = building
-        ref = Database.database().reference(withPath: "buildings")
+        buildingName.text = buildings[index].name
+        self.studySpotsImage.image = buildings[index].image
+        self.studyDict = buildings[index].studyspots as! NSDictionary
+        self.studySpots = studyDict.allKeys as! [String]
+        self.studySpotsCollectionView.reloadData()
         
-        ref.observe(.value, with: {snapshot in
-            let value = snapshot.value as? NSDictionary
-            let buildingDB = value?.value(forKey: "\(self.building)") as? NSDictionary
-            self.studySpots = buildingDB?["studyspots"] as? [String] ?? []
-            
-            let imageURLString = buildingDB?["image"] as? String ?? nil
-                if imageURLString != nil {
-                    if let imageURL = URL(string: imageURLString!) {
-                        if let data = try? Data(contentsOf: imageURL) {
-                            self.studySpotsImage.image = UIImage(data: data)
-                        }
-                    }
-                }
-
-            
-            self.studySpotsCollectionView.reloadData()
-        }
-        )
+        
         
     }
     

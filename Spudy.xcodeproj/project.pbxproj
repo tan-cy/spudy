@@ -46,6 +46,7 @@
 		A7FCDA7227223D740052E44F /* AddClassCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7127223D740052E44F /* AddClassCollectionReusableView.swift */; };
 		A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */; };
 		A7FCDA7627223D7F0052E44F /* EditClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */; };
+		C5070F44273B368300252986 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5070F43273B368300252986 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditClassesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
+		C5070F43273B368300252986 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				8E3EEC3327348C1700A083D4 /* Main.storyboard */,
+				C5070F43273B368300252986 /* LoadingViewController.swift */,
 				A78430FC27163BC300803E9B /* Components */,
 				A78430F327163AF100803E9B /* VCs */,
 				A734D880271636AD00D660C8 /* AppDelegate.swift */,
@@ -335,6 +338,7 @@
 				4644E2A9273CF33300B0C9F7 /* MapPeopleTableViewCell.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A7872C54271F72B70028424B /* UserData.swift in Sources */,
+				C5070F44273B368300252986 /* LoadingViewController.swift in Sources */,
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
 				A76850142722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift in Sources */,

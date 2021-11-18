@@ -13,11 +13,14 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var reviewCollectionView: UICollectionView!
     
     var textCellIdentifier = "ReviewCellIdentifier"
-    var userList:[String] = ["user1", "user2"]
-    var reviewList:[String] = ["I really liked this place", "It was an ok place to study; kind of crusty"]
+    
+    var review:NSDictionary = [:]
+    var reviewList:[String] = []
+    var userList:[String] = []
+    var ratingList:[String] = []
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return reviewList.count
+        return review.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -25,6 +28,8 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         cell.usernameLabel.text = userList[indexPath.row]
         cell.reviewLabel.text = reviewList[indexPath.row]
+        cell.ratingLabel.text = ratingList[indexPath.row]
+        
         
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
@@ -59,7 +64,13 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Do any additional setup after loading the view.
         reviewCollectionView.delegate = self
         reviewCollectionView.dataSource = self
-        print("hi")
+        userList = review.allKeys as! [String]
+        for key in userList{
+            let user = review.value(forKey: key) as! NSDictionary
+            reviewList.append(user.value(forKey: "review") as! String)
+            ratingList.append(user.value(forKey: "rating") as! String)
+        }
+        
         self.reviewCollectionView.reloadData()
     }
     
