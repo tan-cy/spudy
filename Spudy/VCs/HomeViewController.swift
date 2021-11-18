@@ -142,9 +142,9 @@ class building {
     var xcoord:Float
     var ycoord:Float
     var image: UIImage
-    var studyspots: [String]
+    var studyspots:NSDictionary
     
-    init(n:String, x:Float, y:Float, i:UIImage, ss:[String]) {
+    init(n:String, x:Float, y:Float, i:UIImage, ss:NSDictionary) {
         name = n
         xcoord = x
         ycoord = y

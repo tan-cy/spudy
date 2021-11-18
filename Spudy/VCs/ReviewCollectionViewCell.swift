@@ -11,5 +11,6 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
     
 }

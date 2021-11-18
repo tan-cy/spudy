@@ -15,11 +15,14 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var studySpotsCollectionView: UICollectionView!
     @IBOutlet weak var buildingName: UILabel!
     
+    let reviewSegueIdentifier = "reviewSegueIdentifier"
+    
     var building = ""
     var index = 0
     var ref: DatabaseReference!
     var studySpots: [String] = []
     let textCellIdentifier = "TextCell"
+    var studyDict:NSDictionary = [:]
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,6 +59,15 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         studySpotsCollectionView.collectionViewLayout = layout
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == reviewSegueIdentifier,
+           let destination = segue.destination as? ReviewsViewController,
+           let studySpotIndex = studySpotsCollectionView.indexPathsForSelectedItems{
+            let spot = studyDict.value(forKey: studySpots[studySpotIndex[0].row]) as! NSDictionary
+            destination.review = spot as! NSDictionary
+        }
+    }
+    
 
 
     override func viewDidLoad() {
@@ -67,7 +79,8 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         // Do any additional setup after loading the view.
         buildingName.text = buildings[index].name
         self.studySpotsImage.image = buildings[index].image
-        self.studySpots = buildings[index].studyspots
+        self.studyDict = buildings[index].studyspots as! NSDictionary
+        self.studySpots = studyDict.allKeys as! [String]
         self.studySpotsCollectionView.reloadData()
         
         

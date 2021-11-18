@@ -45,13 +45,12 @@ internal func getData (completion:(() -> ())?) {
         for child in (snapshot.children) {
             
             let snap = child as! DataSnapshot
-            let dict = snap.value as! [String:Any]
-            
+            let dict = snap.value as! NSDictionary
             let name = dict["name"] as? String ?? "Unknown"
             let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
             var image:UIImage = UIImage(systemName: "questionmark")!
             let photoURLString = dict ["image"] as? String ?? nil
-            let studySpots = dict["studyspots"] as? [String] ?? []
+            let studyDict = dict["studyspots"] as? NSDictionary ?? [:]
             
             if photoURLString != nil {
                 if let photoURL = URL(string: photoURLString!) {
@@ -62,7 +61,7 @@ internal func getData (completion:(() -> ())?) {
             }
             
             
-            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studySpots)
+            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studyDict)
             newList.append(newBuilding)
             
             print("(DEBUG) Retrieved building: \(name)")
