@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var currentClassesCollectionView: UICollectionView!
     
     @IBOutlet weak var addFriendButton: UIButton!
-    var showAddFriendButton = false
     
     let cellIdentifier = "currentClassesCellIdentifier"
     var currClasses: [String] = []
@@ -36,9 +35,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Do any additional setup after loading the view.
         profileImage.layer.masksToBounds = true
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
+        self.addFriendButton.isHidden = true
+        
         usernameLabel.text = "@\(userToGet!)"
         
         // get the user's profile info
@@ -69,11 +68,18 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.contactInfoLabel.text = user?["contactInfo"] as? String ?? ""
             
             self.currentClassesCollectionView.reloadData()
+            
+            // now check if this person is CURRENT_USERNAME's friend or is their profile
+            let currentUser = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
+            var currentFriends = currentUser?["friends"] as? [String] ?? []
+            
+            // append CURRENT to this list so we can easily search if selected user is not CURRENT or friends
+            currentFriends.append(CURRENT_USERNAME)
+            // don't show add friend button if CURRENT knows this user
+            if !currentFriends.contains(self.userToGet) {
+                self.addFriendButton.isHidden = false
+            }
         })
-        
-        if !showAddFriendButton {
-            addFriendButton.isHidden = true
-        }
         self.currentClassesCollectionView.reloadData()
     }
     
@@ -101,4 +107,36 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
           return CGSize(width: widthPerItem, height: 35)
       }
+    
+    @IBAction func addFriendPressed(_ sender: Any) {
+        let friendAlert = UIAlertController(title: "Add Friend", message: "You will be automatically added to \(userToGet!)'s friends list as well.", preferredStyle: .alert)
+        
+        friendAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.saveNewFriend(newFriend: self.userToGet!)
+        }))
+        friendAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(friendAlert, animated: true, completion: nil)
+    }
+    
+    func saveNewFriend(newFriend: String) {
+        ref.getData(completion: { (_, snapshot) in
+            let value = snapshot.value as? NSDictionary
+
+            // add new friend to user's list of friends
+            let user = value?[CURRENT_USERNAME] as? NSDictionary
+            
+            var myFriends = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            myFriends.append(newFriend)
+            self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.friends).setValue(myFriends)
+            
+            // add this user to newFriend's list of friends
+            let friendUser = value?[newFriend] as? NSDictionary
+            
+            var theirFriends = friendUser?[Constants.DatabaseKeys.friends] as? [String] ?? []
+            theirFriends.append(CURRENT_USERNAME)
+            self.ref.child(newFriend).child(Constants.DatabaseKeys.friends).setValue(theirFriends)
+        })
+    }
+    
 }
