@@ -401,6 +401,9 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Add Friend"/>
+                                    <connections>
+                                        <action selector="addFriendButtonPressed:" destination="BZe-SC-AVu" eventType="touchUpInside" id="ZOd-AB-2AK"/>
+                                    </connections>
                                 </button>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friendsTableIdentifier" rowHeight="80" id="8lJ-BS-ERK" customClass="FriendsTableViewCell" customModule="Spudy" customModuleProvider="target">
