@@ -48,7 +48,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         peopleTableView.delegate = self
         peopleTableView.dataSource = self
         
-        filterSegmentCtrl.isHidden = false
+//        filterSegmentCtrl.isHidden = false
         
         
         // select correct segment
@@ -63,7 +63,8 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             filterSegmentCtrl.selectedSegmentIndex = 2
             break
         case Constants.Filters.selfStudyMode:
-            filterSegmentCtrl.isHidden = true
+            filterSegmentCtrl.selectedSegmentIndex = 2
+//            filterSegmentCtrl.isHidden = true
         default:
             print("something has gone wrong in setting up filter's segment ctrl")
         }
@@ -73,6 +74,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         classesRef = Database.database().reference(withPath: Constants.DatabaseKeys.classesPath)
         
         profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+        
         profileRef.observe(.value, with: { snapshot in
             // grab the data!
             let value = snapshot.value as? NSDictionary
@@ -82,25 +84,22 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let settings = user?[Constants.DatabaseKeys.settings] as? NSDictionary
             self.selfStudySwitch.isOn = settings?[Constants.DatabaseKeys.selfStudy] as? Bool ?? false
             
-            // get friends for initial view
-            // TODO: Change this once we implement Friends feature
-            self.filterPeopleKeys = user?["friends"] as? [String] ?? []
-            self.filterPeopleKeys = self.filterPeopleKeys.sorted(by: <)
-            self.getProfileData(value: value, addingFriends: true)
-
-            self.peopleTableView.reloadData()
-            
-            //store file in database
+            // get classmates for initial view
             let tempClasses = user?[Constants.DatabaseKeys.classes] as? [String] ?? []
             self.totalClasses.removeAll()
             self.totalClasses.append(contentsOf: tempClasses)
             
             self.classesCollectionView.reloadData()
+            
+            // get friends and classmates--filter should be on everyone
+            self.filterPeopleList()
+
+            // hide classes section
+            self.hideClassesSection()
+            self.peopleTableView.reloadData()
+            
         })
-                    
-        hideClassesSection()
-        filterPeopleList()
-        peopleTableView.reloadData()
+
         // Do any additional setup after loading the view.
     }
     
@@ -224,8 +223,9 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         classesToUse.forEach { removeClass in
             group.enter()
             
-            self.classesRef.child(removeClass).getData(completion: {_, snapshot in
-     
+            // weird firebase loading issue so i have to grab entire classesRef snapshot
+            self.classesRef.getData(completion: {_, snapshot in
+                
                 var value = snapshot.value as? NSDictionary
                 value = value?.value(forKey: removeClass) as? NSDictionary
                 
