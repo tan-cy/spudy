@@ -12,6 +12,7 @@ import FirebaseDatabase
 import CoreData
 
 var CURRENT_USERNAME = ""
+var selfStudyMode:Bool!
 var buildings:[building] = []
 
 internal func getUsername() {
@@ -76,4 +77,14 @@ internal func getData (completion:(() -> ())?) {
     
     })
 
+    getSelfStudy()
+}
+
+func getSelfStudy() {
+    let profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+    profileRef.observe(.value) { snapshot in
+        let profiles = snapshot.value as? NSDictionary
+        let user = profiles?[CURRENT_USERNAME] as? NSDictionary
+        selfStudyMode = ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool)
+    }
 }

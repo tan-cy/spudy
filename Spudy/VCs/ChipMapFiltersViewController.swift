@@ -80,8 +80,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
             
             // set current self study status
-            let settings = user?[Constants.DatabaseKeys.settings] as? NSDictionary
-            self.selfStudySwitch.isOn = settings?[Constants.DatabaseKeys.selfStudy] as? Bool ?? false
+            self.selfStudySwitch.isOn = selfStudyMode
             
             // get classmates for initial view
             let tempClasses = user?[Constants.DatabaseKeys.classes] as? [String] ?? []
@@ -104,7 +103,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBAction func changeSelfStudyMode(_ sender: Any) {
         let newItemRef = self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
-        mapFilterDelegate.selfStudyMode(selfStudy: selfStudySwitch.isOn)
+        selfStudyMode = selfStudySwitch.isOn
         newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudySwitch.isOn)
     }
     

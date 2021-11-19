@@ -14,21 +14,13 @@ import CoreData
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var selfStudyModeSwitch: UISwitch!
-    var selfStudy: Bool = false
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
-        ref.observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let user = value?.value(forKey: CURRENT_USERNAME) as? NSDictionary
-            
-            let settings = user?[Constants.DatabaseKeys.settings] as? NSDictionary
-            
-            self.selfStudyModeSwitch.isOn = settings?[Constants.DatabaseKeys.selfStudy] as? Bool ?? false
-        })
+        self.selfStudyModeSwitch.isOn = selfStudyMode
         
     }
     
