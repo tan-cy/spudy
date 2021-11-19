@@ -136,6 +136,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             var theirFriends = friendUser?[Constants.DatabaseKeys.friends] as? [String] ?? []
             theirFriends.append(CURRENT_USERNAME)
             self.ref.child(newFriend).child(Constants.DatabaseKeys.friends).setValue(theirFriends)
+            
+            print("got here")
+            self.addFriendButton.isHidden = true
+//            self.addFriendButton.isEnabled = false
         })
     }
     
