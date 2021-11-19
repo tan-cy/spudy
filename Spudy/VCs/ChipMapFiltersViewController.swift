@@ -104,6 +104,7 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
     @IBAction func changeSelfStudyMode(_ sender: Any) {
         let newItemRef = self.profileRef.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         selfStudyMode = selfStudySwitch.isOn
+        mapFilterDelegate.setFilterMode(filter: showPeopleFilter)
         newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudySwitch.isOn)
     }
     
