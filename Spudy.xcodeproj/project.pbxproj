@@ -502,6 +502,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spudy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "let us use your camera to upload photos";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "let your friends and classmates know where you're studying";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "let your friends and classmates know where you're studying";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -530,6 +533,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spudy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "let us use your camera to upload photos";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "let your friends and classmates know where you're studying";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "let your friends and classmates know where you're studying";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
