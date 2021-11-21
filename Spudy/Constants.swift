@@ -85,7 +85,7 @@ struct Constants {
     struct RegEx {
         static let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
         static let regexFormat = "SELF MATCHES %@"
-        static let usernameRegEx = "[A-Z0-9a-z.-_]+"
+        static let usernameRegEx = "[A-Z0-9a-z_]+"
     }
     
     enum NotificationSettings: String {
