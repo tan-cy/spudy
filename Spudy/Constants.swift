@@ -73,14 +73,14 @@ struct Constants {
         static let locationIssue = "There was an issue locating you"
         static let locationIssueTitle = "Cannot determine location"
         static let locationOff = "Location services must be turned on to see other users"
-        static let matchPasswords = "Passwords must match"
-        static let missingLogin = "Please enter your email and password"
+        static let matchPasswords = "Passwords must match."
+        static let missingLogin = "Please enter your email and password."
         static let ok = "OK"
-        static let shortName = "Name must be longer than 2 letters"
-        static let shortPassword = "Password must be longer than 8 characters"
-        static let shortUsername = "Username must be 4 or more characters"
+        static let shortName = "Name must be longer than 2 letters."
+        static let shortPassword = "Password must be longer than 8 characters."
+        static let shortUsername = "Username must be 4 or more characters. It can only contain letters, numbers, and underscores."
         static let userAlreadyFriend = "User is already on friends list."
-        static let userNonexistent = "User doesn't exist. Please check your spelling and try again"
+        static let userNonexistent = "User doesn't exist. Please check your spelling and try again."
         static let userTaken = "Username already in use"
         
     }
@@ -88,7 +88,7 @@ struct Constants {
     struct RegEx {
         static let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
         static let regexFormat = "SELF MATCHES %@"
-        static let usernameRegEx = "[A-Z0-9a-z.-_]+"
+        static let usernameRegEx = "[A-Z0-9a-z_]+"
     }
     
     enum NotificationSettings: String {
