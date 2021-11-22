@@ -80,25 +80,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
     }
     
-//    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) { // need to enable zooming by changing these coords
-//        if ((mapView.region.span.latitudeDelta > 30.291983 ) || (mapView.region.span.longitudeDelta > -97.742638) ) {
-//            let centerCoord:CLLocationCoordinate2D = CLLocationCoordinate2DMake(30.285607, -97.738202);
-//            let UTRegion:MKCoordinateRegion = MKCoordinateRegion(center: centerCoord, latitudinalMeters: 700, longitudinalMeters: 700)
-//            mapView.setRegion(UTRegion, animated: true);
-//        }
-//    }
-    
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        print("tapped annotation")
-//        let location = view.annotation?.coordinate
-//        let region = MKCoordinateRegion.init(center: location!, latitudinalMeters: 200, longitudinalMeters: 200)
-//        chipMap.setRegion(region, animated: true)
-//        let annotation = (view.annotation as? UserMKAnnotation)
-//        if let selectedUsername = annotation?.subtitle,
-//            selectedUsername != CURRENT_USERNAME {
-//            performSegue(withIdentifier: Constants.Segues.chipSegueIdentifier, sender: annotation)
-//        }
-//    }
     @objc func tappedUser(_ sender: UITapGestureRecognizer) {
         let view = sender.view as! MKAnnotationView
         let location = view.annotation?.coordinate
@@ -130,11 +111,6 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         } else {
             annotationView?.annotation = annotation
         }
-        
-        
-        
-//        annotationView?.image = userAnnotation.image
-        
             
         return annotationView
     }
@@ -152,11 +128,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
    
     func checkLocationAuthorization() {
         let controller = UIAlertController(
-            title: "Cannot determine location",
-            message: "There was an issue locating you" ,
+            title: Constants.Messages.locationIssueTitle,
+            message: Constants.Messages.locationIssue,
             preferredStyle: .alert)
         controller.addAction(UIAlertAction(
-            title: "OK",
+            title: Constants.Messages.ok,
             style: .default,
             handler: nil))
         
@@ -166,7 +142,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             locationManager.startUpdatingLocation()
             break
         case .denied:
-            controller.message = "Location services must be turned on to see other users"
+            controller.message = Constants.Messages.locationOff
             present(controller, animated: true, completion: nil)
             break
         case .notDetermined:
@@ -236,7 +212,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         classRef.observe(.value) { snapshot in
             let classDict = snapshot.value as? NSDictionary
             self.classesFilter.forEach() { course in
-                let peopleInCourse = (classDict?.value(forKey: course) as? NSDictionary)?.value(forKey: "students") as? [String]
+                let peopleInCourse = (classDict?.value(forKey: course) as? NSDictionary)?.value(forKey: Constants.DatabaseKeys.students) as? [String]
                 self.showClassmate(people: people, peopleInCourse: peopleInCourse ?? [])
             }
         }
@@ -276,7 +252,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
                     self.showByClass(people: peopleDict!)
                     break
                 default:
-                    print("filters has gone wrong ")
+                    print("DEBUG: filters has gone wrong ")
                     break
                 }
             }
@@ -290,7 +266,7 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
             newItemRef.child(Constants.DatabaseKeys.longitude).setValue(longitude)
             newItemRef.child(Constants.DatabaseKeys.latitude).setValue(latitude)
         } else {
-            print("user not found")
+            print("DEBUG: user not found")
         }
     }
     
