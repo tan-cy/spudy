@@ -42,7 +42,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfH-p7-VkA">
-                                                    <rect key="frame" x="8" y="9" width="48" height="65"/>
+                                                    <rect key="frame" x="8" y="0.5" width="48" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <imageReference key="image" image="person.circle" catalog="system" renderingMode="hierarchical">
                                                         <hierarchicalColors>
@@ -53,19 +53,19 @@
                                                     </imageReference>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1k-Ev-tge">
-                                                    <rect key="frame" x="21" y="69.5" width="41.5" height="20.5"/>
+                                                    <rect key="frame" x="21" y="68" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swU-rx-ozc">
-                                                    <rect key="frame" x="302" y="24" width="50" height="25"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYU-Kg-LYT">
+                                                    <rect key="frame" x="64" y="20" width="41.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-jj-3Aq">
-                                                    <rect key="frame" x="275" y="20.5" width="22" height="31"/>
+                                                    <rect key="frame" x="275" y="20.5" width="22" height="20"/>
                                                     <imageReference key="image" image="star.fill" catalog="system" renderingMode="hierarchical">
                                                         <hierarchicalColors>
                                                             <color red="0.99216431380000003" green="0.88410279530000002" blue="0.33451702589999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -74,24 +74,22 @@
                                                         </hierarchicalColors>
                                                     </imageReference>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYU-Kg-LYT">
-                                                    <rect key="frame" x="64" y="31" width="41.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swU-rx-ozc">
+                                                    <rect key="frame" x="305" y="19" width="50" height="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="swU-rx-ozc" firstAttribute="leading" secondItem="Nqh-jj-3Aq" secondAttribute="trailing" constant="5" id="2f7-An-G81"/>
-                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="leading" secondItem="rfE-Bl-LMm" secondAttribute="leading" constant="21" id="Snm-JL-fmi"/>
-                                                <constraint firstAttribute="trailing" secondItem="swU-rx-ozc" secondAttribute="trailing" constant="22" id="U7W-PV-BYs"/>
-                                                <constraint firstItem="Nqh-jj-3Aq" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="21" id="WKk-Lt-kzJ"/>
-                                                <constraint firstItem="swU-rx-ozc" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="24" id="Yc8-HL-NRb"/>
-                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="top" secondItem="oYU-Kg-LYT" secondAttribute="bottom" constant="18" id="ahm-Wj-YyG"/>
-                                                <constraint firstItem="Nqh-jj-3Aq" firstAttribute="leading" secondItem="oYU-Kg-LYT" secondAttribute="trailing" constant="169.5" id="dXS-Fa-Y0J"/>
-                                                <constraint firstItem="oYU-Kg-LYT" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="31" id="hNq-kn-3qo"/>
-                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="top" secondItem="swU-rx-ozc" secondAttribute="bottom" constant="20.5" id="lcV-bM-1tu"/>
-                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="top" secondItem="Nqh-jj-3Aq" secondAttribute="bottom" constant="17.5" id="rMD-Zv-NLX"/>
+                                                <constraint firstAttribute="trailing" secondItem="swU-rx-ozc" secondAttribute="trailing" constant="19" id="2q5-eH-E5G"/>
+                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="leading" secondItem="rfE-Bl-LMm" secondAttribute="leading" constant="21" id="IuC-gg-LDa"/>
+                                                <constraint firstItem="D1k-Ev-tge" firstAttribute="top" secondItem="oYU-Kg-LYT" secondAttribute="bottom" constant="27.5" id="Yow-T9-qAr"/>
+                                                <constraint firstItem="Nqh-jj-3Aq" firstAttribute="leading" secondItem="oYU-Kg-LYT" secondAttribute="trailing" constant="169.5" id="bfN-Aq-v6U"/>
+                                                <constraint firstItem="swU-rx-ozc" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="19" id="eal-6b-zxw"/>
+                                                <constraint firstItem="Nqh-jj-3Aq" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="21" id="rfb-ra-Gji"/>
+                                                <constraint firstItem="oYU-Kg-LYT" firstAttribute="top" secondItem="rfE-Bl-LMm" secondAttribute="top" constant="20" symbolic="YES" id="tiW-9h-Vbh"/>
+                                                <constraint firstItem="swU-rx-ozc" firstAttribute="leading" secondItem="Nqh-jj-3Aq" secondAttribute="trailing" constant="8" symbolic="YES" id="urc-cw-wJ4"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="374" height="128"/>
