@@ -14,6 +14,7 @@ import CoreData
 var CURRENT_USERNAME = ""
 var selfStudyMode:Bool!
 var buildings:[building] = []
+var friendList:[String] = []
 
 internal func getUsername() {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -78,6 +79,7 @@ internal func getData (completion:(() -> ())?) {
     })
 
     getSelfStudy()
+//    getFriends()
 }
 
 func getSelfStudy() {
@@ -85,6 +87,15 @@ func getSelfStudy() {
     profileRef.observe(.value) { snapshot in
         let profiles = snapshot.value as? NSDictionary
         let user = profiles?[CURRENT_USERNAME] as? NSDictionary
-        selfStudyMode = ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as! Bool)
+        selfStudyMode = ((user?[Constants.DatabaseKeys.settings] as? NSDictionary)?[Constants.DatabaseKeys.selfStudy] as? Bool ?? false)
+    }
+}
+
+func getFriends(){
+    let ref = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+    ref.observe(.value) { snapshot in
+        let profiles = snapshot.value as? NSDictionary
+        let user = profiles?[CURRENT_USERNAME] as? NSDictionary
+        friendList = user?[Constants.DatabaseKeys.friends] as? [String] ?? []
     }
 }

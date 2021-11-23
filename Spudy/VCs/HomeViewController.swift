@@ -16,6 +16,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var allBuildingsTableView: UITableView!
     @IBOutlet weak var popularSpotsCollectionView: UICollectionView!
     @IBOutlet weak var yourFriendsAreHereCollectionView: UICollectionView!
+    @IBOutlet weak var yourFriendsAreHereLabel: UILabel!
     
     
     let textCellIdentifier = "TextCell"
@@ -42,7 +43,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
         
+
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        if(friendList.count == 0){
+//            yourFriendsAreHereCollectionView.isHidden = true
+//            yourFriendsAreHereLabel.isHidden = true
+//        } else{
+//            yourFriendsAreHereCollectionView.isHidden = false
+//            yourFriendsAreHereLabel.isHidden = false
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.allBuildingsTableView.reloadData()
