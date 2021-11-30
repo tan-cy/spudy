@@ -24,6 +24,10 @@ class SettingsViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.selfStudyModeSwitch.isOn = selfStudyMode
+    }
+    
     @IBAction func changeSelfStudyMode(_ sender: Any) {
         let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
         
