@@ -7,7 +7,14 @@
 
 import UIKit
 
-class ReviewsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+// create a protocol that updates the review dictionary
+protocol AddReview{
+    
+    func addNewReview(review: String, rating: String)
+    
+}
+
+class ReviewsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AddReview {
     
 
     @IBOutlet weak var reviewCollectionView: UICollectionView!
@@ -75,7 +82,9 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
-    
+    func addNewReview(review: String, rating: String){
+        
+    }
     
     
 

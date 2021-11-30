@@ -26,6 +26,7 @@
 		8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B327163B3700120DDA /* SettingsViewController.swift */; };
 		8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B527163B5000120DDA /* FriendsViewController.swift */; };
 		8EA3F1B827163B5E00120DDA /* StudySpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3F1B727163B5E00120DDA /* StudySpotViewController.swift */; };
+		8EFBBD4F275695E800F36634 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFBBD4E275695E800F36634 /* AddReviewViewController.swift */; };
 		A40FD50BE337D6942F0ED55E /* Pods_Spudy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBE809D50A3D80987171000 /* Pods_Spudy.framework */; };
 		A734D881271636AD00D660C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734D880271636AD00D660C8 /* AppDelegate.swift */; };
 		A734D883271636AD00D660C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734D882271636AD00D660C8 /* SceneDelegate.swift */; };
@@ -70,6 +71,7 @@
 		8EA3F1B327163B3700120DDA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B527163B5000120DDA /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		8EA3F1B727163B5E00120DDA /* StudySpotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySpotViewController.swift; sourceTree = "<group>"; };
+		8EFBBD4E275695E800F36634 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		A734D87D271636AD00D660C8 /* Spudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A734D880271636AD00D660C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A734D882271636AD00D660C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				A78430F627163B2900803E9B /* BookmarksViewController.swift */,
 				A78430F827163B3000803E9B /* HomeViewController.swift */,
 				A78DC62D27303F1600093B9C /* ChipMapFiltersViewController.swift */,
+				8EFBBD4E275695E800F36634 /* AddReviewViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				8EA3F1B227163B1E00120DDA /* ChipMapViewController.swift in Sources */,
 				8EA3F1B427163B3700120DDA /* SettingsViewController.swift in Sources */,
 				A76850142722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift in Sources */,
+				8EFBBD4F275695E800F36634 /* AddReviewViewController.swift in Sources */,
 				46BAF6D427163B0E00115504 /* LoginViewController.swift in Sources */,
 				46BAF6D627163B2500115504 /* SignUpViewController.swift in Sources */,
 				A78430F527163B1600803E9B /* ReviewsViewController.swift in Sources */,
