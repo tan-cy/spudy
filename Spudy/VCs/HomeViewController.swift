@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var popularSpotsCollectionView: UICollectionView!
     @IBOutlet weak var yourFriendsAreHereCollectionView: UICollectionView!
     @IBOutlet weak var yourFriendsAreHereLabel: UILabel!
+    @IBOutlet weak var searchBuildingsBtn: UIButton!
     
     
     let textCellIdentifier = "TextCell"
@@ -24,6 +25,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let studySpotSegueIdentifier = "studySpotSegueIdentifier"
     let studySpotSegueIdentifier2 = "studySpotSegueIdentifier2"
     let studySpotSegueIdentifier3 = "studySpotSegueIdentifier3"
+    let searchBuildingSegueIdentifier = "searchBuildingSegueIdentifier"
     
     
     override func viewDidLoad() {
@@ -60,6 +62,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.allBuildingsTableView.reloadData()
         self.yourFriendsAreHereCollectionView.reloadData()
         self.popularSpotsCollectionView.reloadData()
+    }
+    
+    
+    @IBAction func searchBuildingsPressed(_ sender: Any) {
+        performSegue(withIdentifier: searchBuildingSegueIdentifier, sender: self)
     }
     
     
