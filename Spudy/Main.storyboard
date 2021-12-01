@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1153,6 +1153,49 @@
             </objects>
             <point key="canvasLocation" x="-1249.2753623188407" y="340.84821428571428"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="wJR-EK-Y9f">
+            <objects>
+                <viewController id="iUA-6u-2yr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YfJ-oQ-0RE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="172" translatesAutoresizingMaskIntoConstraints="NO" id="Y9j-ur-JRS">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-7n-a4K">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gc3-ul-TxN">
+                                        <rect key="frame" x="0.0" y="217" width="414" height="508"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gc3-ul-TxN" firstAttribute="top" secondItem="Ohk-7n-a4K" secondAttribute="bottom" id="0fK-kS-nve"/>
+                                    <constraint firstAttribute="bottom" secondItem="gc3-ul-TxN" secondAttribute="bottom" id="1Es-rL-UOK"/>
+                                    <constraint firstItem="gc3-ul-TxN" firstAttribute="leading" secondItem="Y9j-ur-JRS" secondAttribute="leading" id="3Qk-eH-5aY"/>
+                                    <constraint firstAttribute="trailing" secondItem="gc3-ul-TxN" secondAttribute="trailing" id="Khc-fd-b02"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5fo-3j-Ekh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="trailing" secondItem="5fo-3j-Ekh" secondAttribute="trailing" id="79c-15-PqZ"/>
+                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="top" secondItem="5fo-3j-Ekh" secondAttribute="top" id="HB5-Df-R1t"/>
+                            <constraint firstItem="5fo-3j-Ekh" firstAttribute="bottom" secondItem="Y9j-ur-JRS" secondAttribute="bottom" id="qpb-Xq-JJD"/>
+                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="leading" secondItem="5fo-3j-Ekh" secondAttribute="leading" id="ty6-p8-lb4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eZx-mB-f2j"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58q-fe-2jl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63.768115942028992" y="351.5625"/>
+        </scene>
         <!--Home-->
         <scene sceneID="OjK-7e-wxd">
             <objects>
@@ -1161,16 +1204,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="I7K-of-T3u">
-                                <rect key="frame" x="26" y="42" width="362" height="817"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="I7K-of-T3u">
+                                <rect key="frame" x="26" y="88" width="362" height="725"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a building" translatesAutoresizingMaskIntoConstraints="NO" id="amq-5f-cMM">
-                                        <rect key="frame" x="0.0" y="0.0" width="362" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="362" height="115"/>
                                         <color key="barTintColor" red="0.83921568629999999" green="0.85490196080000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="czN-6Z-rVJ">
-                                        <rect key="frame" x="0.0" y="117" width="362" height="167"/>
+                                        <rect key="frame" x="0.0" y="152" width="362" height="167"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Spots Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRX-x0-4Bl">
                                                 <rect key="frame" x="0.0" y="0.0" width="362" height="29"/>
@@ -1217,7 +1260,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gcE-Xz-LQC">
-                                        <rect key="frame" x="0.0" y="301" width="362" height="167"/>
+                                        <rect key="frame" x="0.0" y="356" width="362" height="167"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Friends Are Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMc-Zj-bcX">
                                                 <rect key="frame" x="0.0" y="0.0" width="362" height="29"/>
@@ -1260,7 +1303,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2ja-jB-oi2">
-                                        <rect key="frame" x="0.0" y="485" width="362" height="332"/>
+                                        <rect key="frame" x="0.0" y="560" width="362" height="165"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Buildings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bso-Qb-GJk">
                                                 <rect key="frame" x="0.0" y="0.0" width="362" height="29"/>
@@ -1269,7 +1312,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vAN-E6-hvR">
-                                                <rect key="frame" x="0.0" y="39" width="362" height="293"/>
+                                                <rect key="frame" x="0.0" y="39" width="362" height="126"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="TextCell" id="8Gk-mA-hbE">
@@ -1290,12 +1333,16 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="tRX-x0-4Bl" firstAttribute="top" secondItem="amq-5f-cMM" secondAttribute="bottom" constant="10" id="6Dp-NF-5xn"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dbB-hm-FBB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="I7K-of-T3u" firstAttribute="height" secondItem="9LH-Gc-mN9" secondAttribute="height" multiplier="0.91183" id="AHL-J6-vgx"/>
+                            <constraint firstItem="I7K-of-T3u" firstAttribute="top" secondItem="dbB-hm-FBB" secondAttribute="top" id="5JT-fq-2a4"/>
+                            <constraint firstItem="dbB-hm-FBB" firstAttribute="bottom" secondItem="I7K-of-T3u" secondAttribute="bottom" id="ZqH-B9-g8P"/>
                             <constraint firstItem="I7K-of-T3u" firstAttribute="centerX" secondItem="dbB-hm-FBB" secondAttribute="centerX" id="cPT-XH-rrT"/>
                             <constraint firstItem="I7K-of-T3u" firstAttribute="centerY" secondItem="dbB-hm-FBB" secondAttribute="centerY" id="fuA-Qn-aQ4"/>
                         </constraints>
@@ -1307,6 +1354,7 @@
                         <outlet property="popularSpotsCollectionView" destination="WXK-Vr-x7Y" id="Kpa-PD-79Q"/>
                         <outlet property="yourFriendsAreHereCollectionView" destination="wFe-Ah-BWZ" id="NRr-q8-uFe"/>
                         <outlet property="yourFriendsAreHereLabel" destination="GMc-Zj-bcX" id="ay3-JN-oBA"/>
+                        <segue destination="iUA-6u-2yr" kind="show" id="sC7-ce-HdX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o8L-Zn-ZRR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
