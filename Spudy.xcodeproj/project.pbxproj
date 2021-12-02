@@ -506,6 +506,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3RY99J25CN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spudy/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "let us use your camera to upload photos";
@@ -537,6 +538,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3RY99J25CN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spudy/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "let us use your camera to upload photos";
