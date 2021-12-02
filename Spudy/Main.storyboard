@@ -1161,36 +1161,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="172" translatesAutoresizingMaskIntoConstraints="NO" id="Y9j-ur-JRS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a building" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-7n-a4K">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gc3-ul-TxN">
-                                        <rect key="frame" x="0.0" y="223" width="414" height="502"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a building" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-7n-a4K">
+                                <rect key="frame" x="10" y="88" width="394" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gc3-ul-TxN">
+                                <rect key="frame" x="10" y="139" width="394" height="674"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchTableViewCell" id="AYe-v3-urK">
+                                        <rect key="frame" x="0.0" y="44.5" width="394" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AYe-v3-urK" id="KXr-Eq-Qwk">
+                                            <rect key="frame" x="0.0" y="0.0" width="364.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </tableView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="gc3-ul-TxN" firstAttribute="top" secondItem="Ohk-7n-a4K" secondAttribute="bottom" id="0fK-kS-nve"/>
-                                    <constraint firstAttribute="bottom" secondItem="gc3-ul-TxN" secondAttribute="bottom" id="1Es-rL-UOK"/>
-                                    <constraint firstItem="gc3-ul-TxN" firstAttribute="leading" secondItem="Y9j-ur-JRS" secondAttribute="leading" id="3Qk-eH-5aY"/>
-                                    <constraint firstAttribute="trailing" secondItem="gc3-ul-TxN" secondAttribute="trailing" id="Khc-fd-b02"/>
-                                </constraints>
-                            </stackView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="dgc-e4-jop" kind="show" identifier="searchToStudySpotSegueIdentifier" id="gh3-jk-uxK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5fo-3j-Ekh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="trailing" secondItem="5fo-3j-Ekh" secondAttribute="trailing" id="79c-15-PqZ"/>
-                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="top" secondItem="5fo-3j-Ekh" secondAttribute="top" id="HB5-Df-R1t"/>
-                            <constraint firstItem="5fo-3j-Ekh" firstAttribute="bottom" secondItem="Y9j-ur-JRS" secondAttribute="bottom" id="qpb-Xq-JJD"/>
-                            <constraint firstItem="Y9j-ur-JRS" firstAttribute="leading" secondItem="5fo-3j-Ekh" secondAttribute="leading" id="ty6-p8-lb4"/>
+                            <constraint firstItem="Ohk-7n-a4K" firstAttribute="leading" secondItem="5fo-3j-Ekh" secondAttribute="leading" constant="10" id="1KM-VN-sd1"/>
+                            <constraint firstItem="5fo-3j-Ekh" firstAttribute="trailing" secondItem="Ohk-7n-a4K" secondAttribute="trailing" constant="10" id="5er-OA-a8X"/>
+                            <constraint firstItem="5fo-3j-Ekh" firstAttribute="trailing" secondItem="gc3-ul-TxN" secondAttribute="trailing" constant="10" id="R2m-F8-6AN"/>
+                            <constraint firstItem="gc3-ul-TxN" firstAttribute="leading" secondItem="5fo-3j-Ekh" secondAttribute="leading" constant="10" id="ema-kG-Gcb"/>
+                            <constraint firstItem="Ohk-7n-a4K" firstAttribute="centerX" secondItem="YfJ-oQ-0RE" secondAttribute="centerX" id="oQE-1C-nDB"/>
+                            <constraint firstItem="Ohk-7n-a4K" firstAttribute="top" secondItem="5fo-3j-Ekh" secondAttribute="top" id="uj5-b8-dp0"/>
+                            <constraint firstItem="5fo-3j-Ekh" firstAttribute="bottom" secondItem="gc3-ul-TxN" secondAttribute="bottom" id="vT9-tl-8ya"/>
+                            <constraint firstItem="gc3-ul-TxN" firstAttribute="top" secondItem="Ohk-7n-a4K" secondAttribute="bottom" id="xcW-DM-P3t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eZx-mB-f2j"/>
+                    <connections>
+                        <outlet property="buildingsSearchBar" destination="Ohk-7n-a4K" id="Bol-vg-sNr"/>
+                        <outlet property="buildingsTableView" destination="gc3-ul-TxN" id="VOK-gm-kAL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58q-fe-2jl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
