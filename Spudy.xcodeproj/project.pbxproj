@@ -44,6 +44,7 @@
 		A7872C54271F72B70028424B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7872C53271F72B70028424B /* UserData.swift */; };
 		A78DC62E27303F1600093B9C /* ChipMapFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DC62D27303F1600093B9C /* ChipMapFiltersViewController.swift */; };
 		A78DC63027306A4300093B9C /* UserMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DC62F27306A4300093B9C /* UserMKAnnotation.swift */; };
+		A793BB3627588A4D006A2B50 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A793BB3527588A4D006A2B50 /* BookmarksViewController.swift */; };
 		A7FCDA7427223D7A0052E44F /* ClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */; };
 		A7FCDA7627223D7F0052E44F /* EditClassesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */; };
 		C5070F44273B368300252986 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5070F43273B368300252986 /* LoadingViewController.swift */; };
@@ -85,12 +86,12 @@
 		A76850112722748500FF58DE /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		A76850132722748F00FF58DE /* YourFriendsAreHereCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourFriendsAreHereCollectionViewCell.swift; sourceTree = "<group>"; };
 		A78430F427163B1600803E9B /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
-		A78430F627163B2900803E9B /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		A78430F827163B3000803E9B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A7872C06271E6E250028424B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A7872C53271F72B70028424B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		A78DC62D27303F1600093B9C /* ChipMapFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipMapFiltersViewController.swift; sourceTree = "<group>"; };
 		A78DC62F27306A4300093B9C /* UserMKAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMKAnnotation.swift; sourceTree = "<group>"; };
+		A793BB3527588A4D006A2B50 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		A7FCDA7327223D7A0052E44F /* ClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7FCDA7527223D7F0052E44F /* EditClassesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditClassesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B37E58F338C846AA8CD7172D /* Pods-Spudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spudy.release.xcconfig"; path = "Target Support Files/Pods-Spudy/Pods-Spudy.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,9 +175,9 @@
 				46BAF6D527163B2500115504 /* SignUpViewController.swift */,
 				46BAF6D727163B3700115504 /* ProfileViewController.swift */,
 				A78430F427163B1600803E9B /* ReviewsViewController.swift */,
-				A78430F627163B2900803E9B /* BookmarksViewController.swift */,
 				A78430F827163B3000803E9B /* HomeViewController.swift */,
 				A78DC62D27303F1600093B9C /* ChipMapFiltersViewController.swift */,
+				A793BB3527588A4D006A2B50 /* BookmarksViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -328,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A793BB3627588A4D006A2B50 /* BookmarksViewController.swift in Sources */,
 				A76850102722746400FF58DE /* CollectionViewController.swift in Sources */,
 				8EA3F1B627163B5000120DDA /* FriendsViewController.swift in Sources */,
 				462A5DDE273B33C0001DAE5E /* FriendsTableViewCell.swift in Sources */,
