@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QbL-9X-WDa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,17 +15,17 @@
             <objects>
                 <viewController id="eOI-AD-ZhW" customClass="ReviewsViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2pd-9g-onW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4C-9t-mVD">
-                                <rect key="frame" x="20" y="88" width="374" height="29"/>
+                                <rect key="frame" x="20" y="0.0" width="374" height="29"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Cw-q1f">
-                                <rect key="frame" x="20" y="125" width="374" height="729"/>
+                                <rect key="frame" x="20" y="37" width="374" height="812"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="upx-Ve-PDy">
                                     <size key="itemSize" width="374" height="128"/>
@@ -138,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BcK-5U-AO0">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="798"/>
+                                <rect key="frame" x="0.0" y="15" width="414" height="783"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xIb-u3-kmi">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="29"/>
@@ -177,8 +177,8 @@
                         <constraints>
                             <constraint firstItem="Dh8-4Q-n2a" firstAttribute="bottom" secondItem="BcK-5U-AO0" secondAttribute="bottom" constant="10" id="3ap-MN-1Ub"/>
                             <constraint firstItem="BcK-5U-AO0" firstAttribute="leading" secondItem="Dh8-4Q-n2a" secondAttribute="leading" id="DNa-Il-zF8"/>
+                            <constraint firstItem="BcK-5U-AO0" firstAttribute="top" secondItem="Dh8-4Q-n2a" secondAttribute="top" constant="15" id="XgW-QF-zRz"/>
                             <constraint firstItem="14U-bg-czb" firstAttribute="centerX" secondItem="jjJ-CT-fWC" secondAttribute="centerX" id="Xhz-se-PsO"/>
-                            <constraint firstItem="BcK-5U-AO0" firstAttribute="top" secondItem="Dh8-4Q-n2a" secondAttribute="top" id="mEW-f6-8EQ"/>
                             <constraint firstItem="14U-bg-czb" firstAttribute="centerY" secondItem="jjJ-CT-fWC" secondAttribute="centerY" id="ncJ-IC-VP1"/>
                             <constraint firstItem="Dh8-4Q-n2a" firstAttribute="trailing" secondItem="BcK-5U-AO0" secondAttribute="trailing" id="u6R-0R-EKW"/>
                         </constraints>
@@ -785,17 +785,17 @@
             <objects>
                 <viewController id="dgc-e4-jop" customClass="StudySpotViewController" customModule="Spudy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9QX-eH-Zkf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2o-1n-Ymi">
-                                <rect key="frame" x="0.0" y="88" width="414" height="230"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="oSC-xJ-Op8"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x18-7m-Y4U">
-                                <rect key="frame" x="15" y="326" width="384" height="518"/>
+                                <rect key="frame" x="15" y="238" width="384" height="601"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SAa-qA-6fb">
                                     <size key="itemSize" width="376" height="128"/>
@@ -1724,7 +1724,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="mQ6-sX-i5d"/>
         <segue reference="HwF-y8-xip"/>
-        <segue reference="20s-e8-3HB"/>
+        <segue reference="IHJ-ee-bFa"/>
         <segue reference="ONz-UM-rDC"/>
     </inferredMetricsTieBreakers>
     <resources>

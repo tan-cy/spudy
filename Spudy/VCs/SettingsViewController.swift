@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func changeSelfStudyMode(_ sender: Any) {
         let newItemRef = self.ref.child(CURRENT_USERNAME).child(Constants.DatabaseKeys.settings)
-        
+        selfStudyMode = selfStudyModeSwitch.isOn
         newItemRef.child(Constants.DatabaseKeys.selfStudy).setValue(selfStudyModeSwitch.isOn)
     }
     
