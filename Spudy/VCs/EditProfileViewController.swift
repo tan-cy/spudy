@@ -233,13 +233,47 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
                 let textFields = textFieldArray as [UITextField]
                 let enteredText = textFields[0].text
                 if enteredText != nil {
-                    self.saveNewClass(newClass: enteredText!)
+                    let formattedClass = self.formatClassCode(newClass: enteredText!)
+                    self.saveNewClass(newClass: formattedClass)                    
                 }
-                
             }
         }))
         
         present(controller, animated: true, completion: nil)
+    }
+    
+    func formatClassCode(newClass: String) -> String {
+        let unformattedText = newClass
+        
+        // find where the numbered part of the class code starts
+        var classNumberCodeIndex = -1
+        for (index, character) in unformattedText.enumerated() {
+            if "0123456789".contains(character) {
+                classNumberCodeIndex = index
+                break
+            }
+        }
+        
+        if classNumberCodeIndex != -1 {
+            let index = unformattedText.index(unformattedText.startIndex, offsetBy: classNumberCodeIndex)
+            
+            let spaceIndex = unformattedText.index(unformattedText.startIndex, offsetBy: classNumberCodeIndex - 1)
+            
+            // check if there already is a space after the department code
+            var classDepartment = unformattedText[..<index]
+            classDepartment = classDepartment[spaceIndex] == " " ? classDepartment[..<spaceIndex] : classDepartment
+            // uppercase the department code (man -> MAN)
+            let finalClassDepartment = classDepartment.uppercased()
+            
+            let numberCode = unformattedText[index...]
+            let finalNumberCode = numberCode.uppercased()
+            
+            return "\(finalClassDepartment) \(finalNumberCode)"
+        
+        } else {
+            // can't really do much to format this
+            return unformattedText
+        }
     }
     
     func saveNewClass(newClass: String) {
