@@ -5,22 +5,35 @@
 //  Created by Shamira Kabir on 11/30/21.
 //
 
+import Foundation
 import UIKit
+import Firebase
+import FirebaseDatabase
+import CoreData
 
 class AddReviewViewController: UIViewController {
 
     @IBOutlet weak var reviewText: UITextField!
     @IBOutlet weak var ratingText: UITextField!
+    var buildingName:String = ""
+    var spotName:String = ""
+    @IBOutlet weak var titleText: UILabel!
+    @IBOutlet weak var buildingText: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        buildingText.text = buildingName
+        titleText.text = "Leave a Review for " + spotName
+        
         // Do any additional setup after loading the view.
+        reviewText.borderStyle = UITextField.BorderStyle.roundedRect
+        reviewText.placeholder = "Leave a Review"
+        reviewText.borderStyle = UITextField.BorderStyle.roundedRect
+        reviewText.contentVerticalAlignment = .top
+        
+        buildingText.sizeToFit()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        reviewText.borderStyle = UITextField.BorderStyle.roundedRect
-    }
     
     @IBAction func submitButton(_ sender: Any) {
         // show a notification if either fields are
@@ -29,7 +42,7 @@ class AddReviewViewController: UIViewController {
         if reviewText.text == "" || ratingText.text == "" {
             let controller = UIAlertController(
                 title: "Fields Not Filled Out",
-                message: "All the fields are not filled out. If you decide to continue, then your changes will not be saved.",
+                message: "All the fields are not filled out.",
                 preferredStyle: .alert)
             controller.addAction(UIAlertAction(
                                     title: "Ok",
@@ -39,9 +52,24 @@ class AddReviewViewController: UIViewController {
         }
         
         // else save the changes to the reviews of this page
+        else{
+            var ref:DatabaseReference!
+            ref = Database.database().reference(withPath: "buildings/\(buildingName)/studyspots/\(spotName)/\(CURRENT_USERNAME)")
+            ref.child("rating").setValue(ratingText.text)
+            ref.child("review").setValue(reviewText.text)
+            
+            let controller = UIAlertController(
+                title: "Sucess",
+                message: "Review is submitted!",
+                preferredStyle: .alert)
+            controller.addAction(UIAlertAction(
+                                    title: "Ok",
+                                    style: .default,
+                                    handler: nil))
+            present(controller, animated: true, completion: nil)
+        }
         
-        let otherVC = delegate as! AddReview
-        otherVC.addNewReview(review: reviewText.text, rating: ratingText.text)
+        
         
         
     }

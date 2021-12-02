@@ -5,26 +5,28 @@
 //  Created by Cindy Tan on 10/12/21.
 //
 
+import Foundation
 import UIKit
+import Firebase
+import FirebaseDatabase
+import CoreData
 
-// create a protocol that updates the review dictionary
-protocol AddReview{
-    
-    func addNewReview(review: String, rating: String)
-    
-}
 
-class ReviewsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AddReview {
+
+class ReviewsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
 
     @IBOutlet weak var reviewCollectionView: UICollectionView!
     
     var textCellIdentifier = "ReviewCellIdentifier"
+    var addReviewSegueIndentifier = "addReviewSegueIndentifier"
     
     var review:NSDictionary = [:]
     var reviewList:[String] = []
     var userList:[String] = []
     var ratingList:[String] = []
+    var buildingName:String = ""
+    var spotName:String = ""
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return review.count
@@ -71,22 +73,48 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Do any additional setup after loading the view.
         reviewCollectionView.delegate = self
         reviewCollectionView.dataSource = self
+        // get review
+        getReview()
+        setLists()
+        self.reviewCollectionView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getReview()
+        setLists()
+        
+        self.reviewCollectionView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == addReviewSegueIndentifier,
+           let destination = segue.destination as? AddReviewViewController{
+            destination.buildingName = self.buildingName
+            destination.spotName = self.spotName
+        }
+    }
+    
+    func getReview(){
+        var ref: DatabaseReference!
+        ref = Database.database().reference(withPath: "buildings/\(buildingName)/studyspots/\(spotName)")
+        ref.observe(.value) { snapshot in
+            self.review = snapshot.value as? NSDictionary ?? [:]
+            print(self.review)
+        }
+    }
+    
+    func setLists(){
+        reviewList = []
+        userList = []
+        ratingList = []
+         
         userList = review.allKeys as! [String]
         for key in userList{
             let user = review.value(forKey: key) as! NSDictionary
             reviewList.append(user.value(forKey: "review") as! String)
             ratingList.append(user.value(forKey: "rating") as! String)
         }
-        
-        self.reviewCollectionView.reloadData()
     }
-    
-    
-    func addNewReview(review: String, rating: String){
-        
-    }
-    
-    
 
     /*
     // MARK: - Navigation
