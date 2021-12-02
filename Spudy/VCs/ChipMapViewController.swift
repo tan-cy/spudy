@@ -222,10 +222,11 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         peopleInCourse.forEach() { classmate in
             if (!friends.contains(classmate) && classmate != CURRENT_USERNAME) {
                 let personDetails = people.value(forKey: classmate) as! NSDictionary
-                let locationSetting = (personDetails[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
-                if (locationSetting != Constants.LocationSettings.none.rawValue) {
+                let locationSetting = (personDetails[Constants.DatabaseKeys.settings]
+                                       as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
+                if (locationSetting == Constants.LocationSettings.everyone.rawValue) {
                     setUserAnnotation(username: classmate, person: personDetails)
-                }
+                } 
             }
         }
     }

@@ -323,7 +323,11 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
         let locationSettings = ((userData[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting]) as! String
         
         // move map focusing if they are on map
-        if ((longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude) && locationSettings != Constants.LocationSettings.none.rawValue) {
+        if ((longitude != Double.greatestFiniteMagnitude && latitude != Double.greatestFiniteMagnitude)
+            && (locationSettings == Constants.LocationSettings.everyone.rawValue ||
+                (locationSettings == Constants.LocationSettings.friends.rawValue &&
+                 friendList.contains(name))) ) {
+            print(name)
             mapFilterDelegate.focusOnUser(longitude: longitude, latitude: latitude)
             self.dismiss(animated: true, completion: nil)
             
