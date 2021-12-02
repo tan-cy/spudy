@@ -22,7 +22,7 @@ struct Constants {
     
     struct DatabaseKeys {
         static let email = "email"
-        static let name = "name"
+        static let bookmarks = "bookmarks"
         static let classes = "classes"
         static let classesPath = "classes"
         static let contactInfo = "contactInfo"
@@ -32,6 +32,7 @@ struct Constants {
         static let longitude = "longitude"
         static let locationSetting = "locationSetting"
         static let major = "major"
+        static let name = "name"
         static let notificationSetting = "notificationSetting"
         static let photo = "photo"
         static let profilePath = "profile"

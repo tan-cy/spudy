@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
+    @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet weak var studySpotsImage: UIImageView!
     @IBOutlet weak var studySpotsCollectionView: UICollectionView!
     @IBOutlet weak var buildingName: UILabel!
@@ -24,7 +25,22 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     let textCellIdentifier = "TextCell"
     var studyDict:NSDictionary = [:]
     
-
+    @IBAction func bookmarkTapped(_ sender: Any) {
+        let bookmarkIdx = bookmarks.firstIndex(of: building)
+        // remove this bookmark
+        if (bookmarkIdx != nil) {
+            bookmarkButton.image = UIImage(systemName: "bookmark")
+            bookmarks.remove(at: bookmarkIdx!)
+        } else {
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+            bookmarks.append(building)
+        }
+        
+        ref = Database.database().reference(withPath: "\(Constants.DatabaseKeys.profilePath )/\(CURRENT_USERNAME)")
+        
+        let newItemRef = ref.child(Constants.DatabaseKeys.bookmarks)
+        newItemRef.setValue(bookmarks)
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return studySpots.count
     }
@@ -77,13 +93,16 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         studySpotsCollectionView.dataSource = self
         
         // Do any additional setup after loading the view.
+        building = buildings[index].name
         buildingName.text = buildings[index].name
         self.studySpotsImage.image = buildings[index].image
         self.studyDict = buildings[index].studyspots as! NSDictionary
         self.studySpots = studyDict.allKeys as! [String]
         self.studySpotsCollectionView.reloadData()
         
-        
+        if (bookmarks.contains(building)) {
+            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        }
         
     }
     

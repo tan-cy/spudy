@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var currClasses: [String] = []
     var ref: DatabaseReference!
     var userToGet: String!
+    var userBookmarks: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             // grab the data!
             let value = snapshot.value as? NSDictionary
             let user = value?.value(forKey: self.userToGet!) as? NSDictionary
+            
+            self.userBookmarks = user?["bookmarks"] as? [String] ?? []
             
             // get profile photo
             let photoURLString = user?["photo"] as? String ?? nil
@@ -139,6 +142,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             self.addFriendButton.isHidden = true
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "BookmarkSegueIdentifier"),
+           let destination = segue.destination as? BookmarksViewController {
+            destination.bookmarkOwnerName = userToGet
+            destination.userBookmarks = userBookmarks
+        }
     }
     
 }

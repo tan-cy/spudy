@@ -199,11 +199,12 @@ class ChipMapViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     func showFriends(people: NSDictionary) {
         // show all friends
         friends.forEach() { friend in
-            let personDetails = people.value(forKey: friend) as! NSDictionary
-            let locationSetting = (personDetails[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
+            let personDetails = people.value(forKey: friend) as? NSDictionary
+            let locationSetting = (personDetails?[Constants.DatabaseKeys.settings] as! NSDictionary)[Constants.DatabaseKeys.locationSetting] as! String
             if (locationSetting != Constants.LocationSettings.none.rawValue) {
                 setUserAnnotation(username: friend, person: personDetails)
             }
+            
         }
     }
     
