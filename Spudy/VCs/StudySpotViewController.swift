@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+
 class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
@@ -80,7 +81,8 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
            let destination = segue.destination as? ReviewsViewController,
            let studySpotIndex = studySpotsCollectionView.indexPathsForSelectedItems{
             let spot = studyDict.value(forKey: studySpots[studySpotIndex[0].row]) as! NSDictionary
-            destination.review = spot as! NSDictionary
+            destination.buildingName = buildings[index].name
+            destination.spotName = studySpots[studySpotIndex[0].row]
         }
     }
     
@@ -105,6 +107,7 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         }
         
     }
+    
     
 
     /*
