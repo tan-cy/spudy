@@ -25,6 +25,8 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     var studySpots: [String] = []
     let textCellIdentifier = "TextCell"
     var studyDict:NSDictionary = [:]
+//    var spotsRating:[Double] = []
+//    var overallRating:Double = 0.0
     
     @IBAction func bookmarkTapped(_ sender: Any) {
         let bookmarkIdx = bookmarks.firstIndex(of: building)
@@ -99,6 +101,21 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         buildingName.text = buildings[index].name
         self.studySpotsImage.image = buildings[index].image
         self.studyDict = buildings[index].studyspots as! NSDictionary
+        
+        // to get all the reviews
+//        var sum = 0.0;
+//        for key in studyDict.allKeys{
+//            let spot = studyDict.value(forKey: key as! String) as! NSDictionary
+//            var sumSpot = 0.0;
+//            for i in spot.allKeys{
+//                sum += spot.value(forKey: i as! String) as! Double
+//                sumSpot += spot.value(forKey: i as! String) as! Double
+//            }
+//            spotsRating.append(sumSpot/Double(spot.count))
+//        }
+//        overallRating = sum/Double(studyDict.count)
+//
+        
         self.studySpots = studyDict.allKeys as! [String]
         self.studySpotsCollectionView.reloadData()
         

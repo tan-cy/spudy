@@ -29,7 +29,7 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
     var spotName:String = ""
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return review.count
+        return reviewList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
