@@ -46,9 +46,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
         
-        popularSpots.sort(by: {$0.rating > $1.rating})
-        popularSpotsCollectionView.reloadData()
-        
     }
     
     func populateFriendsLocationArray() {
@@ -101,6 +98,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         populateFriendsLocationArray()
         self.allBuildingsTableView.reloadData()
         self.yourFriendsAreHereCollectionView.reloadData()
+        popularSpots.sort(by: {$0.rating > $1.rating})
         self.popularSpotsCollectionView.reloadData()
     }
     
@@ -163,9 +161,14 @@ extension HomeViewController: UICollectionViewDelegate {
         let selectedItem = indexPath.row
         
         if(collectionView == popularSpotsCollectionView) {
-            self.performSegue(withIdentifier: studySpotSegueIdentifier3, sender: selectedItem)
+            
+            let buildingIndex = buildings.firstIndex(where: {$0.name == popularSpots[selectedItem].name})
+            self.performSegue(withIdentifier: studySpotSegueIdentifier3, sender: buildingIndex)
+            
         } else if (collectionView ==  yourFriendsAreHereCollectionView) {
-            self.performSegue(withIdentifier: studySpotSegueIdentifier2, sender: selectedItem)
+            
+            let buildingIndex = buildings.firstIndex(where: {$0.name == friendsAreHere[selectedItem].name})
+            self.performSegue(withIdentifier: studySpotSegueIdentifier2, sender: buildingIndex)
         }
         
     }

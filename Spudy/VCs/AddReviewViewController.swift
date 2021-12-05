@@ -59,7 +59,7 @@ class AddReviewViewController: UIViewController {
             ref.child("review").setValue(reviewText.text)
             
             let controller = UIAlertController(
-                title: "Sucess",
+                title: "Success",
                 message: "Review is submitted!",
                 preferredStyle: .alert)
             controller.addAction(UIAlertAction(
