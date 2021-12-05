@@ -99,7 +99,6 @@ class ReviewsViewController: UIViewController, UICollectionViewDelegate, UIColle
         ref = Database.database().reference(withPath: "buildings/\(buildingName)/studyspots/\(spotName)")
         ref.observe(.value) { snapshot in
             self.review = snapshot.value as? NSDictionary ?? [:]
-            print(self.review)
         }
     }
     

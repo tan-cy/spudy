@@ -44,6 +44,7 @@ internal func getData (completion:(() -> ())?) {
     var ref: DatabaseReference!
     ref = Database.database().reference(withPath: "buildings")
     ref.observe(.value, with: { snapshot in
+        newList = []
         
         for child in (snapshot.children) {
             
@@ -68,13 +69,9 @@ internal func getData (completion:(() -> ())?) {
             let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studyDict, r:rating)
 
             newList.append(newBuilding)
-            
-            print("(DEBUG) Retrieved building: \(name)")
-            
         }
         
         buildings = newList
-        print("(DEBUG) Buildings retrieved!")
         completion?()
     
     })

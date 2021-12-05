@@ -103,8 +103,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == studySpotSegueIdentifier,
            let destination = segue.destination as? StudySpotViewController,
            let buildingIndex = allBuildingsTableView.indexPathForSelectedRow?.row {
-            print("First segue used")
-//            destination.building = buildings[buildingIndex].name
             destination.index = buildingIndex
         }
         if segue.identifier == studySpotSegueIdentifier2,
@@ -123,8 +121,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-//        collectionView.deselectItem(at: indexPath, animated: true)
         
         let selectedItem = indexPath.row
         
