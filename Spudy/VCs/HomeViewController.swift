@@ -26,7 +26,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let studySpotSegueIdentifier2 = "studySpotSegueIdentifier2"
     let studySpotSegueIdentifier3 = "studySpotSegueIdentifier3"
     let searchBuildingSegueIdentifier = "searchBuildingSegueIdentifier"
-    
+    var popularSpots:[building] = buildings
+    var friendsAreHere:[building] = []
     
     override func viewDidLoad() {
         
@@ -45,20 +46,59 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
         
+        popularSpots.sort(by: {$0.rating > $1.rating})
+        popularSpotsCollectionView.reloadData()
+        
+    }
+    
+    func populateFriendsLocationArray() {
+        for String in friendList {
+            getFriendLocation(name: String)
+        }
+    }
+    
+    // method gets a friend's current building
+    func getFriendLocation(name:String) {
+        
+        let profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
+        profileRef.observe(.value) { snapshot in
+            let profiles = snapshot.value as? NSDictionary
+            let user = profiles?[name] as? NSDictionary
+            
+            let xcoord = user?["latitude"] as? Float ?? 30.285749
+            let ycoord = user?["longitude"] as? Float ?? -97.737473
+            let location = CLLocation(latitude: CLLocationDegrees(xcoord), longitude: CLLocationDegrees(ycoord))
+            
+            // check if friend is in any of the buildings, if so add to list
+            for building in buildings {
+                
+                
+                let distanceFromBuilding = location.distance(from: building.location)
+                
+                if(distanceFromBuilding < 150) {
+                    
+                    if(!self.friendsAreHere.contains(where: {$0.name == building.name})) {
+                        self.friendsAreHere.append(building)
+                    }
+    
+                }
+            }
+            
+            if (self.friendsAreHere.isEmpty) {
+                self.yourFriendsAreHereCollectionView.isHidden = true
+                self.yourFriendsAreHereLabel.isHidden = true
+            } else {
+                self.yourFriendsAreHereCollectionView.isHidden = false
+                self.yourFriendsAreHereLabel.isHidden = false
+                self.yourFriendsAreHereCollectionView.reloadData()
+            }
+            
+        }
 
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        if(friendList.count == 0){
-//            yourFriendsAreHereCollectionView.isHidden = true
-//            yourFriendsAreHereLabel.isHidden = true
-//        } else{
-//            yourFriendsAreHereCollectionView.isHidden = false
-//            yourFriendsAreHereLabel.isHidden = false
-//        }
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
+        populateFriendsLocationArray()
         self.allBuildingsTableView.reloadData()
         self.yourFriendsAreHereCollectionView.reloadData()
         self.popularSpotsCollectionView.reloadData()
@@ -68,8 +108,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func searchBuildingsPressed(_ sender: Any) {
         performSegue(withIdentifier: searchBuildingSegueIdentifier, sender: self)
     }
-    
-    
     
     // Took the functions from class demo code library
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -140,9 +178,9 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if(collectionView == popularSpotsCollectionView) {
-            return buildings.count
+            return 5
         } else if (collectionView == yourFriendsAreHereCollectionView) {
-            return buildings.count
+            return friendsAreHere.count
         }
         
         return buildings.count
@@ -155,7 +193,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCollectionViewCell", for: indexPath) as! MyCollectionViewCell
             
-            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
+            cell.configure(image: popularSpots[indexPath.row].image, name: popularSpots[indexPath.row].name)
             
             return cell
             
@@ -163,7 +201,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourFriendsAreHereCollectionViewCell", for: indexPath) as! YourFriendsAreHereCollectionViewCell
             
-            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
+            cell.configure(image: friendsAreHere[indexPath.row].image, name: friendsAreHere[indexPath.row].name)
             
             return cell
             
@@ -179,15 +217,29 @@ class building {
     var ycoord:Float
     var image: UIImage
     var studyspots:NSDictionary
-    var rating: Float
+    var rating: Double
+    var location:CLLocation
     
-    init(n:String, x:Float, y:Float, i:UIImage, ss:NSDictionary, r:Float) {
+    init(n:String, x:Float, y:Float, i:UIImage, ss:NSDictionary, r:Double) {
         name = n
         xcoord = x
         ycoord = y
         image = i
         studyspots = ss
         rating = r
+        location = CLLocation(latitude: CLLocationDegrees(xcoord), longitude: CLLocationDegrees(ycoord))
+    }
+    
+}
+
+class friend {
+    
+    var name:String
+    var currentLocation:building
+    
+    init(n:String, cl:building) {
+        name = n
+        currentLocation = cl
     }
     
 }
