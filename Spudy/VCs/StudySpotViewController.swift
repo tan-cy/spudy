@@ -16,6 +16,7 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var studySpotsImage: UIImageView!
     @IBOutlet weak var studySpotsCollectionView: UICollectionView!
     @IBOutlet weak var buildingName: UILabel!
+    @IBOutlet weak var buildingRating: UILabel!
     
     let reviewSegueIdentifier = "reviewSegueIdentifier"
     
@@ -25,8 +26,8 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
     var studySpots: [String] = []
     let textCellIdentifier = "TextCell"
     var studyDict:NSDictionary = [:]
-//    var spotsRating:[Double] = []
-//    var overallRating:Double = 0.0
+    var spotsRating:[Double] = []
+    var overallRating:Double = 0.0
     
     @IBAction func bookmarkTapped(_ sender: Any) {
         let bookmarkIdx = bookmarks.firstIndex(of: building)
@@ -52,6 +53,7 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: textCellIdentifier, for: indexPath) as! StudySpotsCollectionViewCell
         
         cell.label.text = studySpots[indexPath.row]
+        cell.rating.text = String(spotsRating[indexPath.row])
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 15
@@ -103,19 +105,31 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
         self.studyDict = buildings[index].studyspots as! NSDictionary
         
         // to get all the reviews
-//        var sum = 0.0;
-//        for key in studyDict.allKeys{
-//            let spot = studyDict.value(forKey: key as! String) as! NSDictionary
-//            var sumSpot = 0.0;
-//            for i in spot.allKeys{
-//                sum += spot.value(forKey: i as! String) as! Double
-//                sumSpot += spot.value(forKey: i as! String) as! Double
-//            }
-//            spotsRating.append(sumSpot/Double(spot.count))
-//        }
-//        overallRating = sum/Double(studyDict.count)
-//
+        var sum = 0.0;
+        for key in studyDict.allKeys{
+            let spot = studyDict.value(forKey: key as! String) as! NSDictionary
+            var sumSpot = 0.0;
+            for i in spot.allKeys{
+                let user = spot.value(forKey: i as! String) as! NSDictionary
+                print(user)
+                let rate = user.value(forKey: "rating") as! String
+                sumSpot += Double(rate) ?? 0.0
+            }
+            var avg = sumSpot/Double(spot.count)
+            avg = Double(floor(10*avg)/10)
+            spotsRating.append(avg)
+            sum += avg
+        }
+        overallRating = sum/Double(studyDict.count)
         
+        overallRating = Double(floor(10*overallRating)/10)
+        
+        var ref:DatabaseReference!
+        ref = Database.database().reference(withPath: "buildings/\(building)")
+        ref.child("rating").setValue(overallRating)
+        
+        
+        self.buildingRating.text = String(overallRating)
         self.studySpots = studyDict.allKeys as! [String]
         self.studySpotsCollectionView.reloadData()
         

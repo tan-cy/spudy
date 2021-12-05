@@ -10,6 +10,7 @@ import UIKit
 class StudySpotsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var rating: UILabel!
     
     
 }
