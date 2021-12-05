@@ -50,8 +50,15 @@ internal func getData (completion:(() -> ())?) {
             let snap = child as! DataSnapshot
             let dict = snap.value as! NSDictionary
             let name = dict["name"] as? String ?? "Unknown"
-            let coords:[Float] = dict["coordinates"] as? Array ?? [0.00, 0.00]
-            let rating:Float = dict["rating"] as? Float ?? 0.00
+            
+            guard let coorddict = dict["coordinates"] as? NSArray else {
+                print("(DEBUG) No coordinates found")
+                return
+            }
+            let xcoord = (coorddict.object(at: 0) as? NSNumber)?.floatValue
+            let ycoord = (coorddict.object(at: 1) as? NSNumber)?.floatValue
+            
+            let rating:Double = dict["rating"] as? Double ?? 0.00
             var image:UIImage = UIImage(systemName: "questionmark")!
             let photoURLString = dict ["image"] as? String ?? nil
             let studyDict = dict["studyspots"] as? NSDictionary ?? [:]
@@ -65,16 +72,17 @@ internal func getData (completion:(() -> ())?) {
             }
             
             
-            let newBuilding = building(n: name, x: coords[0], y: coords[1], i: image, ss: studyDict, r:rating)
+            let newBuilding = building(n: name, x: xcoord!, y: ycoord!, i: image, ss: studyDict, r:rating)
 
             newList.append(newBuilding)
             
-            print("(DEBUG) Retrieved building: \(name)")
+            print("(DEBUG) Retrieved building: \(name) - rating is \(rating)")
             
         }
         
         buildings = newList
         print("(DEBUG) Buildings retrieved!")
+        
         completion?()
     
     })

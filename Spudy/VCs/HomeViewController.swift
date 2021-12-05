@@ -26,7 +26,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let studySpotSegueIdentifier2 = "studySpotSegueIdentifier2"
     let studySpotSegueIdentifier3 = "studySpotSegueIdentifier3"
     let searchBuildingSegueIdentifier = "searchBuildingSegueIdentifier"
-    var friendsAreHere:[friend] = []
+    var popularSpots:[building] = buildings
+    var friendsAreHere:[building] = []
     
     override func viewDidLoad() {
         
@@ -45,24 +46,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         allBuildingsTableView.delegate = self
         allBuildingsTableView.dataSource = self
         
+        popularSpots.sort(by: {$0.rating > $1.rating})
+        popularSpotsCollectionView.reloadData()
+        
     }
     
     func populateFriendsLocationArray() {
         for String in friendList {
             getFriendLocation(name: String)
         }
-        
-        if (friendsAreHere.isEmpty) {
-            print("(DEBUG) Hiding collection view")
-            yourFriendsAreHereCollectionView.isHidden = true
-            yourFriendsAreHereLabel.isHidden = true
-        }
     }
     
     // method gets a friend's current building
-    func getFriendLocation(name:String) -> Bool {
-        
-        var friendAdded = false;
+    func getFriendLocation(name:String) {
         
         let profileRef = Database.database().reference(withPath: Constants.DatabaseKeys.profilePath)
         profileRef.observe(.value) { snapshot in
@@ -75,18 +71,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             // check if friend is in any of the buildings, if so add to list
             for building in buildings {
+                
+                
                 let distanceFromBuilding = location.distance(from: building.location)
                 
                 if(distanceFromBuilding < 150) {
-                    let newFriend = friend(n: name, cl:building)
-                    self.friendsAreHere.append(newFriend)
-                    friendAdded = true
+                    
+                    if(!self.friendsAreHere.contains(where: {$0.name == building.name})) {
+                        self.friendsAreHere.append(building)
+                    }
+    
                 }
             }
+            
+            if (self.friendsAreHere.isEmpty) {
+                self.yourFriendsAreHereCollectionView.isHidden = true
+                self.yourFriendsAreHereLabel.isHidden = true
+            } else {
+                self.yourFriendsAreHereCollectionView.isHidden = false
+                self.yourFriendsAreHereLabel.isHidden = false
+                self.yourFriendsAreHereCollectionView.reloadData()
+            }
+            
         }
-        
-        return friendAdded
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -174,7 +182,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if(collectionView == popularSpotsCollectionView) {
-            return buildings.count
+            return 5
         } else if (collectionView == yourFriendsAreHereCollectionView) {
             return friendsAreHere.count
         }
@@ -189,7 +197,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCollectionViewCell", for: indexPath) as! MyCollectionViewCell
             
-            cell.configure(image: buildings[indexPath.row].image, name: buildings[indexPath.row].name)
+            cell.configure(image: popularSpots[indexPath.row].image, name: popularSpots[indexPath.row].name)
             
             return cell
             
@@ -197,7 +205,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourFriendsAreHereCollectionViewCell", for: indexPath) as! YourFriendsAreHereCollectionViewCell
             
-            cell.configure(image: friendsAreHere[indexPath.row].currentLocation.image, name: friendsAreHere[indexPath.row].currentLocation.name)
+            cell.configure(image: friendsAreHere[indexPath.row].image, name: friendsAreHere[indexPath.row].name)
             
             return cell
             
@@ -213,10 +221,10 @@ class building {
     var ycoord:Float
     var image: UIImage
     var studyspots:NSDictionary
-    var rating: Float
+    var rating: Double
     var location:CLLocation
     
-    init(n:String, x:Float, y:Float, i:UIImage, ss:NSDictionary, r:Float) {
+    init(n:String, x:Float, y:Float, i:UIImage, ss:NSDictionary, r:Double) {
         name = n
         xcoord = x
         ycoord = y
