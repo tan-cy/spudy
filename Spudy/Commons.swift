@@ -29,7 +29,6 @@ internal func getUsername() {
         // get username of current person logged in
         try fetchedResults = context.fetch(request) as? [NSManagedObject]
         CURRENT_USERNAME = (fetchedResults != []) ? fetchedResults?[0].value(forKey: "username") as! String : ""
-        print("current user is " + CURRENT_USERNAME)
     } catch {
         let nserror = error as NSError
         NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -76,13 +75,9 @@ internal func getData (completion:(() -> ())?) {
             let newBuilding = building(n: name, x: xcoord!, y: ycoord!, i: image, ss: studyDict, r:rating)
 
             newList.append(newBuilding)
-            
-            print("(DEBUG) Retrieved building: \(name) - rating is \(rating)")
-            
         }
         
         buildings = newList
-        print("(DEBUG) Buildings retrieved!")
         completion?()
     
     })

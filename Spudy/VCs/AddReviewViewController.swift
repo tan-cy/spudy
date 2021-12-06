@@ -39,7 +39,6 @@ class AddReviewViewController: UIViewController {
         // show a notification if either fields are
         // empty that their changes won't save
         // unless hit cancel?
-        print(Int(ratingText.text!))
         if reviewText.text == "" || ratingText.text == "" {
             let controller = UIAlertController(
                 title: "Fields Not Filled Out",

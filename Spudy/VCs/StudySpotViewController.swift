@@ -111,7 +111,6 @@ class StudySpotViewController: UIViewController, UICollectionViewDelegate, UICol
             var sumSpot = 0.0;
             for i in spot.allKeys{
                 let user = spot.value(forKey: i as! String) as! NSDictionary
-                print(user)
                 let rate = user.value(forKey: "rating") as! String
                 sumSpot += Double(rate) ?? 0.0
             }

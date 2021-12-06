@@ -209,7 +209,6 @@ class EditProfileViewController: UIViewController, UITextFieldDelegate, UICollec
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        print("selected")
         let image = info[.originalImage] as! UIImage
         profileImage.image = image
         self.dismiss(animated: true, completion: {

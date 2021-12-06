@@ -327,7 +327,6 @@ class ChipMapFiltersViewController: UIViewController, UICollectionViewDelegate, 
             && (locationSettings == Constants.LocationSettings.everyone.rawValue ||
                 (locationSettings == Constants.LocationSettings.friends.rawValue &&
                  friendList.contains(name))) ) {
-            print(name)
             mapFilterDelegate.focusOnUser(longitude: longitude, latitude: latitude)
             self.dismiss(animated: true, completion: nil)
             
