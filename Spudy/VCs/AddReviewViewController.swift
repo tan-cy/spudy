@@ -39,6 +39,7 @@ class AddReviewViewController: UIViewController {
         // show a notification if either fields are
         // empty that their changes won't save
         // unless hit cancel?
+        print(Int(ratingText.text!))
         if reviewText.text == "" || ratingText.text == "" {
             let controller = UIAlertController(
                 title: "Fields Not Filled Out",
@@ -49,6 +50,18 @@ class AddReviewViewController: UIViewController {
                                     style: .default,
                                     handler: nil))
             present(controller, animated: true, completion: nil)
+        }
+        else if(Float(ratingText.text!) == nil || Float(ratingText.text!) ?? 6.0 > 5.0){
+            let controller = UIAlertController(
+                title: "Invalid Rating",
+                message: "The rating provided is invalid.",
+                preferredStyle: .alert)
+            controller.addAction(UIAlertAction(
+                                    title: "Ok",
+                                    style: .default,
+                                    handler: nil))
+            present(controller, animated: true, completion: nil)
+            
         }
         
         // else save the changes to the reviews of this page
